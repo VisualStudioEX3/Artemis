@@ -16,7 +16,7 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Exceptions
         public ServiceAbstractClassException(Type service)
             : base($"The type \"{service.Name}\" must not to be an abstract class.")
         {
-            #endregion
         }
+        #endregion
     }
 }

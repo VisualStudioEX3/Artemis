@@ -6,7 +6,7 @@ using VisualStudioEX3.Artemis.Framework.ServiceInjector.Contracts;
 using VisualStudioEX3.Artemis.Framework.ServiceInjector.Exceptions;
 using VisualStudioEX3.Artemis.Framework.ServiceInjector.Models;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Services
+namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Containers
 {
     class ServiceContainer : IServiceContainer
     {
@@ -63,13 +63,15 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Services
             if (!template.IsInterface)
                 throw new InvalidServiceInterfaceException(template);
 
-            if (!_services.ContainsKey(template))
+            if (this._services.TryGetValue(template, out ServiceModel service))
+            {
+                if (service.isSingleton && template is IDisposable)
+                    (service.singletonInstance as IDisposable).Dispose();
+
+                this._services.Remove(template);
+            }
+            else
                 throw new ServiceNotFoundException(template);
-
-            if (template is IDisposable)
-                (template as IDisposable).Dispose();
-
-            this._services.Remove(template);
         }
 
         public I GetService<I>() => (I)this.GetService(typeof(I));

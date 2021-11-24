@@ -1,6 +1,6 @@
 ﻿using System;
 using VisualStudioEX3.Artemis.Framework.ServiceInjector.Contracts;
-using VisualStudioEX3.Artemis.Framework.ServiceInjector.Services;
+using VisualStudioEX3.Artemis.Framework.ServiceInjector.Containers;
 
 namespace VisualStudioEX3.Artemis.Framework.ServiceInjector
 {
@@ -9,6 +9,7 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceInjector
     /// </summary>
     public static class ServiceProvider
     {
+        #region Methods & Functions
         /// <summary>
         /// Creates a new <see cref="IServiceContainer"/> instance.
         /// </summary>
@@ -25,8 +26,9 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceInjector
             IServiceContainer container = ServiceProvider.CreateServiceContainer();
 
             registerServices(container);
-            
+
             return container;
-        }
+        } 
+        #endregion
     }
 }
