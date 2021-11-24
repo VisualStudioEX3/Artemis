@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector
+namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Models
 {
     sealed class ServiceModel
     {
