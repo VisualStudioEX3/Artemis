@@ -1,0 +1,14 @@
+{
+    "name": "ServiceInjector",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.ServiceInjector",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
