@@ -1,0 +1,19 @@
+{
+    "name": "InputManager.Components",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.InputManager.Components",
+    "references": [
+        "GUID:dff9992bec1a757498dc2bf2449d270a",
+        "GUID:2cb41397c5f9ac0498e61824ec89522a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        ""
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
