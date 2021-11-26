@@ -49,12 +49,13 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 
         private bool GetKeyStatus(KeyboardMouseCodes code, KeyStates state)
         {
-            KeyCode unityKeyCode = KeyboardMouseAdapter.ToLegacyUnityKeyCode(code);
-            Func<KeyCode, bool> getKey = UNITY_LEGACY_INPUT_GET_KEY_FUNCTIONS[state];
+            KeyCode unityKeyCode = KeyboardMouseAdapter.ToUnityLegacyInputKeyCode(code);
+            Func<KeyCode, bool> getKeyFunction = 
+                UnityLegacyInputKeyboardMouseProcessor.UNITY_LEGACY_INPUT_GET_KEY_FUNCTIONS[state];
 
             return (this.IsMouseWheel(code) && state != KeyStates.Up)
                 ? this.GetMouseWheelStatus(code)
-                : getKey(unityKeyCode);
+                : getKeyFunction(unityKeyCode);
         }
 
         public bool IsPressed(KeyboardMouseCodes code) => this.GetKeyStatus(code, KeyStates.Pressed);

@@ -140,14 +140,25 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services
         #endregion
 
         #region Methods & Functions
-        public static KeyCode ToLegacyUnityKeyCode(KeyboardMouseCodes code)
+        public static KeyCode ToUnityLegacyInputKeyCode(KeyboardMouseCodes code)
         {
             return code switch
             {
-                KeyboardMouseCodes.MouseWheelDown or KeyboardMouseCodes.MouseWheelUp => throw new ArgumentException(
-                    $"{nameof(KeyboardMouseAdapter)}::{nameof(ToLegacyUnityKeyCode)}: The code {code} can not be casted to {nameof(UnityEngine)}.{nameof(KeyCode)} enum value."),
+                KeyboardMouseCodes.MouseWheelDown or KeyboardMouseCodes.MouseWheelUp => throw FormatArgumentException(code),
                 _ => KeyboardMouseAdapter.LEGACY_UNITY_INPUT_KEYCODES[code],
             };
+        }
+
+        private static ArgumentException FormatArgumentException(KeyboardMouseCodes code)
+        {
+            const string MESSAGE = "{0}::{1}: The code {2} can not be casted to {3}.{4} enum value.";
+
+            return new ArgumentException(string.Format(MESSAGE, 
+                nameof(KeyboardMouseAdapter), 
+                nameof(ToUnityLegacyInputKeyCode), 
+                code, 
+                nameof(UnityEngine), 
+                nameof(KeyCode)));
         }
         #endregion
     }
