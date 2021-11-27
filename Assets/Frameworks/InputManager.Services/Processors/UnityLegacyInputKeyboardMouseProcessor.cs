@@ -21,6 +21,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
         #region Properties
         public bool IsAnyKeyPressed => Input.anyKey;
         public bool IsAnyKeyDown => Input.anyKeyDown;
+        public Vector2 MousePosition => Input.mousePosition;
         #endregion
 
         #region Methods & Functions

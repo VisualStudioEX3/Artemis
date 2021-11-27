@@ -1,4 +1,5 @@
-﻿using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
+﻿using UnityEngine;
+using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
 {
@@ -16,6 +17,11 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
         /// Gets if is any key is down. Not include the mouse wheel steps.
         /// </summary>
         public bool IsAnyKeyDown { get; }
+
+        /// <summary>
+        /// Gets the mouse position.
+        /// </summary>
+        public Vector2 MousePosition { get; }
 
         /// <summary>
         /// Gets if the key or mouse button is pressed.
