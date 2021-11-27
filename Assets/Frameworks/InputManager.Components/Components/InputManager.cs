@@ -17,6 +17,8 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
 
         #region Serializable fields
         [SerializeField]
+        private InputAxis[] _axes;
+        [SerializeField]
         private InputAction[] _actions;
         #endregion
 
