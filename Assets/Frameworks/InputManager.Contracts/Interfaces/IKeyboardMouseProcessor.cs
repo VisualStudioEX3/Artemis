@@ -1,4 +1,6 @@
-﻿namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts
+﻿using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
+
+namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
 {
     /// <summary>
     /// Service used to check the game input values from keyboard and mouse.
@@ -35,7 +37,7 @@
         /// </summary>
         /// <param name="code">Keyboard or mouse button code to check.</param>
         /// <returns>Returns <see langword="true"/> if the key or mouse button is up or released.</returns>
-        /// <remarks>If the code is <see cref="KeyboardMouseCodes.MouseWheelDown"/> or <see cref="KeyboardMouseCodes.MouseWheelUp"/>, then not returns true when the mouse wheel stops.</remarks>
+        /// <remarks>If the code is <see cref="KeyboardMouseCodes.MouseWheelDown"/> or <see cref="KeyboardMouseCodes.MouseWheelUp"/>, then not returns <see langword="true"/> when the mouse wheel stops.</remarks>
         bool IsUp(KeyboardMouseCodes code);
     }
 }

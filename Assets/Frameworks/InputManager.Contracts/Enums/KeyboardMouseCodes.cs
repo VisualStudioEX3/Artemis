@@ -1,4 +1,4 @@
-namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts
+namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums
 {
     #region Enums
     /// <summary>

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using VisualStudioEX3.Artemis.Framework.InputManager.Contracts;
+using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Services
 {

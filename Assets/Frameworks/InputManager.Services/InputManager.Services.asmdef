@@ -2,7 +2,8 @@
     "name": "InputManager.Services",
     "rootNamespace": "VisualStudioEX3.Artemis.Framework.InputManager.Services",
     "references": [
-        "GUID:dff9992bec1a757498dc2bf2449d270a"
+        "GUID:dff9992bec1a757498dc2bf2449d270a",
+        "GUID:5a3eb7c19be62a349909e31e321e4353"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

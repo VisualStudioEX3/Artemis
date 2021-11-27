@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using VisualStudioEX3.Artemis.Framework.InputManager.Contracts;
+using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
+using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 {
@@ -14,15 +15,6 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
             { KeyStates.Down, Input.GetKeyDown },
             { KeyStates.Up, Input.GetKeyUp },
         };
-        #endregion
-
-        #region Enums
-        private enum KeyStates
-        {
-            Pressed,
-            Down,
-            Up
-        }
         #endregion
 
         #region Properties
