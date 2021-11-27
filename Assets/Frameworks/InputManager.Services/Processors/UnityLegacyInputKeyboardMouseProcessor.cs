@@ -6,7 +6,7 @@ using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 {
-    class UnityLegacyInputKeyboardMouseProcessor : IKeyboardMouseProcessor
+    public class UnityLegacyInputKeyboardMouseProcessor : IKeyboardMouseProcessor
     {
         #region Constants
         private static readonly Dictionary<KeyStates, Func<KeyCode, bool>> UNITY_LEGACY_INPUT_GET_KEY_FUNCTIONS = new()

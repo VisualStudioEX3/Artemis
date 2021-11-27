@@ -4,7 +4,7 @@ using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 {
-    class UnityLegacyInputActionsProcessor : IInputActionProcessor
+    public class UnityLegacyInputActionsProcessor : IInputActionProcessor
     {
         #region Internal vars
         private readonly IKeyboardMouseProcessor _keyboardMouseProcessor;
