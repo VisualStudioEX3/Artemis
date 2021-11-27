@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Exceptions
+namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Exceptions
 {
     /// <summary>
     /// Exception for when you trying to register an abstract class as service.

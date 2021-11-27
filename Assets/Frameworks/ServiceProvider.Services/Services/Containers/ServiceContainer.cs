@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VisualStudioEX3.Artemis.Framework.ServiceInjector.Contracts;
-using VisualStudioEX3.Artemis.Framework.ServiceInjector.Exceptions;
-using VisualStudioEX3.Artemis.Framework.ServiceInjector.Models;
+using VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Exceptions;
+using VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Interfaces;
+using VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Models;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Containers
+namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Services.Containers
 {
-    class ServiceContainer : IServiceContainer
+    public class ServiceContainer : IServiceContainer
     {
         #region Internal vars
         private readonly Dictionary<Type, ServiceModel> _services = new();

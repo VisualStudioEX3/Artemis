@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Exceptions
+namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Exceptions
 {
     /// <summary>
     /// Exception for when trying to get a service that not is registered in the container.

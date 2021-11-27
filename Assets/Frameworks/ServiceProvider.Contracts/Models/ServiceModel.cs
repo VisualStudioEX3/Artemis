@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Models
+namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Models
 {
-    sealed class ServiceModel
+    public sealed class ServiceModel
     {
         #region Public vars
         public readonly Type type;

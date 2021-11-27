@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Exceptions
+namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Exceptions
 {
     /// <summary>
     /// Exception for when trying to register a service using type that not are an interface.

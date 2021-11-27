@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Contracts
+namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Interfaces
 {
     /// <summary>
     /// A container class to store services.
     /// </summary>
     /// <remarks>Use this class to register and store a group of related classes using their interfaces.</remarks>
-    public interface IServiceContainer
+    public interface IServiceContainer : IServiceProvider
     {
         #region Methods & Functions
         /// <summary>
@@ -36,28 +36,6 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceInjector.Contracts
         /// <typeparam name="I">Interface to register this singleton service.</typeparam>
         /// <typeparam name="T">Class used as implementation for this singleton service.</typeparam>
         void AddSingleton<I, T>() where T : class;
-
-        /// <summary>
-        /// Gets an instance for the required generic service.
-        /// </summary>
-        /// <param name="template">Interface used when registered the required generic service.</param>
-        /// <param name="implementations">Array with all classes that the generic service implements. They can be generic classes or other services registered in this container.</param>
-        /// <returns>Returns a new instance of the generic service or the existing one if is a singleton service.</returns>
-        object GetService(Type template, params Type[] implementations);
-
-        /// <summary>
-        /// Gets an instance for the required service.
-        /// </summary>
-        /// <param name="template">Interface used when registered the required service.</param>
-        /// <returns>Returns a new instance of the service or the existing one if is a singleton service.</returns>
-        object GetService(Type template);
-
-        /// <summary>
-        /// Gets an instance for the required service.
-        /// </summary>
-        /// <typeparam name="I">Interface used when registered the required service.</typeparam>
-        /// <returns>Returns a new instance of the service or the existing one if is a singleton service.</returns>
-        I GetService<I>();
 
         /// <summary>
         /// Removes a registered service in this container.

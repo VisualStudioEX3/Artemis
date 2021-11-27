@@ -1,13 +1,13 @@
 ﻿using System;
-using VisualStudioEX3.Artemis.Framework.ServiceInjector.Contracts;
-using VisualStudioEX3.Artemis.Framework.ServiceInjector.Containers;
+using VisualStudioEX3.Artemis.Framework.ServiceProvider.Contracts.Interfaces;
+using VisualStudioEX3.Artemis.Framework.ServiceProvider.Services.Containers;
 
-namespace VisualStudioEX3.Artemis.Framework.ServiceInjector
+namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Helper
 {
     /// <summary>
-    /// Root class with helper functions to create <see cref="IServiceContainer"/> instances.
+    /// Factory class with functions to create <see cref="IServiceContainer"/> instances.
     /// </summary>
-    public static class ServiceProvider
+    public static class ServiceProviderFactory
     {
         #region Methods & Functions
         /// <summary>
@@ -23,7 +23,7 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceInjector
         /// <returns>Returns a new ready container to store services to request them when are needed.</returns>
         public static IServiceContainer CreateServiceContainer(Action<IServiceContainer> registerServices)
         {
-            IServiceContainer container = ServiceProvider.CreateServiceContainer();
+            IServiceContainer container = ServiceProviderFactory.CreateServiceContainer();
 
             registerServices(container);
 
