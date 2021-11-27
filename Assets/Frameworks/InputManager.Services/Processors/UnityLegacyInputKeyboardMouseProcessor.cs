@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces;
+using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 {
@@ -23,38 +24,51 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
         #endregion
 
         #region Methods & Functions
-        private bool IsMouseWheel(KeyboardMouseCodes code)
-        {
-            return code == KeyboardMouseCodes.MouseWheelUp ||
-                   code == KeyboardMouseCodes.MouseWheelDown;
-        }
-
-        private bool GetMouseWheelStatus(KeyboardMouseCodes code)
+        private bool IsMouseWheelKeyCode(KeyboardMouseCodes code)
         {
             return code switch
             {
-                KeyboardMouseCodes.MouseWheelDown => Input.mousePosition.z > 0,
-                KeyboardMouseCodes.MouseWheelUp => Input.mousePosition.z < 0,
+                KeyboardMouseCodes.MouseWheelLeft or 
+                KeyboardMouseCodes.MouseWheelUp or 
+                KeyboardMouseCodes.MouseWheelRight or 
+                KeyboardMouseCodes.MouseWheelDown => true,
                 _ => false,
+            };
+        }
+
+        private bool GetMouseWheelStatus(KeyboardMouseCodes code, KeyStates state)
+        {
+            InputAction mouseWheelAxis = MouseWheelProcessor.mouseWheelAxes[code];
+
+            return state switch
+            {
+                KeyStates.Down => mouseWheelAxis.IsDown,
+                KeyStates.Up => mouseWheelAxis.IsUp,
+                _ => mouseWheelAxis.IsPressed,
             };
         }
 
         private bool GetKeyStatus(KeyboardMouseCodes code, KeyStates state)
         {
             KeyCode unityKeyCode = KeyboardMouseAdapter.ToUnityLegacyInputKeyCode(code);
-            Func<KeyCode, bool> getKeyFunction = 
+            Func<KeyCode, bool> getKeyFunction =
                 UnityLegacyInputKeyboardMouseProcessor.UNITY_LEGACY_INPUT_GET_KEY_FUNCTIONS[state];
 
-            return (this.IsMouseWheel(code) && state != KeyStates.Up)
-                ? this.GetMouseWheelStatus(code)
-                : getKeyFunction(unityKeyCode);
+            return getKeyFunction(unityKeyCode);
         }
 
-        public bool IsPressed(KeyboardMouseCodes code) => this.GetKeyStatus(code, KeyStates.Pressed);
+        private bool GetStatus(KeyboardMouseCodes code, KeyStates state)
+        {
+            return this.IsMouseWheelKeyCode(code) 
+                ? this.GetMouseWheelStatus(code, state) 
+                : this.GetKeyStatus(code, state);
+        }
 
-        public bool IsDown(KeyboardMouseCodes code) => this.GetKeyStatus(code, KeyStates.Down);
+        public bool IsPressed(KeyboardMouseCodes code) => this.GetStatus(code, KeyStates.Pressed);
 
-        public bool IsUp(KeyboardMouseCodes code) => this.GetKeyStatus(code, KeyStates.Up);
+        public bool IsDown(KeyboardMouseCodes code) => this.GetStatus(code, KeyStates.Down);
+
+        public bool IsUp(KeyboardMouseCodes code) => this.GetStatus(code, KeyStates.Up);
         #endregion
     }
 }

@@ -495,6 +495,14 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums
         /// </summary>
         MiddleMouseButton,
         /// <summary>
+        /// Mouse wheel left scroll step.
+        /// </summary>
+        MouseWheelLeft,
+        /// <summary>
+        /// Mouse wheel right scroll step.
+        /// </summary>
+        MouseWheelRight,
+        /// <summary>
         /// Mouse wheel up scroll step.
         /// </summary>
         MouseWheelUp,

@@ -5,7 +5,7 @@ using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Services
 {
-    static class KeyboardMouseAdapter
+    internal static class KeyboardMouseAdapter
     {
         #region Constants
         private static readonly Dictionary<KeyboardMouseCodes, KeyCode> LEGACY_UNITY_INPUT_KEYCODES = new()
@@ -144,7 +144,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services
         {
             return code switch
             {
-                KeyboardMouseCodes.MouseWheelDown or KeyboardMouseCodes.MouseWheelUp => throw FormatArgumentException(code),
+                KeyboardMouseCodes.MouseWheelLeft or
+                KeyboardMouseCodes.MouseWheelDown or
+                KeyboardMouseCodes.MouseWheelRight or
+                KeyboardMouseCodes.MouseWheelUp => throw FormatArgumentException(code),
                 _ => KeyboardMouseAdapter.LEGACY_UNITY_INPUT_KEYCODES[code],
             };
         }

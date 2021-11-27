@@ -22,12 +22,24 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
         {
             foreach (InputAction action in actions)
                 this.ProcessAction(action);
+
+            MouseWheelProcessor.Update();
         }
 
         private void ProcessAction(InputAction action)
         {
             action.IsPressed = this._keyboardMouseProcessor.IsPressed(action.primaryKey) ||
                                this._keyboardMouseProcessor.IsPressed(action.secondaryKey);
+
+            bool raiseAction = action.state switch
+            {
+                Contracts.Enums.KeyStates.Down => action.IsDown,
+                Contracts.Enums.KeyStates.Up => action.IsUp,
+                _ => action.IsPressed,
+            };
+
+            if (raiseAction)
+                action.RaiseOnActionEvent();
         } 
         #endregion
     }
