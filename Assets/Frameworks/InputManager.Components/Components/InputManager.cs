@@ -1,6 +1,7 @@
 using UnityEngine;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
+using VisualStudioEX3.Artemis.Framework.InputManager.ServiceProvider;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
 {
@@ -12,7 +13,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
 
         private void Awake()
         {
-            
+            this._keboardMouseProcessor = InputManagerServiceFactory.Factory.GetService<IKeyboardMouseProcessor>();
         }
 
         void Start()
