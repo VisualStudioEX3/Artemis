@@ -5,25 +5,33 @@ using VisualStudioEX3.Artemis.Framework.InputManager.ServiceProvider;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
 {
+    /// <summary>
+    /// Input Manager component.
+    /// </summary>
+    /// <remarks>This component manages all game input states.</remarks>
     public class InputManager : MonoBehaviour
     {
-        private IKeyboardMouseProcessor _keboardMouseProcessor;
+        #region Internal vars
+        private IInputActionProcessor _inputActionProcessor;
+        #endregion
 
-        public InputAction[] actions;
+        #region Serializable fields
+        [SerializeField]
+        private InputAction[] _actions;
+        #endregion
 
+        #region Initializers
         private void Awake()
         {
-            this._keboardMouseProcessor = InputManagerServiceFactory.Factory.GetService<IKeyboardMouseProcessor>();
+            this._inputActionProcessor = InputManagerServiceFactory.Factory.GetService<IInputActionProcessor>();
         }
+        #endregion
 
-        void Start()
+        #region Update logic
+        private void Update()
         {
-        
+            this._inputActionProcessor.Update(this._actions);
         }
-
-        void Update()
-        {
-        
-        }
+        #endregion
     }
 }

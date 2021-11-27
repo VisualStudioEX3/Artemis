@@ -246,11 +246,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e75c359ce398634a94555efdb85d4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions:
-  - name: Test
+  _actions:
+  - name: Left
+    state: 0
+    primaryKey: 122
+    secondaryKey: 44
+  - name: Down
     state: 1
-    primaryKey: 6
-    secondaryKey: 0
+    primaryKey: 125
+    secondaryKey: 62
+  - name: Right
+    state: 1
+    primaryKey: 123
+    secondaryKey: 47
+  - name: Up
+    state: 2
+    primaryKey: 124
+    secondaryKey: 66
 --- !u!4 &751092716
 Transform:
   m_ObjectHideFlags: 0
