@@ -13,7 +13,11 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         #region Internal vars
         private bool _isPressed;
         private bool _isDown;
-        private bool _isUp; 
+        private bool _isUp;
+        #endregion
+
+        #region Events
+        public event Action OnAction; 
         #endregion
 
         #region Public vars
@@ -64,6 +68,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// </summary>
         [HideInInspector]
         public bool IsUp => this._isUp && !this._isPressed;
+        #endregion
+
+        #region Methods & Functions
+        public void RaiseOnActionEvent() => this.OnAction?.Invoke(); 
         #endregion
     }
 }
