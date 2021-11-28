@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Constants;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Exceptions;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
@@ -9,7 +10,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
     /// <summary>
     /// Asset that defines user input actions and axes bindings.
     /// </summary>
-    [CreateAssetMenu(fileName = "New Input Map Asset", menuName = "Visual Studio EX3/Artemis/Input Manager/Input Map Asset")]
+    [CreateAssetMenu(fileName = "New Input Map Asset", menuName = AssetMenuPaths.INPUT_MAP_ASSET_MENU_NAMESPACE)]
     public class InputMapAsset : ScriptableObject
     {
         #region Constants
