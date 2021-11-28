@@ -1,0 +1,17 @@
+{
+    "name": "ServiceProvider.Helper",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.ServiceProvider.Helper",
+    "references": [
+        "GUID:0444b6a9e3a8a5a4cb63804dd44a6b3a",
+        "GUID:5a3eb7c19be62a349909e31e321e4353"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

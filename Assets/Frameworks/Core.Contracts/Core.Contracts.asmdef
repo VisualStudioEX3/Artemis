@@ -1,0 +1,14 @@
+{
+    "name": "Core.Contracts",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.Core.Contracts",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

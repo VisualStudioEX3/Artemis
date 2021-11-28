@@ -1,0 +1,16 @@
+{
+    "name": "InputManager.Contracts",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.InputManager.Contracts",
+    "references": [
+        "GUID:fbf1bcfefc90467428f2f7efbb00d9ac"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
