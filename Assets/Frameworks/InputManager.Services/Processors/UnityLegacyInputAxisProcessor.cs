@@ -63,7 +63,8 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
             Vector2 result = axis.mouseBehaviour switch
             {
                 MouseInputModes.MousePosition => this._mousePositionAxesProcessor.MousePosition,
-                MouseInputModes.MouseAxis => this._mousePositionAxesProcessor.MouseDelta,
+                MouseInputModes.MouseAxis => this._mousePositionAxesProcessor.MouseAxis,
+                MouseInputModes.MouseDelta => this._mousePositionAxesProcessor.MouseDelta,
                 _ => Vector2.zero,
             };
 
