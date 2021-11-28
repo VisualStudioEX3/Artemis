@@ -17,6 +17,9 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         #endregion
 
         #region Events
+        /// <summary>
+        /// Event to notify when the action is raised.
+        /// </summary>
         public event Action OnAction; 
         #endregion
 
