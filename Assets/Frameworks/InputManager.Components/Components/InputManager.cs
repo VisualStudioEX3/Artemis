@@ -80,7 +80,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
 
             try
             {
-                return this._inputMaps.Where(e => e.name == name).First();
+                return this._inputMaps.First(e => e.name == name);
             }
             catch (InvalidOperationException)
             {
