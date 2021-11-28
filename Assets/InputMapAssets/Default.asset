@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be0116053730942b76702be46d9205, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  _name: Default
+  _enabled: 1
+  _axes:
+  - name: Navigation
+    x: 0
+    y: 0
+    mouseBehaviour: 2
+    LeftKey:
+      name: Left
+      state: 0
+      primaryKey: 44
+      secondaryKey: 91
+    UpKey:
+      name: Up
+      state: 0
+      primaryKey: 66
+      secondaryKey: 88
+    RightKey:
+      name: Right
+      state: 0
+      primaryKey: 47
+      secondaryKey: 90
+    DownKey:
+      name: Down
+      state: 0
+      primaryKey: 62
+      secondaryKey: 89
+    invertYAxis: 0
+    sensitivity: 1
+    normalize: 1
+  _actions:
+  - name: Accept
+    state: 1
+    primaryKey: 119
+    secondaryKey: 0
+  - name: Zoom In
+    state: 0
+    primaryKey: 124
+    secondaryKey: 85
+  - name: Zoom Out
+    state: 0
+    primaryKey: 125
+    secondaryKey: 84

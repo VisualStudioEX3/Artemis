@@ -2,6 +2,7 @@
     "name": "InputManager.Components",
     "rootNamespace": "VisualStudioEX3.Artemis.Framework.InputManager.Components",
     "references": [
+        "GUID:d66ea3853b44a6f4f96b45ca4120ae12",
         "GUID:dff9992bec1a757498dc2bf2449d270a",
         "GUID:901811b8dbda6d34498648d1c56250c6",
         "GUID:a4c221ab34e0d77468aa7aa3a5c61ac5"

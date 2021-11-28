@@ -441,51 +441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e75c359ce398634a94555efdb85d4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _axes:
-  - name: Navigation
-    x: 0
-    y: 0
-    mouseBehaviour: 2
-    LeftKey:
-      name: Left
-      state: 0
-      primaryKey: 44
-      secondaryKey: 91
-    UpKey:
-      name: Up
-      state: 0
-      primaryKey: 66
-      secondaryKey: 88
-    RightKey:
-      name: Right
-      state: 0
-      primaryKey: 47
-      secondaryKey: 90
-    DownKey:
-      name: Down
-      state: 0
-      primaryKey: 62
-      secondaryKey: 89
-    invertYAxis: 0
-    sensitivity: 3
-    normalize: 1
-  _actions:
-  - name: Left
-    state: 0
-    primaryKey: 122
-    secondaryKey: 44
-  - name: Down
-    state: 1
-    primaryKey: 125
-    secondaryKey: 62
-  - name: Right
-    state: 1
-    primaryKey: 123
-    secondaryKey: 47
-  - name: Up
-    state: 2
-    primaryKey: 124
-    secondaryKey: 66
+  _inputMaps:
+  - {fileID: 11400000, guid: 9c5d880c33e73424e8f521945b6832a4, type: 2}
 --- !u!4 &751092716
 Transform:
   m_ObjectHideFlags: 0
