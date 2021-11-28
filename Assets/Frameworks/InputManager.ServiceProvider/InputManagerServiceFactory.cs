@@ -13,8 +13,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.ServiceProvider
         #region Methods & Functions
         public override void RegisterServices(IServiceContainer serviceContainer)
         {
-            serviceContainer.AddService<IKeyboardMouseProcessor, UnityLegacyInputKeyboardMouseProcessor>();
-            serviceContainer.AddService<IInputActionProcessor, UnityLegacyInputActionsProcessor>();
+            serviceContainer.AddSingleton<IKeyboardMouseButtonProcessor, UnityLegacyInputKeyboardMouseButtonProcessor>();
+            serviceContainer.AddSingleton<IMousePositionAxesProcessor, UnityLegacyInputMouseAxesProcessor>();
+            serviceContainer.AddSingleton<IInputActionProcessor, UnityLegacyInputActionsProcessor>();
+            serviceContainer.AddSingleton<IInputAxisProcessor, UnityLegacyInputAxisProcessor>();
         } 
         #endregion
     }

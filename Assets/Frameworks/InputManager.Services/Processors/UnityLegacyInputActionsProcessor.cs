@@ -7,11 +7,11 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
     public class UnityLegacyInputActionsProcessor : IInputActionProcessor
     {
         #region Internal vars
-        private readonly IKeyboardMouseProcessor _keyboardMouseProcessor;
+        private readonly IKeyboardMouseButtonProcessor _keyboardMouseProcessor;
         #endregion
 
         #region Constructor
-        public UnityLegacyInputActionsProcessor(IKeyboardMouseProcessor keyboardMouseProcessor)
+        public UnityLegacyInputActionsProcessor(IKeyboardMouseButtonProcessor keyboardMouseProcessor)
         {
             this._keyboardMouseProcessor = keyboardMouseProcessor;
         }
