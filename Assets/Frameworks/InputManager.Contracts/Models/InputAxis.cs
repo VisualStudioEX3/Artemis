@@ -8,22 +8,52 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
     public class InputAxis
     {
         #region Constants
-        private const float MIN_SENSITIVITY = 0.05f;
-        private const float MAX_SENSITIVITY = 3f;
-        private const float DEFAULT_SENSITIVITY = 1f;
+        public const float MIN_SENSITIVITY = 0.05f;
+        public const float MAX_SENSITIVITY = 3f;
+        public const float DEFAULT_SENSITIVITY = 1f;
         #endregion
 
         #region Public vars
         public string name;
         [Space]
 
+        /// <summary>
+        /// Horizontal axis.
+        /// </summary>
+        [HideInInspector]
+        public float x;
+
+        /// <summary>
+        /// Vertical axis.
+        /// </summary>
+        [HideInInspector]
+        public float y;
+
+        /// <summary>
+        /// Indicate if this axis uses the mouse input (axis or position) when the gamepad is not is the active input.
+        /// </summary>
         public MouseInputModes mouseBehaviour = MouseInputModes.MousePosition;
 
         [Header("Keyboard navigation")]
+        /// <summary>
+        /// Keyboard binding for left direction.
+        /// </summary>
         public InputAction LeftKey;
-        public InputAction RightKey;
-        public InputAction DownKey;
+        
+        /// <summary>
+        /// Keyboard binding for up direction.
+        /// </summary>
         public InputAction UpKey;
+        
+        /// <summary>
+        /// Keyboard binding for right direction.
+        /// </summary>
+        public InputAction RightKey;
+        
+        /// <summary>
+        /// Keyboard binding for down direction.
+        /// </summary>
+        public InputAction DownKey;
         [Space]
 
         /// <summary>
@@ -45,9 +75,26 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         public bool normalize = true;
         #endregion
 
-        public InputAxis()
+        #region Operators
+        /// <summary>
+        /// Cast to <see cref="Vector2"/>.
+        /// </summary>
+        public static implicit operator Vector2(InputAxis value)
         {
-            this.normalize = true;
+            return new(value.x, value.y);
         }
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// Event to notify when the axis has moved.
+        /// </summary>
+        /// <remarks>The event returns the current axis value.</remarks>
+        public event Action<Vector2> OnAxisMove;
+        #endregion
+
+        #region Methods & Functions
+        public void RaiseOnAxisMoveEvent() => this.OnAxisMove?.Invoke(this); 
+        #endregion
     }
 }
