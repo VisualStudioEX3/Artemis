@@ -7,7 +7,7 @@ using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 {
-    public class UnityLegacyInputKeyboardMouseProcessor : IKeyboardMouseProcessor
+    public class UnityLegacyInputKeyboardMouseButtonProcessor : IKeyboardMouseButtonProcessor
     {
         #region Constants
         private static readonly Dictionary<KeyStates, Func<KeyCode, bool>> UNITY_LEGACY_INPUT_GET_KEY_FUNCTIONS = new()
@@ -53,7 +53,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
         {
             KeyCode unityKeyCode = KeyboardMouseAdapter.ToUnityLegacyInputKeyCode(code);
             Func<KeyCode, bool> getKeyFunction =
-                UnityLegacyInputKeyboardMouseProcessor.UNITY_LEGACY_INPUT_GET_KEY_FUNCTIONS[state];
+                UnityLegacyInputKeyboardMouseButtonProcessor.UNITY_LEGACY_INPUT_GET_KEY_FUNCTIONS[state];
 
             return getKeyFunction(unityKeyCode);
         }

@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
+﻿using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
 {
     /// <summary>
-    /// Service used to check the game input values from keyboard and mouse.
+    /// Service used to check the game input values from keyboard and mouse buttons.
     /// </summary>
-    public interface IKeyboardMouseProcessor
+    public interface IKeyboardMouseButtonProcessor
     {
         /// <summary>
         /// Gets if is any key is pressed. Not include the mouse wheel steps.
@@ -17,11 +16,6 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
         /// Gets if is any key is down. Not include the mouse wheel steps.
         /// </summary>
         public bool IsAnyKeyDown { get; }
-
-        /// <summary>
-        /// Gets the mouse position.
-        /// </summary>
-        public Vector2 MousePosition { get; }
 
         /// <summary>
         /// Gets if the key or mouse button is pressed.
