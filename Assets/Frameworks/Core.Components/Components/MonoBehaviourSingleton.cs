@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace VisualStudioEX3.Artemis.Framework.Core.Contracts
+namespace VisualStudioEX3.Artemis.Framework.Core.Components
 {
     /// <summary>
     /// Base class to implement <see cref="MonoBehaviour"/> derived classes as singleton instances.
@@ -35,7 +35,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Contracts
 
         #region Methods & Functions
         /// <summary>
-        /// Determine if this instance must be persits between scene loads.
+        /// Determine if this instance must be persists between scene loads.
         /// </summary>
         /// <returns>By default returns <see langword="false"/>.</returns>
         /// <remarks>Override this function to internally call <see cref="UnityEngine.Object.DontDestroyOnLoad(UnityEngine.Object)"/> function, referencing the root of this <see cref="GameObject"/>, on the initialization.</remarks>

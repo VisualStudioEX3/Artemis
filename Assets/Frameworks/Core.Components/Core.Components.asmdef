@@ -1,6 +1,6 @@
 {
-    "name": "Core.Contracts",
-    "rootNamespace": "VisualStudioEX3.Artemis.Framework.Core.Contracts",
+    "name": "Core.Components",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.Core.Components",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

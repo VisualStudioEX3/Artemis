@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using VisualStudioEX3.Artemis.Framework.Core.Contracts;
+using VisualStudioEX3.Artemis.Framework.Core.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Exceptions;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
@@ -13,6 +13,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
     /// Input Manager component.
     /// </summary>
     /// <remarks>This component manages all game input states. It's accessible as singleton instance from others scripts.</remarks>
+    [AddComponentMenu("Visual Studio EX3/Artemis/Input Manager/Input Manager (component)"), DisallowMultipleComponent]
     public class InputManager : MonoBehaviourSingleton<InputManager>
     {
         #region Constants

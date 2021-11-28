@@ -9,7 +9,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
     /// <summary>
     /// Asset that defines user input actions and axes bindings.
     /// </summary>
-    [CreateAssetMenu(fileName = "New Input Map Asset", menuName = "VisualStudioEX3.Artemis.Framework/Input Manager/Input Map Asset")]
+    [CreateAssetMenu(fileName = "New Input Map Asset", menuName = "Visual Studio EX3/Artemis/Input Manager/Input Map Asset")]
     public class InputMapAsset : ScriptableObject
     {
         #region Constants
