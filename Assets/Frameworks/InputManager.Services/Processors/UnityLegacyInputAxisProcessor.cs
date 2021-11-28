@@ -13,6 +13,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
         private IInputActionProcessor _inputActionProcessor;
         #endregion
 
+        #region Properties
+        public bool IsMouseMoving => this._mousePositionAxesProcessor.IsMouseMoving; 
+        #endregion
+
         #region Constructor
         public UnityLegacyInputAxisProcessor(IMousePositionAxesProcessor mousePositionAxesProcessor,
                                              IInputActionProcessor inputActionProcessor)

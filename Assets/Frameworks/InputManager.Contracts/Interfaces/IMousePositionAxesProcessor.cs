@@ -9,7 +9,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
     {
         #region Properties
         /// <summary>
-        /// Is the mouse in movement.
+        /// Is the mouse in movement?
         /// </summary>
         bool IsMouseMoving { get; }
 

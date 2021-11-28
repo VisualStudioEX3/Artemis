@@ -8,6 +8,13 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
     /// </summary>
     public interface IInputAxisProcessor
     {
+        #region Properties
+        /// <summary>
+        /// Is the mouse in movement?
+        /// </summary>
+        bool IsMouseMoving { get; }
+        #endregion
+
         #region Methods & Functions
         /// <summary>
         /// Update the <see cref="InputAxis"/> states.

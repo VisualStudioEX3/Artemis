@@ -31,6 +31,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
         private InputMapAsset[] _inputMaps;
         #endregion
 
+        #region Properties
+        public bool IsMouseMoving => this._inputAxisProcessor.IsMouseMoving; 
+        #endregion
+
         #region Initializers & Finalizers
         public override void Awake()
         {
