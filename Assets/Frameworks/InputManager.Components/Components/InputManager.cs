@@ -12,6 +12,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
     public class InputManager : MonoBehaviour
     {
         #region Internal vars
+        private IInputAxisProcessor _inputAxisProcessor;
         private IInputActionProcessor _inputActionProcessor;
         #endregion
 
@@ -25,13 +26,17 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Components
         #region Initializers
         private void Awake()
         {
-            this._inputActionProcessor = InputManagerServiceFactory.Factory.GetService<IInputActionProcessor>();
+            InputManagerServiceFactory serviceFactory = InputManagerServiceFactory.Factory;
+
+            this._inputAxisProcessor = serviceFactory.GetService<IInputAxisProcessor>();
+            this._inputActionProcessor = serviceFactory.GetService<IInputActionProcessor>();
         }
         #endregion
 
         #region Update logic
         private void Update()
         {
+            this._inputAxisProcessor.Update(this._axes);
             this._inputActionProcessor.Update(this._actions);
         }
         #endregion
