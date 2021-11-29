@@ -15,8 +15,11 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         #region Inspector fields
         [SerializeField]
         private Renderer _renderer;
-        [SerializeField]
-        private float _speed = 1f;
+        
+        /// <summary>
+        /// Fade-in fade-out speed.
+        /// </summary>
+        public float speed = 1f;
         #endregion
 
         #region Initializers
@@ -27,7 +30,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         void Update()
         {
             Color color = this._material.color;
-            color.a = Mathf.PingPong(Time.time * this._speed, 1f);
+            color.a = Mathf.PingPong(Time.time * this.speed, 1f);
             this._material.color = color;
         } 
         #endregion
