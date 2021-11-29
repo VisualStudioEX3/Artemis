@@ -37,10 +37,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 
         private void ProcessAxis(InputAxis axis)
         {
-            Vector2 result = this.ProcessMouseAxis(axis);
+            Vector2 result = this.ReadFirstDevice(axis);
 
             if (result == Vector2.zero)
-                result = this.ProcessKeyboardAxis(axis);
+                result = this.ReadSecondDevice(axis);
 
             if (result != Vector2.zero)
             {
@@ -56,6 +56,20 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 
             if (result != Vector2.zero)
                 axis.RaiseOnAxisMoveEvent();
+        }
+
+        private Vector2 ReadFirstDevice(InputAxis axis)
+        {
+            return axis.inputSourcePriority == InputAxisSources.Mouse 
+                ? this.ProcessMouseAxis(axis) 
+                : this.ProcessKeyboardAxis(axis);
+        }
+
+        private Vector2 ReadSecondDevice(InputAxis axis)
+        {
+            return axis.inputSourcePriority == InputAxisSources.Mouse 
+                ? this.ProcessKeyboardAxis(axis) 
+                : this.ProcessMouseAxis(axis);
         }
 
         private Vector2 ProcessMouseAxis(InputAxis axis)

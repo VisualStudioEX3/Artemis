@@ -16,13 +16,6 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         private bool _isUp;
         #endregion
 
-        #region Events
-        /// <summary>
-        /// Event to notify when the action is raised.
-        /// </summary>
-        public event Action OnAction; 
-        #endregion
-
         #region Public vars
         /// <summary>
         /// Name of the action.
@@ -49,7 +42,6 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// <summary>
         /// Is any of the bindings are pressed?
         /// </summary>
-        [HideInInspector]
         public bool IsPressed
         {
             get => this._isPressed;
@@ -63,14 +55,26 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// <summary>
         /// Is any of the bindings are down?
         /// </summary>
-        [HideInInspector]
         public bool IsDown => !this._isDown && this._isPressed;
 
         /// <summary>
         /// Is any of the bindings are up or released?
         /// </summary>
-        [HideInInspector]
         public bool IsUp => this._isUp && !this._isPressed;
+
+        /// <summary>
+        /// Is the action raised?
+        /// </summary>
+        public bool IsActionRaised => (this._isPressed && state == KeyStates.Pressed) || 
+                                      (this._isDown && state == KeyStates.Down) || 
+                                      (this._isUp && state == KeyStates.Up);
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// Event to notify when the action is raised.
+        /// </summary>
+        public event Action OnAction;
         #endregion
 
         #region Methods & Functions
