@@ -100,7 +100,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
 
         private AsyncOperation UnloadSceneAsync(SceneAsset scene) => UnitySceneManager.UnloadSceneAsync(scene);
 
-        private bool IsNullSceneAsset(SceneAsset scene) => !string.IsNullOrEmpty(scene);
+        private bool IsNullSceneAsset(SceneAsset scene) => string.IsNullOrEmpty(scene);
         #endregion
 
         #region Coroutines
