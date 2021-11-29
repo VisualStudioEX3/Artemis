@@ -59,7 +59,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
 
             try
             {
-                return this._axes.Where(e => e.name == name).First();
+                return this._axes.First(e => e.name == name);
             }
             catch (InvalidOperationException)
             {
@@ -81,7 +81,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
 
             try
             {
-                return this._actions.Where(e => e.name == name).First();
+                return this._actions.First(e => e.name == name);
             }
             catch (InvalidOperationException)
             {

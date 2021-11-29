@@ -9,17 +9,22 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces
     {
         #region Properties
         /// <summary>
-        /// Is the mouse in movement.
+        /// Is the mouse in movement?
         /// </summary>
         bool IsMouseMoving { get; }
 
         /// <summary>
-        /// Gets the mouse position.
+        /// Gets the mouse position in screen coordinates (pixels).
         /// </summary>
         Vector2 MousePosition { get; }
 
         /// <summary>
-        /// Gets the mouse delta in normalized range [0..1].
+        /// Gets the mouse direction from the center of the screen in normalized range [0..1].
+        /// </summary>
+        Vector2 MouseAxis { get; }
+
+        /// <summary>
+        /// Gets the mouse difference from the last position in normalized range [0..1].
         /// </summary>
         Vector2 MouseDelta { get; }
         #endregion

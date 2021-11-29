@@ -30,6 +30,11 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         public float y;
 
         /// <summary>
+        /// Sets the first device to read values when processed this <see cref="InputAxis"/>.
+        /// </summary>
+        public InputAxisSources inputSourcePriority = InputAxisSources.Mouse;
+
+        /// <summary>
         /// Indicate if this axis uses the mouse input (axis or position) when the gamepad is not is the active input.
         /// </summary>
         public MouseInputModes mouseBehaviour = MouseInputModes.MousePosition;
@@ -39,17 +44,17 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// Keyboard binding for left direction.
         /// </summary>
         public InputAction LeftKey;
-        
+
         /// <summary>
         /// Keyboard binding for up direction.
         /// </summary>
         public InputAction UpKey;
-        
+
         /// <summary>
         /// Keyboard binding for right direction.
         /// </summary>
         public InputAction RightKey;
-        
+
         /// <summary>
         /// Keyboard binding for down direction.
         /// </summary>
@@ -73,6 +78,16 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// <remarks>Use this property to fix the diagonal ranges on 360º/free movements.</remarks>
         [Tooltip("Normalize the diagonal ranges."), Space]
         public bool normalize = true;
+        #endregion
+
+        #region Property
+        /// <summary>
+        /// Is the axis activated from keyboard?
+        /// </summary>
+        public bool IsAxisActivatedFromKeyboard => this.LeftKey.IsActionRaised ||
+                                                   this.UpKey.IsActionRaised ||
+                                                   this.RightKey.IsActionRaised ||
+                                                   this.DownKey.IsActionRaised; 
         #endregion
 
         #region Operators

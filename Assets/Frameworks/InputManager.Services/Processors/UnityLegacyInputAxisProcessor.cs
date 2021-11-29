@@ -13,6 +13,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
         private IInputActionProcessor _inputActionProcessor;
         #endregion
 
+        #region Properties
+        public bool IsMouseMoving => this._mousePositionAxesProcessor.IsMouseMoving; 
+        #endregion
+
         #region Constructor
         public UnityLegacyInputAxisProcessor(IMousePositionAxesProcessor mousePositionAxesProcessor,
                                              IInputActionProcessor inputActionProcessor)
@@ -33,10 +37,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 
         private void ProcessAxis(InputAxis axis)
         {
-            Vector2 result = this.ProcessMouseAxis(axis);
+            Vector2 result = this.ReadFirstDevice(axis);
 
             if (result == Vector2.zero)
-                result = this.ProcessKeyboardAxis(axis);
+                result = this.ReadSecondDevice(axis);
 
             if (result != Vector2.zero)
             {
@@ -54,12 +58,27 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
                 axis.RaiseOnAxisMoveEvent();
         }
 
+        private Vector2 ReadFirstDevice(InputAxis axis)
+        {
+            return axis.inputSourcePriority == InputAxisSources.Mouse 
+                ? this.ProcessMouseAxis(axis) 
+                : this.ProcessKeyboardAxis(axis);
+        }
+
+        private Vector2 ReadSecondDevice(InputAxis axis)
+        {
+            return axis.inputSourcePriority == InputAxisSources.Mouse 
+                ? this.ProcessKeyboardAxis(axis) 
+                : this.ProcessMouseAxis(axis);
+        }
+
         private Vector2 ProcessMouseAxis(InputAxis axis)
         {
             Vector2 result = axis.mouseBehaviour switch
             {
                 MouseInputModes.MousePosition => this._mousePositionAxesProcessor.MousePosition,
-                MouseInputModes.MouseAxis => this._mousePositionAxesProcessor.MouseDelta,
+                MouseInputModes.MouseAxis => this._mousePositionAxesProcessor.MouseAxis,
+                MouseInputModes.MouseDelta => this._mousePositionAxesProcessor.MouseDelta,
                 _ => Vector2.zero,
             };
 

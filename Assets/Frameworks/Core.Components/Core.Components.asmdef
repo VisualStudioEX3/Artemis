@@ -1,7 +1,9 @@
 {
     "name": "Core.Components",
     "rootNamespace": "VisualStudioEX3.Artemis.Framework.Core.Components",
-    "references": [],
+    "references": [
+        "GUID:fbf1bcfefc90467428f2f7efbb00d9ac"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

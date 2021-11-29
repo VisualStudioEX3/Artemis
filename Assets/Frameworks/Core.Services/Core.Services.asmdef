@@ -1,6 +1,6 @@
 {
-    "name": "InputManager.Contracts",
-    "rootNamespace": "VisualStudioEX3.Artemis.Framework.InputManager.Contracts",
+    "name": "Core.Services",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.Core.Services",
     "references": [
         "GUID:fbf1bcfefc90467428f2f7efbb00d9ac"
     ],
