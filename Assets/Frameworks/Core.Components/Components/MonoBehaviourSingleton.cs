@@ -15,7 +15,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         /// Gets if this singleton are initialized.
         /// </summary>
         /// <remarks>Use this property to ensure that the instance is created.</remarks>
-        public bool IsInitialized => MonoBehaviourSingleton<T>.Instance;
+        public static bool IsInitialized => MonoBehaviourSingleton<T>.Instance;
 
         /// <summary>
         /// Unique instance of this <see cref="MonoBehaviour"/> derived class.
