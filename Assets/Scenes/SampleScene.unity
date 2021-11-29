@@ -490,6 +490,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2231706370354503402, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2231706370354503402, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
       propertyPath: m_Name
       value: TurretPlacement
       objectReference: {fileID: 0}
@@ -503,7 +507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2231706370354503403, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2231706370354503403, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -536,6 +540,10 @@ PrefabInstance:
     - target: {fileID: 2231706370354503403, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2231706371430905016, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2231706371430905017, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
       propertyPath: m_IsTrigger
@@ -644,3 +652,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0b6575716d0f7247a314277ac6c0b25, type: 3}
+--- !u!1 &5849160419388268614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5849160418572661981, guid: b0b6575716d0f7247a314277ac6c0b25, type: 3}
+  m_PrefabInstance: {fileID: 5849160419388268613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5849160419388268615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5849160419388268614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c6c4d39b37bf34382564455421318f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCamera: {fileID: 5849160419388268616}
+  _layerMask: 6
+  _maxDistance: 100
+--- !u!20 &5849160419388268616 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5849160420304129334, guid: b0b6575716d0f7247a314277ac6c0b25, type: 3}
+  m_PrefabInstance: {fileID: 5849160419388268613}
+  m_PrefabAsset: {fileID: 0}
