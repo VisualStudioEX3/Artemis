@@ -98,6 +98,14 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         {
             return new(value.x, value.y);
         }
+
+        /// <summary>
+        /// Cast to <see cref="Vector3"/>.
+        /// </summary>
+        public static implicit operator Vector3(InputAxis value)
+        {
+            return new(value.x, value.y);
+        }
         #endregion
 
         #region Events
