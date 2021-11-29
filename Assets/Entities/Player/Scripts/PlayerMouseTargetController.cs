@@ -4,6 +4,7 @@ using VisualStudioEX3.Artemis.Framework.Core.Contracts;
 using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
+using VisualStudioEX3.Artemis.Turret.Placement;
 
 namespace VisualStudioEX3.Artemis.Player.Controllers
 {
@@ -25,7 +26,7 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         [SerializeField]
         private Camera _playerCamera;
         [SerializeField, Layer]
-        private int _layerMask;
+        private int _targetLayer;
         [SerializeField]
         private float _maxDistance;
         #endregion
@@ -39,10 +40,7 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
                 eventListener: this.OnPlayerClick);
         }
 
-        private void OnDestroy()
-        {
-            this.UnsubscribeInputEvents(eventListener: this.OnPlayerClick);
-        }
+        private void OnDestroy() => this.UnsubscribeInputEvents(eventListener: this.OnPlayerClick);
         #endregion
 
         #region Methods & Functions
@@ -56,23 +54,25 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         }
 
         private void UnsubscribeInputEvents(Action eventListener) => this._mouseClickAction.OnAction -= eventListener;
+
+        private Ray CreateRayFromCameraToMousePosition() => this._playerCamera.ScreenPointToRay(this._mousePositionAxis);
+
+        private int GetLayerMask() => 1 << this._targetLayer;
+
+        private bool Raycast(out RaycastHit hit) => Physics.Raycast(ray: this.CreateRayFromCameraToMousePosition(), out hit, this._maxDistance, this.GetLayerMask());
+
+        private void CreateTurret(Transform turretPlacementTransform)
+        {
+            var turretPlacement = turretPlacementTransform.GetComponentInParent<TurretPlacementController>();
+            turretPlacement.CreateTurret();
+        }
         #endregion
 
         #region Event listeners
-        private void OnDrawGizmos()
-        {
-            
-        }
-
         private void OnPlayerClick()
         {
-            Ray ray = this._playerCamera.ScreenPointToRay(this._mousePositionAxis);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, this._maxDistance, 1 << this._layerMask))
-            {
-                Transform objectHit = hit.transform;
-                print(objectHit.name);
-            }
+            if (this.Raycast(out RaycastHit hit))
+                this.CreateTurret(hit.transform);
         }
         #endregion
     }
