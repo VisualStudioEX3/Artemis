@@ -6,7 +6,7 @@ using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
 
-namespace VisualStudioEX3.Artemis
+namespace VisualStudioEX3.Artemis.Player.Controllers
 {
     /// <summary>
     /// Player Navigation controller.

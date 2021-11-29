@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace VisualStudioEX3.Artemis
+namespace VisualStudioEX3.Artemis.Player.Controllers
 {
     /// <summary>
     /// Player Camera Settings component.
