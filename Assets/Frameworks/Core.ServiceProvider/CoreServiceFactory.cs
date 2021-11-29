@@ -10,9 +10,11 @@ namespace VisualStudioEX3.Artemis.Framework.Core.ServiceProvider
     /// </summary>
     public class CoreServiceFactory : AbstractServiceProvider<CoreServiceFactory>
     {
+        #region Methods & Functions
         public override void RegisterServices(IServiceContainer serviceContainer)
         {
             serviceContainer.AddSingleton<IMathHelper, MathHelper>();
-        }
+        } 
+        #endregion
     }
 }
