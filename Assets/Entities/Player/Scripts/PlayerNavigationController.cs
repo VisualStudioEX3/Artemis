@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using VisualStudioEX3.Artemis.Framework.Core.Contracts.Interfaces;
+using VisualStudioEX3.Artemis.Framework.Core.ServiceProvider;
 using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
@@ -23,13 +25,17 @@ namespace VisualStudioEX3.Artemis
         private const float MIN_MOVEMENT_SPEED = 0.5f;
         private const float MAX_MOVEMENT_SPEED = 10f;
         private const float DEFAULT_MOVEMENT_SPEED = 1f;
+
+        private const float GRID_SIZE = 20f; // Game grids always are scaled to 5, 5, 5.
         #endregion
 
         #region Internal vars
-        InputAxis _mouseNavigationAxis;
-        InputAxis _keyboardNavigationAxis;
-        InputAction _mouseNavigationAction;
-        InputAction _keyboardNavigationAction;
+        private IMathHelper _mathHelper;
+
+        private InputAxis _mouseNavigationAxis;
+        private InputAxis _keyboardNavigationAxis;
+        private InputAction _mouseNavigationAction;
+        private InputAction _keyboardNavigationAction;
         #endregion
 
         #region Inspector fields
@@ -40,6 +46,8 @@ namespace VisualStudioEX3.Artemis
         #region Initializers & Terminators
         private void Awake()
         {
+            this._mathHelper = CoreServiceFactory.Factory.GetService<IMathHelper>();
+
             this.SubscribeOnNavigationEvent(eventListener: this.OnMouseNavigation,
                 inputAxis: out this._mouseNavigationAxis,
                 inputAction: out this._mouseNavigationAction,
@@ -85,8 +93,15 @@ namespace VisualStudioEX3.Artemis
 
         private void MovePlayer(Vector2 delta)
         {
-            // TODO: Control the bounds of the scenary to avoid the player moves outside.
             this.transform.position += this._movementSpeed * Time.deltaTime * new Vector3(delta.x, 0f, delta.y);
+            this.ClampPlayerPositionInScenary();
+        }
+
+        private void ClampPlayerPositionInScenary()
+        {
+            this.transform.position = this._mathHelper.Clamp(this.transform.position, 
+                min: Vector3.one * -GRID_SIZE, 
+                max: Vector3.one * GRID_SIZE);
         }
         #endregion
 
