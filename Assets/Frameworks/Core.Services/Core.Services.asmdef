@@ -1,0 +1,16 @@
+{
+    "name": "Core.Services",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.Core.Services",
+    "references": [
+        "GUID:fbf1bcfefc90467428f2f7efbb00d9ac"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
