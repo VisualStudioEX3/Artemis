@@ -1,0 +1,22 @@
+{
+    "name": "Core.Editor.Components",
+    "rootNamespace": "VisualStudioEX3.Artemis.Framework.Core.Editor.Components",
+    "references": [
+        "GUID:fbf1bcfefc90467428f2f7efbb00d9ac",
+        "GUID:d66ea3853b44a6f4f96b45ca4120ae12",
+        "GUID:478a2357cc57436488a56e564b08d223"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        ""
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

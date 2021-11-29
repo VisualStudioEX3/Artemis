@@ -132,8 +132,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 212681597}
-  - component: {fileID: 212681596}
   - component: {fileID: 212681598}
+  - component: {fileID: 212681596}
+  - component: {fileID: 212681599}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -163,7 +164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212681595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.2303753, y: -2.8193283, z: -4.2351394}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -182,3 +183,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bec1cfb3176271f489dcfcb79cdf8e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &212681599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212681595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7a735def0a3c9438378a2dcaaa0771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startScreen:
+    _asset: {fileID: 0}
+    _assetPath: 
+    _scenePath: 
+    _sceneIndex: -1
+  _scenes:
+  - _asset: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+    _assetPath: Assets/Scenes/SampleScene.unity
+    _scenePath: Scenes/SampleScene
+    _sceneIndex: 1

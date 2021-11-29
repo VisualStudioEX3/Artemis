@@ -1,15 +1,20 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using VisualStudioEX3.Artemis.Framework.Core.Components;
+using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 
 namespace VisualStudioEX3.Artemis
 {
     public class GameManager : MonoBehaviour
     {
-        public int startSceneIndex = 1;
-
-        private void Start()
+        #region Initializer
+        private IEnumerator Start()
         {
-            SceneManager.LoadScene(this.startSceneIndex);
-        }
+            yield return new WaitUntil(() => InputManager.IsInitialized);
+            yield return new WaitUntil(() => SceneManager.IsInitialized);
+
+            SceneManager.Instance.LoadStartScreen();
+        } 
+        #endregion
     }
 }
