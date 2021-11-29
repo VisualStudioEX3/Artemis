@@ -73,7 +73,13 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         /// <summary>
         /// Loads the start screen level.
         /// </summary>
-        public void LoadStartScreen() => this.StartCoroutine(this.LoadSceneCoroutine(this._startScreen));
+        public void LoadStartScreen()
+        {
+            if (this._scenes.Length == 0)
+                throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadNextLevel)}: No are scenes to load!");
+
+            this.StartCoroutine(this.LoadSceneCoroutine(this._startScreen));
+        }
 
         /// <summary>
         /// Loads the next level.
@@ -93,15 +99,23 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         private AsyncOperation LoadSceneAsync(SceneAsset scene) => UnitySceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 
         private AsyncOperation UnloadSceneAsync(SceneAsset scene) => UnitySceneManager.UnloadSceneAsync(scene);
+
+        private bool IsNullSceneAsset(SceneAsset scene) => !string.IsNullOrEmpty(scene);
         #endregion
 
         #region Coroutines
         private IEnumerator LoadSceneCoroutine(SceneAsset scene)
         {
-            if (!string.IsNullOrEmpty(this._currentScene))
+            if (!this.IsNullSceneAsset(this._currentScene))
                 yield return this.UnloadScene(this._currentScene);
 
-            yield return this.LoadScene(scene);
+            if (!this.IsNullSceneAsset(scene))
+            {
+                this._currentScene = scene;
+                yield return this.LoadScene(scene);
+            }
+            else
+                throw new ArgumentNullException($"{nameof(SceneManager)}::{nameof(LoadSceneCoroutine)}: The scene #{this._currentLevelIndex} is a null reference!");
         }
 
         private Coroutine LoadScene(SceneAsset scene)
