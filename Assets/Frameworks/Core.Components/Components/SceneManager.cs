@@ -1,25 +1,25 @@
 using UnityEngine;
+using VisualStudioEX3.Artemis.Framework.Core.Contracts.Constants;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Models;
 
 namespace VisualStudioEX3.Artemis.Framework.Core.Components
 {
-    public class SceneManager : MonoBehaviour
+    [AddComponentMenu(ComponentMenuPaths.SCENE_MANAGER_COMPONENT_MENU_NAMESPACE), DisallowMultipleComponent]
+    public class SceneManager : MonoBehaviourSingleton<SceneManager>
     {
         #region Inspector fields
         [SerializeField]
-        private SceneAsset[] _scenes; 
+        private SceneAsset[] _scenes;
         #endregion
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        #region Initializers & Terminators
+        public override void Awake() => base.Awake();
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        public override void OnDestroy() => base.OnDestroy();
+        #endregion
+
+        #region Methods & Functions
+        public override bool IsPersistentBetweenScenes() => true;
+        #endregion
     }
 }
