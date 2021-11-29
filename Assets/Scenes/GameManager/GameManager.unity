@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,11 +132,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 212681597}
-  - component: {fileID: 212681598}
+  - component: {fileID: 212681600}
   - component: {fileID: 212681596}
   - component: {fileID: 212681599}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,18 +171,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &212681598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212681595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bec1cfb3176271f489dcfcb79cdf8e8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &212681599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,12 +184,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startScreen:
-    _asset: {fileID: 0}
-    _assetPath: 
-    _scenePath: 
-    _sceneIndex: -1
+    _asset: {fileID: 102900000, guid: 0bd542b7d9632e54e9f5f4581e0bd135, type: 3}
+    _assetPath: Assets/Scenes/StartScene/StartScene.unity
+    _scenePath: Scenes/StartScene/StartScene
+    _sceneIndex: 1
   _scenes:
   - _asset: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
     _assetPath: Assets/Scenes/SampleScene.unity
     _scenePath: Scenes/SampleScene
-    _sceneIndex: 1
+    _sceneIndex: 2
+--- !u!114 &212681600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212681595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec1cfb3176271f489dcfcb79cdf8e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
