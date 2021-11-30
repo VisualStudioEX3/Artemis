@@ -14,6 +14,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.ServiceProvider
         public override void RegisterServices(IServiceContainer serviceContainer)
         {
             serviceContainer.AddSingleton<IMathHelper, MathHelper>();
+            serviceContainer.AddGenericService(typeof(IUnityObjectPoolService<>), typeof(UnityObjectPoolService<>));
         } 
         #endregion
     }
