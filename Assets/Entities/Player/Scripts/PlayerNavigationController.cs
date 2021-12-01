@@ -99,7 +99,7 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
 
         private void ClampPlayerPositionInScenary()
         {
-            this.transform.position = this._mathHelper.Clamp(this.transform.position, 
+            this.transform.position = this._mathHelper.ClampVector(this.transform.position, 
                 min: Vector3.one * -GRID_SIZE, 
                 max: Vector3.one * GRID_SIZE);
         }

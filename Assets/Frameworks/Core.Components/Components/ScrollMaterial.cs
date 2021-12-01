@@ -19,16 +19,13 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         #region Initializers
         private void Awake()
         {
-            var renderer = this.GetComponent<MeshRenderer>();
+            MeshRenderer renderer = this.GetComponent<MeshRenderer>();
             this._material = renderer.material;
         }
         #endregion
 
         #region Update logic
-        private void Update()
-        {
-            this.UpdateScroll();
-        }
+        private void Update() => this.UpdateScroll();
         #endregion
 
         #region Methods & Functions

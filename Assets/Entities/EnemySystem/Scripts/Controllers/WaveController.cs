@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Models;
@@ -10,7 +9,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
     /// <summary>
     /// Wave Controller.
     /// </summary>
-    /// <remarks>Singleton watcher component that only manages the <see cref="EnemyController"/> death count.</remarks>
+    /// <remarks>Singleton component that manages the wave logic and spawn <see cref="EnemyController"/> instances.</remarks>
     public class WaveController : MonoBehaviourSingleton<WaveController>
     {
         #region Internal vars
@@ -22,15 +21,9 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         #endregion
 
         #region Initializer & Terminator
-        public override void Awake()
-        {
-            base.Awake();
-        }
+        public override void Awake() => base.Awake();
 
-        public override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
+        public override void OnDestroy() => base.OnDestroy();
         #endregion
 
         public void OnEnemyDead()
@@ -65,9 +58,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
             yield return new WaitForSeconds(data.startToSpawnDelay);
 
             for (int i = 0; i < data.count; i++)
-            {
                 WaveManager.Instance.GetRandomSpawner().SpawnEnemy(data.enemy.GetType());
-            }
         }
         #endregion
     }

@@ -8,6 +8,10 @@ using VisualStudioEX3.Artemis.Turret.Placement;
 
 namespace VisualStudioEX3.Artemis.Player.Controllers
 {
+    /// <summary>
+    /// Player Mouse Target Controller.
+    /// </summary>
+    /// <remarks>This components allow to player can click on <see cref="TurretPlacementController"/> objects in scene.</remarks>
     [DisallowMultipleComponent]
     public class PlayerMouseTargetController : MonoBehaviour
     {
@@ -63,7 +67,7 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
 
         private void CreateTurret(Transform turretPlacementTransform)
         {
-            var turretPlacement = turretPlacementTransform.GetComponentInParent<TurretPlacementController>();
+            TurretPlacementController turretPlacement = turretPlacementTransform.GetComponentInParent<TurretPlacementController>();
             turretPlacement.CreateTurret();
         }
         #endregion

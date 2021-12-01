@@ -54,17 +54,12 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
         /// <exception cref="ArgumentNullException">If the name is empty or <see langword="null"/> string.</exception>
         public InputAxis GetAxis(string name)
         {
-            if (string.IsNullOrEmpty(name))
-                throw this.FormatArgumentNullException(nameof(GetAxis));
-
-            try
-            {
-                return this._axes.First(e => e.name == name);
-            }
-            catch (InvalidOperationException)
-            {
-                throw new InputAxisNotFoundException(name, this.name);
-            }
+            return this.GetItem(
+                itemName: name,
+                caller: nameof(this.GetAxis),
+                items: this._axes,
+                searchPredicate: (axis) => axis.name == name,
+                notFoundException: (itemName, assetName) => new InputAxisNotFoundException(itemName, assetName));
         }
 
         /// <summary>
@@ -76,16 +71,26 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
         /// <exception cref="ArgumentNullException">If the name is empty or <see langword="null"/> string.</exception>
         public InputAction GetAction(string name)
         {
-            if (string.IsNullOrEmpty(name))
-                throw this.FormatArgumentNullException(nameof(GetAction));
+            return this.GetItem(
+                itemName: name, 
+                caller: nameof(this.GetAction), 
+                items: this._actions, 
+                searchPredicate: (action) => action.name == name,
+                notFoundException: (itemName, assetName) => new InputActionNotFoundException(itemName, assetName));
+        }
+
+        private T GetItem<T>(string itemName, string caller, IEnumerable<T> items, Func<T, bool> searchPredicate, Func<string, string, Exception> notFoundException)
+        {
+            if (string.IsNullOrEmpty(itemName))
+                throw this.FormatArgumentNullException(caller);
 
             try
             {
-                return this._actions.First(e => e.name == name);
+                return items.First(searchPredicate);
             }
             catch (InvalidOperationException)
             {
-                throw new InputActionNotFoundException(name, this.name);
+                throw notFoundException(itemName, this.name);
             }
         }
 

@@ -12,7 +12,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Contracts.Interfaces
         /// <param name="min">Min values.</param>
         /// <param name="max">Max values.</param>
         /// <returns></returns>
-        Vector3 Clamp(Vector3 vector, Vector3 min, Vector3 max); 
+        Vector3 ClampVector(Vector3 vector, Vector3 min, Vector3 max); 
         #endregion
     }
 }

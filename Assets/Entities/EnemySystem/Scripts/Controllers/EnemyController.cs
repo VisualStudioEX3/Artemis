@@ -3,13 +3,16 @@ using UnityEngine;
 
 namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 {
+    /// <summary>
+    /// Base class for enemies.
+    /// </summary>
     public class EnemyController : MonoBehaviour
     {
-        public event Action OnDead;
-
-        private void Start()
-        {
-            //WaveManager.Instance.o
-        }
+        #region Events
+        /// <summary>
+        /// Notifies when the enemy is dead.
+        /// </summary>
+        public event Action OnDead; 
+        #endregion
     }
 }

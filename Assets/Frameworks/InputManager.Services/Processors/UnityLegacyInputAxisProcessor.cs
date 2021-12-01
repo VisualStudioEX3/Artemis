@@ -85,23 +85,23 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
             return result * axis.sensitivity;
         }
 
+        private void UpdateAxisInputActions(InputAxis axis) => this._inputActionProcessor.Update(axis.KeyboardBindings);
+
+        private float ProcessAxisValueFromKeyboard(InputAction positiveKey, InputAction negativeKey, float factor)
+        {
+            return factor * (positiveKey.IsPressed 
+                ? 1f 
+                : (negativeKey.IsPressed 
+                    ? -1f 
+                    : 0f));
+        }
+
         private Vector2 ProcessKeyboardAxis(InputAxis axis)
         {
-            Vector2 result = Vector2.zero;
+            this.UpdateAxisInputActions(axis);
 
-            this._inputActionProcessor.Update(new[] { axis.LeftKey, axis.UpKey, axis.RightKey, axis.DownKey });
-
-            if (axis.LeftKey.IsPressed)
-                result.x = -axis.sensitivity;
-            else if (axis.RightKey.IsPressed)
-                result.x = axis.sensitivity;
-
-            if (axis.UpKey.IsPressed)
-                result.y = axis.sensitivity;
-            else if (axis.DownKey.IsPressed)
-                result.y = -axis.sensitivity;
-
-            return result;
+            return new(this.ProcessAxisValueFromKeyboard(positiveKey: axis.RightKey, negativeKey: axis.LeftKey, factor: axis.sensitivity),
+                       this.ProcessAxisValueFromKeyboard(positiveKey: axis.UpKey, negativeKey: axis.DownKey, factor: axis.sensitivity));
         }
         #endregion
     }

@@ -30,25 +30,13 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Services.Containers
                 throw new ServiceAlreadyRegisteredException(implementation);
         }
 
-        public void AddService<I, T>() where T : class
-        {
-            this.AddType(typeof(I), typeof(T), false);
-        }
+        public void AddService<I, T>() where T : class => this.AddType(typeof(I), typeof(T), false);
 
-        public void AddSingleton<I, T>() where T : class
-        {
-            this.AddType(typeof(I), typeof(T), true);
-        }
+        public void AddSingleton<I, T>() where T : class => this.AddType(typeof(I), typeof(T), true);
 
-        public void AddGenericService(Type template, Type implementation)
-        {
-            this.AddType(template, implementation.GetGenericTypeDefinition(), false);
-        }
+        public void AddGenericService(Type template, Type implementation) => this.AddType(template, implementation.GetGenericTypeDefinition(), false);
 
-        public void AddGenericSingleton(Type template, Type implementation)
-        {
-            this.AddType(template, implementation.GetGenericTypeDefinition(), true);
-        }
+        public void AddGenericSingleton(Type template, Type implementation) => this.AddType(template, implementation.GetGenericTypeDefinition(), true);
 
         public void RemoveAll()
         {
@@ -114,8 +102,7 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Services.Containers
 
         private void ResolveConstructorServiceParameter(ref List<object> args, ParameterInfo parameter)
         {
-            if (args is null)
-                args = new List<object>();
+            args ??= new();
 
             if (parameter.ParameterType.IsGenericType)
             {
@@ -133,9 +120,7 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Services.Containers
             if (this._services.TryGetValue(template, out ServiceModel service))
                 if (service.isSingleton)
                 {
-                    if (service.singletonInstance is null)
-                        service.singletonInstance = builder(service);
-
+                    service.singletonInstance ??= builder(service);
                     return service.singletonInstance;
                 }
                 else

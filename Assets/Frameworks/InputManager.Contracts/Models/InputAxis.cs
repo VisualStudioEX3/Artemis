@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
 
 namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
 {
+    /// <summary>
+    /// Input Axis.
+    /// </summary>
+    /// <remarks>A virtual input axis object that read values from mouse and keyboard bindings.</remarks>
     [Serializable]
     public class InputAxis
     {
@@ -82,12 +88,14 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
 
         #region Property
         /// <summary>
+        /// Gets an enumeration with all <see cref="InputAction"/> bindings in the following order: Left, Up, Right, Down.
+        /// </summary>
+        public IEnumerable<InputAction> KeyboardBindings => new InputAction[] { this.LeftKey, this.UpKey, this.RightKey, this.DownKey };
+
+        /// <summary>
         /// Is the axis activated from keyboard?
         /// </summary>
-        public bool IsAxisActivatedFromKeyboard => this.LeftKey.IsActionRaised ||
-                                                   this.UpKey.IsActionRaised ||
-                                                   this.RightKey.IsActionRaised ||
-                                                   this.DownKey.IsActionRaised; 
+        public bool IsAxisActivatedFromKeyboard => this.KeyboardBindings.Any(e => e.IsActionRaised);
         #endregion
 
         #region Operators

@@ -69,22 +69,28 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Editor.Components.PropertyDrawe
             sceneAssetReference.objectReferenceValue = unitySceneAsset is not null ? unitySceneAsset : null;
         }
 
+        private void FillData(UnitySceneAsset unitySceneAsset, SerializedProperty assetPath, SerializedProperty scenePath, SerializedProperty sceneIndex)
+        {
+            assetPath.stringValue = AssetDatabase.GetAssetOrScenePath(unitySceneAsset);
+            scenePath.stringValue = assetPath.stringValue.Replace("Assets/", string.Empty).Replace(".unity", string.Empty);
+            sceneIndex.intValue = SceneUtility.GetBuildIndexByScenePath(assetPath.stringValue);
+        }
+
+        private void ResetData(SerializedProperty assetPath, SerializedProperty scenePath, SerializedProperty sceneIndex)
+        {
+            assetPath.stringValue = scenePath.stringValue = string.Empty;
+            sceneIndex.intValue = -1;
+        }
+
         private void UpdateSceneAssetData(SerializedProperty assetPath,
             SerializedProperty scenePath,
             SerializedProperty sceneIndex,
             UnitySceneAsset unitySceneAsset)
         {
             if (unitySceneAsset)
-            {
-                assetPath.stringValue = AssetDatabase.GetAssetOrScenePath(unitySceneAsset);
-                scenePath.stringValue = assetPath.stringValue.Replace("Assets/", string.Empty).Replace(".unity", string.Empty);
-                sceneIndex.intValue = SceneUtility.GetBuildIndexByScenePath(assetPath.stringValue);
-            }
+                this.FillData(unitySceneAsset, assetPath, scenePath, sceneIndex);
             else
-            {
-                assetPath.stringValue = scenePath.stringValue = string.Empty;
-                sceneIndex.intValue = -1;
-            }
+                this.ResetData(assetPath, scenePath, sceneIndex);
         }
         #endregion
 

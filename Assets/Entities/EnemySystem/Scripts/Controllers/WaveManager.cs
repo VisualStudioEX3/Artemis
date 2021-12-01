@@ -65,11 +65,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
             this.OnAllWavesCompleted?.Invoke();
         }
 
-        public override void OnDestroy()
-        {
-            //
-            base.OnDestroy();
-        }
+        public override void OnDestroy() => base.OnDestroy();
         #endregion
 
         #region Methods & Functions

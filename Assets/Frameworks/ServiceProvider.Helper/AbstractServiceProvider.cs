@@ -18,7 +18,7 @@ namespace VisualStudioEX3.Artemis.Framework.ServiceProvider.Helper
         {
             get
             {
-                _factory ??= _factory = (T)System.Activator.CreateInstance(typeof(T));
+                _factory ??= (T)System.Activator.CreateInstance(typeof(T));
                 return _factory;
             }
         }

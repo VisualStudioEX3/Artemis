@@ -2,6 +2,8 @@
 {
     public partial class TooltipMessageConstants
     {
-        public const string TIME_IN_SECONDS_TOOLTIP_MESSAGE = "Time in seconds (e.g.: 60 = 1 minute)";
+        #region Constants
+        public const string TIME_IN_SECONDS_TOOLTIP_MESSAGE = "Time in seconds (e.g.: 60 = 1 minute)"; 
+        #endregion
     }
 }

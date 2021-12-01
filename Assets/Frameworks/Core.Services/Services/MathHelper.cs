@@ -6,7 +6,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Services
     public class MathHelper : IMathHelper
     {
         #region Methods & Functions
-        public Vector3 Clamp(Vector3 vector, Vector3 min, Vector3 max)
+        public Vector3 ClampVector(Vector3 vector, Vector3 min, Vector3 max)
         {
             Vector3 v = vector;
 

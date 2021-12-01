@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VisualStudioEX3.Artemis.Framework.Core.Components
 {
     /// <summary>
-    /// Base class to implement <see cref="MonoBehaviour"/> derived classes as singleton instances.
+    /// Abstract class to implement <see cref="MonoBehaviour"/> derived classes as singleton instances.
     /// </summary>
     /// <typeparam name="T">Type of the <see cref="MonoBehaviour"/> derived class.</typeparam>
     /// <remarks>Remember call base.<see cref="Awake"/> and base.<see cref="OnDestroy"/> events, when overload these events, to the right work of the singleton.</remarks>
@@ -26,7 +26,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         #region Initializers
         public virtual void Awake()
         {
-            if (MonoBehaviourSingleton<T>.Instance != null)
+            if (MonoBehaviourSingleton<T>.Instance is not null)
                 throw new InvalidOperationException(
                         $"{nameof(MonoBehaviourSingleton<T>)}<{typeof(T)}>: Error to initialize singleton instance. A previous instance is created on \"{this.gameObject.scene.name}\" scene on \"{this.gameObject.name}\" game object!");
 

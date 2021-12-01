@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Enums;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Interfaces;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 
@@ -33,8 +34,8 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Services.Processors
 
             bool raiseAction = action.state switch
             {
-                Contracts.Enums.KeyStates.Down => action.IsDown,
-                Contracts.Enums.KeyStates.Up => action.IsUp,
+                KeyStates.Down => action.IsDown,
+                KeyStates.Up => action.IsUp,
                 _ => action.IsPressed,
             };
 
