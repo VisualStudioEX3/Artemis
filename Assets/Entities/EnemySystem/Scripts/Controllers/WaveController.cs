@@ -2,15 +2,14 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Models;
-using VisualStudioEX3.Artemis.Framework.Core.Components;
 
 namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 {
     /// <summary>
     /// Wave Controller.
     /// </summary>
-    /// <remarks>Singleton component that manages the wave logic and spawn <see cref="EnemyController"/> instances.</remarks>
-    public class WaveController : MonoBehaviourSingleton<WaveController>
+    /// <remarks>This component manages the wave logic and spawn <see cref="EnemyController"/> instances.</remarks>
+    public class WaveController : MonoBehaviour
     {
         #region Internal vars
         private int _waveNumber;
@@ -18,22 +17,22 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private int _deaths;
 
         private WaveAsset _wave;
+
+        private WaveManager _waveManager;
         #endregion
 
-        #region Initializer & Terminator
-        public override void Awake() => base.Awake();
+        private void Awake() => this._waveManager = this.GetComponent<WaveManager>();
 
-        public override void OnDestroy() => base.OnDestroy();
-        #endregion
-
+        #region Event listernes
         public void OnEnemyDead()
         {
             if (++this._deaths == this._totalWaveEnemies)
-                WaveManager.Instance.RaiseOnWaveFinished(this._waveNumber);
+                this._waveManager.RaiseOnWaveFinished(this._waveNumber);
         }
+        #endregion
 
         #region Coroutines
-        public IEnumerator StartNextWave(int waveNumber, WaveAsset wave)
+        public IEnumerator StartNextWaveCoroutine(int waveNumber, WaveAsset wave)
         {
             this._waveNumber = waveNumber;
             this._totalWaveEnemies = wave.enemyTypes.Sum(e => e.count);
@@ -51,14 +50,14 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
                 this.StartCoroutine(this.EnemySpawnCoroutine(data));
 
             yield return new WaitUntil(() => this._deaths == this._totalWaveEnemies);
-        } 
+        }
 
         private IEnumerator EnemySpawnCoroutine(EnemyWaveData data)
         {
             yield return new WaitForSeconds(data.startToSpawnDelay);
 
             for (int i = 0; i < data.count; i++)
-                WaveManager.Instance.GetRandomSpawner().SpawnEnemy(data.enemy.GetType());
+                this._waveManager.GetRandomSpawner().SpawnEnemy(data.enemy.GetType());
         }
         #endregion
     }
