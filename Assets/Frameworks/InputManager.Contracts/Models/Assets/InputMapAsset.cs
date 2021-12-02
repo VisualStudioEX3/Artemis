@@ -59,7 +59,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
                 caller: nameof(this.GetAxis),
                 items: this._axes,
                 searchPredicate: (axis) => axis.name == name,
-                notFoundException: (itemName, assetName) => new InputAxisNotFoundException(itemName, assetName));
+                notFoundExceptionPredicate: (itemName, assetName) => new InputAxisNotFoundException(itemName, assetName));
         }
 
         /// <summary>
@@ -76,10 +76,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
                 caller: nameof(this.GetAction), 
                 items: this._actions, 
                 searchPredicate: (action) => action.name == name,
-                notFoundException: (itemName, assetName) => new InputActionNotFoundException(itemName, assetName));
+                notFoundExceptionPredicate: (itemName, assetName) => new InputActionNotFoundException(itemName, assetName));
         }
 
-        private T GetItem<T>(string itemName, string caller, IEnumerable<T> items, Func<T, bool> searchPredicate, Func<string, string, Exception> notFoundException)
+        private T GetItem<T>(string itemName, string caller, IEnumerable<T> items, Func<T, bool> searchPredicate, Func<string, string, Exception> notFoundExceptionPredicate)
         {
             if (string.IsNullOrEmpty(itemName))
                 throw this.FormatArgumentNullException(caller);
@@ -90,7 +90,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets
             }
             catch (InvalidOperationException)
             {
-                throw notFoundException(itemName, this.name);
+                throw notFoundExceptionPredicate(itemName, this.name);
             }
         }
 

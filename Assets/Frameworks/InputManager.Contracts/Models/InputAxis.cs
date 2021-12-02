@@ -19,6 +19,10 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         public const float DEFAULT_SENSITIVITY = 1f;
         #endregion
 
+        #region Private vars
+        private IEnumerable<InputAction> _keyboardBindings;
+        #endregion
+
         #region Public vars
         public string name;
         [Space]
@@ -90,7 +94,7 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// <summary>
         /// Gets an enumeration with all <see cref="InputAction"/> bindings in the following order: Left, Up, Right, Down.
         /// </summary>
-        public IEnumerable<InputAction> KeyboardBindings => new InputAction[] { this.LeftKey, this.UpKey, this.RightKey, this.DownKey };
+        public IEnumerable<InputAction> KeyboardBindings => this._keyboardBindings;
 
         /// <summary>
         /// Is the axis activated from keyboard?
@@ -124,8 +128,12 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         public event Action<Vector2> OnAxisMove;
         #endregion
 
+        #region Constructors
+        public InputAxis() => this._keyboardBindings = new InputAction[] { this.LeftKey, this.UpKey, this.RightKey, this.DownKey };
+        #endregion
+
         #region Methods & Functions
-        public void RaiseOnAxisMoveEvent() => this.OnAxisMove?.Invoke(this); 
+        public void RaiseOnAxisMoveEvent() => this.OnAxisMove?.Invoke(this);
         #endregion
     }
 }
