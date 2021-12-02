@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VisualStudioEX3.Artemis.Framework.Core.Contracts.Constants;
+using VisualStudioEX3.Artemis.Assets.LevelManagement.Constants;
+using VisualStudioEX3.Artemis.Framework.Core.Components;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Models;
 using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
 
-namespace VisualStudioEX3.Artemis.Framework.Core.Components
+namespace VisualStudioEX3.Artemis.Assets.LevelManagement
 {
     /// <summary>
     /// Scene Manager.
@@ -83,7 +84,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
             if (this._scenes.Length == 0)
                 throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadEnvironment)}: No are scene to load!");
 
-            this.StartCoroutine(this.LoadSceneCoroutine(this._enviroment));
+            this.StartCoroutine(this.LoadSceneCoroutine(this._enviroment, LoadSceneMode.Single, isFixedScene: true));
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
             if (this._scenes.Length == 0)
                 throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadNextLevel)}: No are scene to load!");
 
-            this.StartCoroutine(this.LoadSceneCoroutine(this._startScreen));
+            this.StartCoroutine(this.LoadSceneCoroutine(this._startScreen, LoadSceneMode.Additive, isFixedScene: false));
         }
 
         /// <summary>
@@ -109,36 +110,34 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
             if (++this._currentLevelIndex > this._scenes.Length)
                 this.LoadStartScreen();
             else
-                this.StartCoroutine(this.LoadSceneCoroutine(this._scenes[this._currentLevelIndex]));
+                this.StartCoroutine(this.LoadSceneCoroutine(this._scenes[this._currentLevelIndex], LoadSceneMode.Additive, isFixedScene: false));
         }
-
-        private AsyncOperation LoadSceneAsync(SceneAsset scene) => UnitySceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-
-        private AsyncOperation UnloadSceneAsync(SceneAsset scene) => UnitySceneManager.UnloadSceneAsync(scene);
 
         private bool IsNullSceneAsset(SceneAsset scene) => string.IsNullOrEmpty(scene);
         #endregion
 
         #region Coroutines
-        private IEnumerator LoadSceneCoroutine(SceneAsset scene)
+        private IEnumerator LoadSceneCoroutine(SceneAsset scene, LoadSceneMode loadMode, bool isFixedScene)
         {
             if (!this.IsNullSceneAsset(this._currentScene))
                 yield return this.UnloadScene(this._currentScene);
 
             if (!this.IsNullSceneAsset(scene))
             {
-                this._currentScene = scene;
-                yield return this.LoadScene(scene);
+                if (!isFixedScene)
+                    this._currentScene = scene;
+
+                yield return this.LoadScene(scene, loadMode);
             }
             else
                 throw new ArgumentNullException($"{nameof(SceneManager)}::{nameof(LoadSceneCoroutine)}: The scene #{this._currentLevelIndex} is a null reference!");
         }
 
-        private Coroutine LoadScene(SceneAsset scene)
+        private Coroutine LoadScene(SceneAsset scene, LoadSceneMode loadMode)
         {
             return this.StartCoroutine(this.AsyncSceneOperationCoroutine(
                 scene: scene,
-                operation: this.LoadSceneAsync,
+                operation: (asyncOperation) => UnitySceneManager.LoadSceneAsync(scene, loadMode),
                 onStarts: this.OnLoadSceneStarts,
                 onProgress: this.OnLoadSceneProgress,
                 onFinished: this.OnLoadSceneFinished));
@@ -148,7 +147,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         {
             return this.StartCoroutine(this.AsyncSceneOperationCoroutine(
                 scene: scene,
-                operation: this.UnloadSceneAsync,
+                operation: (asyncOperation) => UnitySceneManager.UnloadSceneAsync(scene),
                 onStarts: this.OnUnloadSceneStarts,
                 onProgress: this.OnUnloadSceneProgress,
                 onFinished: this.OnUnloadSceneFinished));

@@ -3,19 +3,16 @@ using UnityEngine;
 namespace VisualStudioEX3.Artemis.Framework.Core.Components
 {
     /// <summary>
-    /// Blink Material component.
+    /// Fade material component.
     /// </summary>
     /// <remarks>Use this component to setup a fade-in fade-out effect based on the alpha <see cref="Color"/> component of the <see cref="Renderer"/> material.</remarks>
-    public class BlinkMaterial : MonoBehaviour
+    public class FadeMaterial : MonoBehaviour
     {
         #region Internal vars
         private Material _material;
         #endregion
 
         #region Inspector fields
-        [SerializeField]
-        private Renderer _renderer;
-        
         /// <summary>
         /// Fade-in fade-out speed.
         /// </summary>
@@ -23,7 +20,11 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         #endregion
 
         #region Initializers
-        private void Awake() => this._material = this._renderer.material;
+        private void Awake()
+        {
+            MeshRenderer renderer = this.GetComponent<MeshRenderer>();
+            this._material = renderer.material;
+        }
         #endregion
 
         #region Update logic

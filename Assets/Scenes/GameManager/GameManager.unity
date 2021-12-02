@@ -181,24 +181,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 212681595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7a735def0a3c9438378a2dcaaa0771, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ba9a2df05cdb404285012c8b6769a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _enviroment:
     _asset: {fileID: 102900000, guid: 51295e7d1b2fad64291a90917e104a1c, type: 3}
     _assetPath: Assets/Scenes/Environment/Enviroment.unity
     _scenePath: Scenes/Environment/Enviroment
-    _sceneIndex: -1
+    _sceneIndex: 1
   _startScreen:
     _asset: {fileID: 102900000, guid: 0bd542b7d9632e54e9f5f4581e0bd135, type: 3}
     _assetPath: Assets/Scenes/StartScene/StartScene.unity
     _scenePath: Scenes/StartScene/StartScene
-    _sceneIndex: 1
+    _sceneIndex: 2
   _scenes:
   - _asset: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
     _assetPath: Assets/Scenes/GameScenes/Level1/Level1.unity
     _scenePath: Scenes/GameScenes/Level1/Level1
-    _sceneIndex: 2
+    _sceneIndex: 3
 --- !u!114 &212681600
 MonoBehaviour:
   m_ObjectHideFlags: 0
