@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using VisualStudioEX3.Artemis.Framework.Core.Contracts;
+using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
