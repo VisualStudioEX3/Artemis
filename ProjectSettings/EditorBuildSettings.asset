@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/GameManager/GameManager.unity
     guid: f160356a245c55c41b5ce733e327829e
   - enabled: 1
+    path: Assets/Scenes/Environment/Enviroment.unity
+    guid: 51295e7d1b2fad64291a90917e104a1c
+  - enabled: 1
     path: Assets/Scenes/StartScene/StartScene.unity
     guid: 0bd542b7d9632e54e9f5f4581e0bd135
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/GameScenes/Level1/Level1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

@@ -23,8 +23,9 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
 
         #region Inspector fields
         [SerializeField]
+        private SceneAsset _enviroment;
+        [SerializeField]
         private SceneAsset _startScreen;
-
         [SerializeField]
         private SceneAsset[] _scenes;
         #endregion
@@ -62,7 +63,11 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         #endregion
 
         #region Initializers & Terminators
-        public override void Awake() => base.Awake();
+        public override void Awake()
+        {
+            base.Awake();
+            this.LoadEnvironment();
+        }
 
         public override void OnDestroy() => base.OnDestroy();
         #endregion
@@ -71,12 +76,23 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
         public override bool IsPersistentBetweenScenes() => true;
 
         /// <summary>
+        /// Loads the environment level.
+        /// </summary>
+        public void LoadEnvironment()
+        {
+            if (this._scenes.Length == 0)
+                throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadEnvironment)}: No are scene to load!");
+
+            this.StartCoroutine(this.LoadSceneCoroutine(this._enviroment));
+        }
+
+        /// <summary>
         /// Loads the start screen level.
         /// </summary>
         public void LoadStartScreen()
         {
             if (this._scenes.Length == 0)
-                throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadNextLevel)}: No are scenes to load!");
+                throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadNextLevel)}: No are scene to load!");
 
             this.StartCoroutine(this.LoadSceneCoroutine(this._startScreen));
         }

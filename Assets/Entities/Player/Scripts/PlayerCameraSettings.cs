@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace VisualStudioEX3.Artemis.Player.Controllers
+namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
 {
     /// <summary>
     /// Player Camera Settings component.
@@ -21,10 +21,11 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         private const float DEFAULT_CAMERA_DISTANCE = -7.5f;
         #endregion
 
-        #region Inspector fields
-        [SerializeField]
-        private Camera _playerCamera;
+        #region Internal vars
+        private PlayerController _playerController;
+        #endregion
 
+        #region Inspector fields
         [SerializeField, Header("Camera position and rotation"), Tooltip("Y axis."), Range(MIN_CAMERA_HEIGHT, MAX_CAMERA_HEIGHT)]
         private float _cameraHeight = DEFAULT_CAMERA_HEIGHT;
 
@@ -32,21 +33,35 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         private float _cameraDistance = DEFAULT_CAMERA_DISTANCE;
         #endregion
 
+        #region Properties
+        public Transform PlayerCameraTransform
+        {
+            get
+            {
+                if (Application.isPlaying)
+                    return this._playerController.PlayerCamera.transform;
+                else
+                    return this.GetComponentInChildren<Camera>().transform;
+            }
+        }
+        #endregion
+
+        #region Initializers
+        private void Awake() => this._playerController = this.GetComponent<PlayerController>();
+        #endregion
+
         #region Methods & Functions
         private void UpdateCameraPosition()
         {
-            Quaternion localRotation = this._playerCamera.transform.localRotation;
+            Quaternion localRotation = this.PlayerCameraTransform.localRotation;
             var position = new Vector3(0f, this._cameraHeight, this._cameraDistance);
 
-            this._playerCamera.transform.localRotation = Quaternion.identity;
-            this._playerCamera.transform.localPosition = position;
-            this._playerCamera.transform.localRotation = localRotation;
+            this.PlayerCameraTransform.localRotation = Quaternion.identity;
+            this.PlayerCameraTransform.localPosition = position;
+            this.PlayerCameraTransform.localRotation = localRotation;
         }
 
-        private void UpdateCameraForward()
-        {
-            this._playerCamera.transform.forward = this.transform.position - this._playerCamera.transform.position;
-        }
+        private void UpdateCameraForward() => this.PlayerCameraTransform.forward = this.transform.position - this.PlayerCameraTransform.position;
         #endregion
 
         #region Event listeners
@@ -63,7 +78,7 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         {
             // Draws, in editor mode, the direction from the camera to the gameObject root.
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(this._playerCamera.transform.position, this.transform.position);
+            Gizmos.DrawLine(this.PlayerCameraTransform.position, this.transform.position);
         }
         #endregion
     }

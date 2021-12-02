@@ -3,7 +3,7 @@ using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
 
-namespace VisualStudioEX3.Artemis.Player.Controllers
+namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
 {
     /// <summary>
     /// Player Zoom controller.
@@ -27,6 +27,8 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         #endregion
 
         #region Internal vars
+        private PlayerController _playerController;
+
         private Vector3 _minZoomPosition;
         private Vector3 _maxZoomPosition;
 
@@ -35,20 +37,24 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         #endregion
 
         #region Inspector fields
-        [SerializeField]
-        private Camera _playerCamera;
         [SerializeField, Range(MIN_ZOOM_SPEED, MAX_ZOOM_SPEED)]
         private float _zoomSpeed = DEFAULT_ZOOM_SPEED;
+        #endregion
+
+        #region Properties
+        private Transform PlayerCameraTransform => this._playerController.PlayerCamera.transform; 
         #endregion
 
         #region Initializers
         private void Awake()
         {
+            this._playerController = this.GetComponent<PlayerController>();
+
             this.SubscribeInputEvents(inputMapAssetName: INPUT_MAP_ASSET_NAME,
                 zoomInActionName: ZOOM_IN_INPUT_ACTION_NAME,
                 zoomOutActionName: ZOOM_OUT_INPUT_ACTION_NAME);
 
-            this._playerCamera.transform.position = this.CalculatePositionFromFloorByDistance(DEFAULT_ZOOM_DISTANCE);
+            this.ResetZoomToDefault();
         }
 
         private void OnDestroy() => this.UnsubscribeInputEvents();
@@ -72,17 +78,17 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
             this._zoomOutAction.OnAction -= this.OnZoomOut;
         }
 
-        private Vector3 CalculateStep() => this._playerCamera.transform.forward * this._zoomSpeed * Time.deltaTime;
+        private Vector3 CalculateStep() => this.PlayerCameraTransform.forward * this._zoomSpeed * Time.deltaTime;
 
         private void ZoomInStep()
         {
-            this._playerCamera.transform.position += this.CalculateStep();
+            this.PlayerCameraTransform.position += this.CalculateStep();
             this.ClampZoom();
         }
 
         private void ZoomOutStep()
         {
-            this._playerCamera.transform.position -= this.CalculateStep();
+            this.PlayerCameraTransform.position -= this.CalculateStep();
             this.ClampZoom();
         }
 
@@ -92,13 +98,13 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
             this._maxZoomPosition = this.CalculatePositionFromFloorByDistance(MAX_ZOOM_DISTANCE);
         }
 
-        private Vector3 CalculatePositionFromFloorByDistance(float distance) => this.transform.position + (-this._playerCamera.transform.forward * distance);
+        private Vector3 CalculatePositionFromFloorByDistance(float distance) => this.transform.position + (-this.PlayerCameraTransform.forward * distance);
 
-        private float GetDistanceToFloor() => Vector3.Distance(this._playerCamera.transform.position, this.transform.position);
+        private float GetDistanceToFloor() => Vector3.Distance(this.PlayerCameraTransform.position, this.transform.position);
 
         private void ClampZoom()
         {
-            Vector3 position = this._playerCamera.transform.position;
+            Vector3 position = this.PlayerCameraTransform.position;
             float distance = this.GetDistanceToFloor();
 
             this.CalculateClampedVectors();
@@ -108,8 +114,13 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
             else if (distance > MAX_ZOOM_DISTANCE)
                 position = this._maxZoomPosition;
 
-            this._playerCamera.transform.position = position;
+            this.PlayerCameraTransform.position = position;
         }
+
+        /// <summary>
+        /// Resets the camera zoom factor to the default factor.
+        /// </summary>
+        public void ResetZoomToDefault() => this.PlayerCameraTransform.position = this.CalculatePositionFromFloorByDistance(DEFAULT_ZOOM_DISTANCE);
         #endregion
 
         #region Event listeners

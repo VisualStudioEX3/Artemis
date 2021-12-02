@@ -6,7 +6,7 @@ using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
 using VisualStudioEX3.Artemis.Turret.Placement;
 
-namespace VisualStudioEX3.Artemis.Player.Controllers
+namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
 {
     /// <summary>
     /// Player Mouse Target Controller.
@@ -22,13 +22,12 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         #endregion
 
         #region Internal vars
+        private PlayerController _playerController;
         private InputAxis _mousePositionAxis;
         private InputAction _mouseClickAction;
         #endregion
 
         #region Inspector fields
-        [SerializeField]
-        private Camera _playerCamera;
         [SerializeField, Layer]
         private int _targetLayer;
         [SerializeField]
@@ -38,6 +37,8 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
         #region Initializers & Terminators
         private void Awake()
         {
+            this._playerController = this.GetComponent<PlayerController>();
+
             this.SubscribeInputEvents(inputMapAssetName: INPUT_MAP_ASSET_NAME,
                 mousePositionAxisName: MOUSE_POSITION_INPUT_AXIS_NAME,
                 mouseClickActionName: MOUSE_CLICK_INPUT_ACTION_NAME,
@@ -59,7 +60,7 @@ namespace VisualStudioEX3.Artemis.Player.Controllers
 
         private void UnsubscribeInputEvents(Action eventListener) => this._mouseClickAction.OnAction -= eventListener;
 
-        private Ray CreateRayFromCameraToMousePosition() => this._playerCamera.ScreenPointToRay(this._mousePositionAxis);
+        private Ray CreateRayFromCameraToMousePosition() => this._playerController.PlayerCamera.ScreenPointToRay(this._mousePositionAxis);
 
         private int GetLayerMask() => 1 << this._targetLayer;
 
