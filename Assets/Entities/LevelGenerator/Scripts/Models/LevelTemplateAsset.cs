@@ -1,5 +1,6 @@
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.Entities.LevelGenerator.Constants;
+using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 
 namespace VisualStudioEX3.Artemis.Assets.LevelGenerator 
 {
@@ -11,9 +12,16 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator
     public class LevelTemplateAsset : ScriptableObject
     {
         #region Public vars
+        [TexturePreview, Tooltip("Bitmap that define the walls.")]
         public Texture2D _walls;
+        
+        [TexturePreview, Tooltip("Bitmap that define the enemy spawn points.")]
         public Texture2D _enemySpawners;
+
+        [TexturePreview, Tooltip("Bitamp that define the available turret placements.")]
         public Texture2D _turretPlacements;
+
+        [TexturePreview, Tooltip("Bitmap that define the player base location.")]
         public Texture2D _playerBase;
         #endregion
     }
