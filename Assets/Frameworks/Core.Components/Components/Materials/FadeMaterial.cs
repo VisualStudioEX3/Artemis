@@ -1,4 +1,5 @@
 using UnityEngine;
+using VisualStudioEX3.Artemis.Framework.Core.Contracts.Constants;
 
 namespace VisualStudioEX3.Artemis.Framework.Core.Components
 {
@@ -6,6 +7,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
     /// Fade material component.
     /// </summary>
     /// <remarks>Use this component to setup a fade-in fade-out effect based on the alpha <see cref="Color"/> component of the <see cref="Renderer"/> material.</remarks>
+    [DisallowMultipleComponent, AddComponentMenu(ComponentMenuPaths.FADE_MATERIAL_COMPONENT_MENU_NAMESPACE)]
     public class FadeMaterial : MonoBehaviour
     {
         #region Internal vars
@@ -33,7 +35,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
             Color color = this._material.color;
             color.a = Mathf.PingPong(Time.time * this.speed, 1f);
             this._material.color = color;
-        } 
+        }
         #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
     /// </summary>
     /// <remarks>This component ease to manage the different game scenes loading and unloading operations. 
     /// It's accessible as singleton instance from others scripts.</remarks>
-    [AddComponentMenu(ComponentMenuPaths.SCENE_MANAGER_COMPONENT_MENU_NAMESPACE), DisallowMultipleComponent]
+    [AddComponentMenu(ComponentMenuPaths.LEVEL_MANAGER_CONTROLLER_COMPONENT_MENU_NAMESPACE), DisallowMultipleComponent]
     public class SceneManager : MonoBehaviourSingleton<SceneManager>
     {
         #region Internal vars
