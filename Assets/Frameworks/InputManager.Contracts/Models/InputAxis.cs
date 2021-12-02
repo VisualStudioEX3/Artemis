@@ -94,7 +94,14 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// <summary>
         /// Gets an enumeration with all <see cref="InputAction"/> bindings in the following order: Left, Up, Right, Down.
         /// </summary>
-        public IEnumerable<InputAction> KeyboardBindings => this._keyboardBindings;
+        public IEnumerable<InputAction> KeyboardBindings
+        {
+            get
+            {
+                this._keyboardBindings ??= new InputAction[] { this.LeftKey, this.UpKey, this.RightKey, this.DownKey };
+                return this._keyboardBindings;
+            }
+        }
 
         /// <summary>
         /// Is the axis activated from keyboard?
@@ -126,10 +133,6 @@ namespace VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models
         /// </summary>
         /// <remarks>The event returns the current axis value.</remarks>
         public event Action<Vector2> OnAxisMove;
-        #endregion
-
-        #region Constructors
-        public InputAxis() => this._keyboardBindings = new InputAction[] { this.LeftKey, this.UpKey, this.RightKey, this.DownKey };
         #endregion
 
         #region Methods & Functions
