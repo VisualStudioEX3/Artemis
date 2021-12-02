@@ -15,6 +15,10 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
     /// <remarks>This component manages each enemy wave. It's accessible as singleton instance from others scripts.</remarks>
     public class WaveManager : MonoBehaviourSingleton<WaveManager>
     {
+        #region Internal vars
+        private WaveController _waveController; 
+        #endregion
+
         #region Inspector fields
         [SerializeField]
         private WaveAsset[] _waves;
@@ -50,6 +54,8 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         #region Initializers & Terminators
         public override void Awake()
         {
+            this._waveController = this.GetComponent<WaveController>();
+
             base.Awake();
             this.CreateEnemyInstances();
         }
@@ -60,7 +66,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 
             int waveNumber = 0;
             foreach (WaveAsset wave in this._waves)
-                yield return WaveController.Instance.StartNextWave(++waveNumber, wave);
+                yield return this._waveController.StartNextWaveCoroutine(++waveNumber, wave);
 
             this.OnAllWavesCompleted?.Invoke();
         }
