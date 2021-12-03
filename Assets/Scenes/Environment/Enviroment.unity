@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 0fc301f69dcc4b64d98723e7833623a1, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 42bc7ca21bfb35a42a59dc9111424ada, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: a1b091b05ce8bf04284e3c63a14aa481, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -547,7 +547,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1276160860}
+  - {fileID: 1304206289}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: {x: -0.025, y: -0.025}
+  _useSharedMaterial: 1
   _runInEditMode: 0
 --- !u!1 &1270872028
 GameObject:
@@ -689,7 +690,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270872028}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!21 &1276160860
+--- !u!21 &1304206289
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -698,8 +699,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: BattleGroundGrid (Instance)
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-  m_LightmapFlags: 2
+  m_ShaderKeywords: _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -731,7 +732,7 @@ Material:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: bbdd26e2d6959954e9ee460b3d01ffcf, type: 3}
         m_Scale: {x: 10, y: 10}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: -0.008333334, y: -0.008333334}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
