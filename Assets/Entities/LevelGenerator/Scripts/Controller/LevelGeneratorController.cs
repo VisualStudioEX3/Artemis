@@ -5,6 +5,7 @@ using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Controller;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Models;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Services;
+using VisualStudioEX3.Artemis.Assets.Player.Controllers;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Enums;
 using VisualStudioEX3.Artemis.Turret.Placement;
@@ -20,6 +21,10 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         private const float TOP_GRID = -9f;
 
         private static readonly string FINISH_BITMAP_PROCESS_LOG_MENSSAGE = $"{nameof(LevelGeneratorController)}::{{0}}: Finished to process the \"{{1}}\" bitmap.";
+        #endregion
+
+        #region Internal vars
+        private bool _isPlayerBaseInstantiate = false;
         #endregion
 
         #region Inspector fields
@@ -42,7 +47,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         [SerializeField]
         private TurretPlacementController _turretPlacementPrefab;
         [SerializeField]
-        private GameObject _playerBasePrefab;
+        private PlayerBaseController _playerBasePrefab;
 
         [Header("Root objects to place the elements"), SerializeField]
         private Transform _wallRootObject;
@@ -81,7 +86,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
             this.ProcessWallBitmap();
             this.ProcessEnemySpawnerBitmap();
             this.ProcessTurretPlacementBitmap();
-            // TODO: Process player base bitmap.
+            this.ProcessPlayerBaseBitmap();
         }
 
         private void DestroyInstances()
@@ -95,7 +100,11 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
             if (this._clearTurretPlacements)
                 this.DestroyAll<TurretPlacementController>(this._turretPlacementsRootObject);
 
-            // TODO: Destroy player base.
+            if (this._clearPlayerBase)
+            {
+                this.DestroyAll<PlayerBaseController>(this._playerBaseRootObject);
+                this._isPlayerBaseInstantiate = false;
+            }
         }
 
         private IEnumerable<T> DetachAndGetInstances<T>(Transform parent) where T : MonoBehaviour
@@ -140,9 +149,9 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         }
 
         private void ProcessWallBitmap() => this.ProcessBitmap(
-            bitmap: this._levelTemplate._walls, 
-            colorMask: this._wallColor, 
-            onPixelMatch: this.OnWallInstantiate, 
+            bitmap: this._levelTemplate._walls,
+            colorMask: this._wallColor,
+            onPixelMatch: this.OnWallInstantiate,
             caller: nameof(ProcessWallBitmap));
 
         private void ProcessEnemySpawnerBitmap() => this.ProcessBitmap(
@@ -152,10 +161,16 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
             caller: nameof(ProcessEnemySpawnerBitmap));
 
         private void ProcessTurretPlacementBitmap() => this.ProcessBitmap(
-            bitmap: this._levelTemplate._turretPlacements, 
-            colorMask: this._turretPlacementColor, 
-            onPixelMatch: this.OnTurretPlacementInstantiate, 
+            bitmap: this._levelTemplate._turretPlacements,
+            colorMask: this._turretPlacementColor,
+            onPixelMatch: this.OnTurretPlacementInstantiate,
             caller: nameof(ProcessTurretPlacementBitmap));
+
+        private void ProcessPlayerBaseBitmap() => this.ProcessBitmap(
+            bitmap: this._levelTemplate._playerBase,
+            colorMask: this._playerBaseLocationColor,
+            onPixelMatch: this.OnPlayerBaseInstantiate,
+            caller: nameof(ProcessPlayerBaseBitmap));
         #endregion
 
         #region Event listeners
@@ -168,13 +183,23 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         private void OnEnemySpawnerInstantiate(Vector2 bitmapPosition)
         {
             Vector3 gridPosition = this.ToGridCoordinates(bitmapPosition);
-            this.InstantiatePrefab(this._enemySpawnersRootObject, this._enemySpawnerPrefab.gameObject, gridPosition, isStatic: true);
+            this.InstantiatePrefab(this._enemySpawnersRootObject, this._enemySpawnerPrefab.gameObject, gridPosition, isStatic: false);
         }
 
         private void OnTurretPlacementInstantiate(Vector2 bitmapPosition)
         {
             Vector3 gridPosition = this.ToGridCoordinates(bitmapPosition);
-            this.InstantiatePrefab(this._turretPlacementsRootObject, this._turretPlacementPrefab.gameObject, gridPosition, isStatic: true);
+            this.InstantiatePrefab(this._turretPlacementsRootObject, this._turretPlacementPrefab.gameObject, gridPosition, isStatic: false);
+        }
+
+        private void OnPlayerBaseInstantiate(Vector2 bitmapPosition)
+        {
+            if (!this._isPlayerBaseInstantiate)
+            {
+                Vector3 gridPosition = this.ToGridCoordinates(bitmapPosition);
+                this.InstantiatePrefab(this._playerBaseRootObject, this._playerBasePrefab.gameObject, gridPosition, isStatic: false);
+                this._isPlayerBaseInstantiate = true;
+            }
         }
         #endregion
     }
