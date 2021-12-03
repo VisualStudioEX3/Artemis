@@ -205,7 +205,7 @@ MonoBehaviour:
   _wallPrefab: {fileID: -8764041129636960767, guid: b0b4a6d89500daa449c2811ca109e431, type: 3}
   _enemySpawnerPrefab: {fileID: 6859441590598580448, guid: 582f2acc9e1824242817f40f73628452, type: 3}
   _turretPlacementPrefab: {fileID: 859343544, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
-  _playerBasePrefab: {fileID: 0}
+  _playerBasePrefab: {fileID: 2304323928221971358, guid: 5f3b442961ccb8f4da05f38d964fb4da, type: 3}
   _wallRootObject: {fileID: 2587533828378947663}
   _enemySpawnersRootObject: {fileID: 1468369676880227704}
   _turretPlacementsRootObject: {fileID: 5829373159053207256}
