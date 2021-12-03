@@ -15,8 +15,8 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
     {
         #region Constants
         private const float GRID_SIZE = 20f;
-        private const float LEFT_GRID = -10;
-        private const float TOP_GRID = 10f;
+        private const float LEFT_GRID = -10f;
+        private const float TOP_GRID = -9f;
 
         private static readonly string FINISH_BITMAP_PROCESS_LOG_MENSSAGE = $"{nameof(LevelGeneratorController)}::{{0}}: Finished to process the \"{{1}}\" bitmap.";
         #endregion
@@ -69,15 +69,18 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         #region Methods & Functions
         private void GenerateLevel()
         {
+            this.ClearLevel();
+            this.ProcessBitmaps();
+        }
+
+        private void ClearLevel() => this.DestroyInstances();
+
+        private void ProcessBitmaps()
+        {
             this.ProcessWallBitmap(this._levelTemplate._walls);
             // TODO: Process enemy spawners bitmap.
             // TODO: Process turret placements bitmap.
             // TODO: Process player base bitmap.
-        }
-
-        private void ClearLevel()
-        {
-            this.DestroyInstances();
         }
 
         private void DestroyInstances()
@@ -108,7 +111,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
                 GameObject.DestroyImmediate(item.gameObject);
         }
 
-        private Vector3 ToGridCoordinates(Vector2 bitmapPosition) => new(x: LEFT_GRID + bitmapPosition.x, y: 0f, z: TOP_GRID - bitmapPosition.y);
+        private Vector3 ToGridCoordinates(Vector2 bitmapPosition) => new(x: LEFT_GRID + bitmapPosition.x, y: 0f, z: TOP_GRID + bitmapPosition.y);
 
         private string ProcessFinishBimtapProcessLogMessage(string source, string bitmap) => string.Format(FINISH_BITMAP_PROCESS_LOG_MENSSAGE, source, bitmap);
 
@@ -116,7 +119,10 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
 
         private void InstantiatePrefab(Transform target, GameObject prefab, Vector3 gridPosition, bool isStatic)
         {
-            GameObject instance = GameObject.Instantiate(prefab, gridPosition, Quaternion.identity, target);
+            GameObject instance = GameObject.Instantiate(prefab, target);
+
+            instance.transform.localPosition = gridPosition;
+            instance.transform.localRotation = Quaternion.identity;
             instance.isStatic = isStatic;
         }
 
