@@ -14,6 +14,8 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         #region Inspector fields
         [SerializeField]
         private Renderer _editorBattlegroundGrid;
+        [SerializeField]
+        private Transform _enemiesRootObject;
         #endregion
 
         #region Properties
@@ -33,7 +35,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         /// BattleGround Grid transform.
         /// </summary>
         /// <remarks>Use it to place the enemies when spawned them.</remarks>
-        public Transform BattleGroundGridTransform => this._editorBattlegroundGrid.transform;
+        public Transform EnemiesRootTransform => this._enemiesRootObject;
         #endregion
 
         #region Initializers
