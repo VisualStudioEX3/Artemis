@@ -79,7 +79,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         private void ProcessBitmaps()
         {
             this.ProcessWallBitmap();
-            // TODO: Process enemy spawners bitmap.
+            this.ProcessEnemySpawnerBitmap();
             this.ProcessTurretPlacementBitmap();
             // TODO: Process player base bitmap.
         }
@@ -145,6 +145,12 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
             onPixelMatch: this.OnWallInstantiate, 
             caller: nameof(ProcessWallBitmap));
 
+        private void ProcessEnemySpawnerBitmap() => this.ProcessBitmap(
+            bitmap: this._levelTemplate._enemySpawners,
+            colorMask: this._enemySpawnPointColor,
+            onPixelMatch: this.OnEnemySpawnerInstantiate,
+            caller: nameof(ProcessEnemySpawnerBitmap));
+
         private void ProcessTurretPlacementBitmap() => this.ProcessBitmap(
             bitmap: this._levelTemplate._turretPlacements, 
             colorMask: this._turretPlacementColor, 
@@ -157,6 +163,12 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         {
             Vector3 gridPosition = this.ToGridCoordinates(bitmapPosition);
             this.InstantiatePrefab(this._wallRootObject, this._wallPrefab.gameObject, gridPosition, isStatic: true);
+        }
+
+        private void OnEnemySpawnerInstantiate(Vector2 bitmapPosition)
+        {
+            Vector3 gridPosition = this.ToGridCoordinates(bitmapPosition);
+            this.InstantiatePrefab(this._enemySpawnersRootObject, this._enemySpawnerPrefab.gameObject, gridPosition, isStatic: true);
         }
 
         private void OnTurretPlacementInstantiate(Vector2 bitmapPosition)
