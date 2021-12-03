@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2231706370354503403}
   - component: {fileID: 859343544}
-  - component: {fileID: 859343545}
   m_Layer: 0
   m_Name: TurretPlacement
   m_TagString: Untagged
@@ -35,19 +34,6 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &859343544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2231706370354503402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 011e7eb2d51481c4193e5da548801470, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _triggerRenderer: {fileID: 2231706371430905018}
---- !u!114 &859343545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
