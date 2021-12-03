@@ -68,7 +68,8 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Services
 
         private void ProcessPixel(int x, int y)
         {
-            if (this.ReadPixel(x, y) == this._colorMask)
+            Color pixel = this.ReadPixel(x, y);
+            if (pixel == this._colorMask)
                 this.OnElementFound?.Invoke(new Vector2(x, y));
         }
         #endregion

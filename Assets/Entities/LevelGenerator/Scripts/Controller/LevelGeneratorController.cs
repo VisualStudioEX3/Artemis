@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
@@ -35,7 +36,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         private Color _playerBaseLocationColor = Color.blue;
 
         [Header("Prefabs"), SerializeField]
-        private GameObject _wallPrefab;
+        private WallTileController _wallPrefab;
         [SerializeField]
         private EnemySpawnerController _enemySpawnerPrefab;
         [SerializeField]
@@ -77,9 +78,9 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
 
         private void ProcessBitmaps()
         {
-            this.ProcessWallBitmap(this._levelTemplate._walls);
+            this.ProcessWallBitmap();
             // TODO: Process enemy spawners bitmap.
-            // TODO: Process turret placements bitmap.
+            this.ProcessTurretPlacementBitmap();
             // TODO: Process player base bitmap.
         }
 
@@ -119,29 +120,49 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
 
         private void InstantiatePrefab(Transform target, GameObject prefab, Vector3 gridPosition, bool isStatic)
         {
-            GameObject instance = GameObject.Instantiate(prefab, target);
+            var instance = GameObject.Instantiate(prefab, target);
 
             instance.transform.localPosition = gridPosition;
             instance.transform.localRotation = Quaternion.identity;
             instance.isStatic = isStatic;
         }
 
-        private void ProcessWallBitmap(Texture2D bitmap)
+        private void ProcessBitmap(Texture2D bitmap, Color colorMask, Action<Vector2> onPixelMatch, string caller)
         {
-            BitmapLevelProcessor bitmapLevelProcessor = new(bitmap, this._wallColor, GRID_SIZE);
+            BitmapLevelProcessor bitmapLevelProcessor = new(bitmap, colorMask, GRID_SIZE);
 
-            bitmapLevelProcessor.OnElementFound += this.OnWallInstantiate;
+            bitmapLevelProcessor.OnElementFound += onPixelMatch;
             bitmapLevelProcessor.Process();
 
-            this.LogFinishBitmapProcess(nameof(this.ProcessWallBitmap), bitmap.name);
+            this.LogFinishBitmapProcess(caller, bitmap.name);
+
+            bitmapLevelProcessor.OnElementFound -= onPixelMatch;
         }
+
+        private void ProcessWallBitmap() => this.ProcessBitmap(
+            bitmap: this._levelTemplate._walls, 
+            colorMask: this._wallColor, 
+            onPixelMatch: this.OnWallInstantiate, 
+            caller: nameof(ProcessWallBitmap));
+
+        private void ProcessTurretPlacementBitmap() => this.ProcessBitmap(
+            bitmap: this._levelTemplate._turretPlacements, 
+            colorMask: this._turretPlacementColor, 
+            onPixelMatch: this.OnTurretPlacementInstantiate, 
+            caller: nameof(ProcessTurretPlacementBitmap));
         #endregion
 
         #region Event listeners
         private void OnWallInstantiate(Vector2 bitmapPosition)
         {
             Vector3 gridPosition = this.ToGridCoordinates(bitmapPosition);
-            this.InstantiatePrefab(this._wallRootObject, this._wallPrefab, gridPosition, isStatic: true);
+            this.InstantiatePrefab(this._wallRootObject, this._wallPrefab.gameObject, gridPosition, isStatic: true);
+        }
+
+        private void OnTurretPlacementInstantiate(Vector2 bitmapPosition)
+        {
+            Vector3 gridPosition = this.ToGridCoordinates(bitmapPosition);
+            this.InstantiatePrefab(this._turretPlacementsRootObject, this._turretPlacementPrefab.gameObject, gridPosition, isStatic: true);
         }
         #endregion
     }
