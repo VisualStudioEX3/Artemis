@@ -4,7 +4,7 @@
     /// <summary>
     /// Sizes for inspector buttons created by <see cref="ButtonAttribute"/> attribute.
     /// </summary>
-    public enum GUIButtonSize
+    public enum EditorGUIButtonSize
     {
         /// <summary>
         /// Default Unity's button size.

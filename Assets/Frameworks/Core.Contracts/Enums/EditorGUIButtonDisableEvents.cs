@@ -4,7 +4,7 @@
     /// <summary>
     /// Events to define when the inspector buttons created by <see cref="ButtonAttribute"/> attribute must be disabled.
     /// </summary>
-    public enum GUIButtonDisableEvents
+    public enum EditorGUIButtonDisableEvents
     {
         /// <summary>
         /// The button is enable in play and editor modes.

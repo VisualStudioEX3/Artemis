@@ -28,17 +28,17 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Editor.Components.PropertyDrawe
 
             return this._attribute.size switch
             {
-                GUIButtonSize.Large => ButtonDrawer.LARGE_BUTTON_SIZE,
-                GUIButtonSize.Mini => ButtonDrawer.MINI_BUTTON_SIZE,
+                EditorGUIButtonSize.Large => ButtonDrawer.LARGE_BUTTON_SIZE,
+                EditorGUIButtonSize.Mini => ButtonDrawer.MINI_BUTTON_SIZE,
                 _ => ButtonDrawer.DEFAULT_BUTTON_SIZE,
             };
         }
 
         private GUIContent GetButtonLabel(GUIContent label) => string.IsNullOrEmpty(this._attribute.customLabel) ? label : new GUIContent(this._attribute.customLabel);
 
-        private bool EnableGUI() => this._attribute.disableOn == GUIButtonDisableEvents.Never ||
-                                    (this._attribute.disableOn == GUIButtonDisableEvents.EditorMode && EditorApplication.isPlaying) ||
-                                    (this._attribute.disableOn == GUIButtonDisableEvents.PlayMode && !EditorApplication.isPlaying);
+        private bool EnableGUI() => this._attribute.disableOn == EditorGUIButtonDisableEvents.Never ||
+                                    (this._attribute.disableOn == EditorGUIButtonDisableEvents.EditorMode && EditorApplication.isPlaying) ||
+                                    (this._attribute.disableOn == EditorGUIButtonDisableEvents.PlayMode && !EditorApplication.isPlaying);
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -52,7 +52,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Editor.Components.PropertyDrawe
             return GUI.Button(EditorGUI.IndentedRect(position), this.GetButtonLabel(label), style);
         }
 
-        private GUIStyle GetButtonStyle() => this._attribute.size == GUIButtonSize.Mini ? EditorStyles.miniButton : GUI.skin.button;
+        private GUIStyle GetButtonStyle() => this._attribute.size == EditorGUIButtonSize.Mini ? EditorStyles.miniButton : GUI.skin.button;
 
         private bool HasTargetMethod(SerializedProperty property) => !string.IsNullOrEmpty(property.stringValue);
 
@@ -73,11 +73,11 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Editor.Components.PropertyDrawe
 
         private ArgumentException FormatArgumentException(SerializedProperty property)
         {
-            string targetObjectName = this.GetTargetUnityObject(property).name;
+            string targetObject = this.GetTargetUnityObject(property).name;
 
             GUI.enabled = true; // Ensure that not disabled the next controls in the inspector.
 
-            return new ArgumentException($"{nameof(ButtonAttribute)}: The target method name is empty! Check if the string variable has a value!", paramName: targetObjectName);
+            return new ArgumentException($"{nameof(ButtonAttribute)}: The target method name is empty! Check if the string variable has a value!", paramName: targetObject);
         }
         #endregion
 

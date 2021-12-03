@@ -11,8 +11,8 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes
     {
         #region Public vars
         public readonly string customLabel;
-        public readonly GUIButtonSize size;
-        public readonly GUIButtonDisableEvents disableOn;
+        public readonly EditorGUIButtonSize size;
+        public readonly EditorGUIButtonDisableEvents disableOn;
         #endregion
 
         #region Constructor
@@ -22,7 +22,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes
         /// <param name="customLabel">Custom label to show in the button. By default using the variable name.</param>
         /// <param name="size">The button size. By default using the default button size.</param>
         /// <param name="disableOn">Disable the button when enter in the selected mode (by default is enable for play and editor modes).</param>
-        public ButtonAttribute(string customLabel = "", GUIButtonSize size = GUIButtonSize.Normal, GUIButtonDisableEvents disableOn = GUIButtonDisableEvents.Never)
+        public ButtonAttribute(string customLabel = "", EditorGUIButtonSize size = EditorGUIButtonSize.Normal, EditorGUIButtonDisableEvents disableOn = EditorGUIButtonDisableEvents.Never)
         {
             this.customLabel = customLabel;
             this.size = size;

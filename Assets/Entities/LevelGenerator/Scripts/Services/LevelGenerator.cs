@@ -40,7 +40,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Services
         [Header("Root grid object to place the elements"), SerializeField]
         private Transform _gridFloor;
 
-        [SerializeField, Space, Button(customLabel: "Generate level", size: GUIButtonSize.Large, disableOn: GUIButtonDisableEvents.PlayMode)]
+        [SerializeField, Space, Button(customLabel: "Generate level", size: EditorGUIButtonSize.Large, disableOn: EditorGUIButtonDisableEvents.PlayMode)]
         public string _generateButtonName = nameof(GenerateLevel);
         #endregion
 
