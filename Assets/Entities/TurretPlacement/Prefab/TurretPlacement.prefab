@@ -56,11 +56,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2231706370354503402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1abb17ccd32067a4aaab68e76c79af77, type: 3}
+  m_Script: {fileID: 11500000, guid: 011e7eb2d51481c4193e5da548801470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 2231706371430905018}
-  speed: 1
+  _triggerRenderer: {fileID: 2231706371430905018}
 --- !u!1 &2231706371430905023
 GameObject:
   m_ObjectHideFlags: 0
