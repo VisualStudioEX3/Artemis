@@ -32,6 +32,9 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2587533828378947663}
+  - {fileID: 1468369676880227704}
+  - {fileID: 5829373159053207256}
+  - {fileID: 1452175613707006597}
   m_Father: {fileID: 1727538930}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -198,12 +201,20 @@ MonoBehaviour:
   _enemySpawnPointColor: {r: 1, g: 0, b: 0, a: 1}
   _turretPlacementColor: {r: 0, g: 1, b: 0, a: 1}
   _playerBaseLocationColor: {r: 0, g: 0, b: 1, a: 1}
-  _wallPrefab: {fileID: 6039915568026888167, guid: b0b4a6d89500daa449c2811ca109e431, type: 3}
+  _wallPrefab: {fileID: 8963868026015684435, guid: b0b4a6d89500daa449c2811ca109e431, type: 3}
   _enemySpawnerPrefab: {fileID: 0}
   _turretPlacementPrefab: {fileID: 859343544, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
   _playerBasePrefab: {fileID: 0}
-  _gridFloor: {fileID: 2587533828378947663}
+  _wallRootObject: {fileID: 2587533828378947663}
+  _enemySpawnersRootObject: {fileID: 1468369676880227704}
+  _turretPlacementsRootObject: {fileID: 5829373159053207256}
+  _playerBaseRootObject: {fileID: 1452175613707006597}
   _generateButtonName: GenerateLevel
+  _clearButtonName: ClearLevel
+  _clearWalls: 1
+  _clearEnemySpawners: 1
+  _clearTurretPlacements: 1
+  _clearPlayerBase: 1
 --- !u!114 &1858701298381577346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +260,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b009c97c92a4c44196b44b7fe726736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1934227318084231641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1452175613707006597}
+  m_Layer: 0
+  m_Name: PlayerBaseRootNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1452175613707006597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934227318084231641}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1194645644}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &3252557103924842879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5829373159053207256}
+  m_Layer: 0
+  m_Name: TurretPlacementsRootNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &5829373159053207256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3252557103924842879}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1194645644}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &5576354748911796169
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2587533828378947663}
   m_Layer: 0
-  m_Name: WallTiles
+  m_Name: WallTilesRootNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,4 +352,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1194645644}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &6629447659230955474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1468369676880227704}
+  m_Layer: 0
+  m_Name: EnemySpawnersRootNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1468369676880227704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6629447659230955474}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1194645644}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
