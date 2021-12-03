@@ -17,6 +17,8 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components.Materials
         #region Inspector fields
         [SerializeField]
         private Vector2 _speed = Vector2.one;
+        [SerializeField]
+        private bool _useSharedMaterial = false;
         [SerializeField, Tooltip("Enabled this to allow test the effect in edit mode.")]
         private bool _runInEditMode = false;
         #endregion
@@ -37,7 +39,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components.Materials
         private void GetRendererMaterialData()
         {
             MeshRenderer renderer = this.GetComponent<MeshRenderer>();
-            this._material = renderer.material;
+            this._material = this._useSharedMaterial ? renderer.sharedMaterial : renderer.material;
         }
 
         /// <summary>

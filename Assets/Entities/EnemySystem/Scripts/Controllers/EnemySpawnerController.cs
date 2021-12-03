@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Services;
+using VisualStudioEX3.Artemis.Assets.LevelManagement;
 
 namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 {
@@ -18,7 +19,8 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         public void SpawnEnemy(Type enemyType)
         {
             EnemyController instance = EnemyControllerFactory.Instance.GetEnemyInstance(enemyType);
-            
+
+            instance.transform.parent = LevelManagerController.Instance.EnemiesRootTransform;
             instance.transform.position = this.transform.position;
             instance.transform.forward = this.transform.forward;
 

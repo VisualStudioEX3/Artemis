@@ -57,7 +57,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
             yield return new WaitForSeconds(data.startToSpawnDelay);
 
             for (int i = 0; i < data.count; i++)
-                this._waveManager.GetRandomSpawner().SpawnEnemy(data.enemy.GetType());
+                this._waveManager.GetRandomEnemySpawnLocation().SpawnEnemy(data.enemy.GetType());
         }
         #endregion
     }

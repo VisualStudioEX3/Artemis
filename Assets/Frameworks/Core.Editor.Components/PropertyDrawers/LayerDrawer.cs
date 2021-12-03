@@ -1,7 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using VisualStudioEX3.Artemis.Framework.Core.Contracts;
+using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 
 namespace VisualStudioEX3.Artemis.Framework.Core.Editor.Components
 {
