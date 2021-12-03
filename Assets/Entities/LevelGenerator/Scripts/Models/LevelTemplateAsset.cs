@@ -2,7 +2,7 @@ using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.Entities.LevelGenerator.Constants;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 
-namespace VisualStudioEX3.Artemis.Assets.LevelGenerator 
+namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Models
 {
     /// <summary>
     /// Level Template.
