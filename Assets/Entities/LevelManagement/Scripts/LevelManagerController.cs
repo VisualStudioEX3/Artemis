@@ -4,29 +4,49 @@ using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement.Constants;
 using VisualStudioEX3.Artemis.Assets.Player.Controllers;
 using VisualStudioEX3.Artemis.Assets.Scenes.Controllers;
+using VisualStudioEX3.Artemis.Framework.Core.Components;
 
 namespace VisualStudioEX3.Artemis.Assets.LevelManagement
 {
     [AddComponentMenu(ComponentMenuPaths.LEVEL_MANAGER_CONTROLLER_COMPONENT_MENU_NAMESPACE), DisallowMultipleComponent]
-    public class LevelManagerController : MonoBehaviour
+    public class LevelManagerController : MonoBehaviourSingleton<LevelManagerController>
     {
-        #region Properties
-        public PlayerBaseController PlayerBase { get; private set; }
-        public IEnumerable<EnemySpawnerController> EnemySpawnLocations { get; private set; }
-        #endregion
-
         #region Inspector fields
         [SerializeField]
         private Renderer _editorBattlegroundGrid;
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Player Base reference.
+        /// </summary>
+        /// <remarks>Use it for enemy AI.</remarks>
+        public PlayerBaseController PlayerBase { get; private set; }
+
+        /// <summary>
+        /// Enemy spawn locations.
+        /// </summary>
+        /// <remarks>Use it for spawn enemies from <see cref="EnemySpawnerController"/> instances.</remarks>
+        public IReadOnlyList<EnemySpawnerController> EnemySpawnLocations { get; private set; }
+
+        /// <summary>
+        /// BattleGround Grid transform.
+        /// </summary>
+        /// <remarks>Use it to place the enemies when spawned them.</remarks>
+        public Transform BattleGroundGridTransform => this._editorBattlegroundGrid.transform;
+        #endregion
+
         #region Initializers
-        private void Awake()
+        public override void Awake()
         {
+            base.Awake();
+
             this.InitializeLevel();
             this.GetPlayerBaseObject();
             this.GetAllEnemySpawnersInScene();
         }
+
+        public override void OnDestroy() => base.OnDestroy();
         #endregion
 
         #region Methods & Functions
