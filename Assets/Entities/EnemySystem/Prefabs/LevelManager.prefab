@@ -203,7 +203,7 @@ MonoBehaviour:
   _turretPlacementColor: {r: 0, g: 1, b: 0, a: 1}
   _playerBaseLocationColor: {r: 0, g: 0, b: 1, a: 1}
   _wallPrefab: {fileID: -8764041129636960767, guid: b0b4a6d89500daa449c2811ca109e431, type: 3}
-  _enemySpawnerPrefab: {fileID: 0}
+  _enemySpawnerPrefab: {fileID: 6859441590598580448, guid: 582f2acc9e1824242817f40f73628452, type: 3}
   _turretPlacementPrefab: {fileID: 859343544, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
   _playerBasePrefab: {fileID: 0}
   _wallRootObject: {fileID: 2587533828378947663}
