@@ -94,14 +94,17 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
             // TODO: Destroy player base.
         }
 
-        private IEnumerable<T> GetAllInstancesInScene<T>() where T : MonoBehaviour => GameObject.FindObjectsOfType<T>();
-
-        private void DestroyAll<T>(Transform parent) where T : MonoBehaviour
+        private IEnumerable<T> DetachAndGetInstances<T>(Transform parent) where T : MonoBehaviour
         {
             parent.DetachChildren();    // The new Prefab workflow (since last time I use Unity) not allow to destroy objects from prefabs.
                                         // I detached first from his Transform parent to then located by their component to destroy them.
 
-            foreach (T item in this.GetAllInstancesInScene<T>())
+            return GameObject.FindObjectsOfType<T>();
+        }
+
+        private void DestroyAll<T>(Transform parent) where T : MonoBehaviour
+        {
+            foreach (T item in this.DetachAndGetInstances<T>(parent))
                 GameObject.DestroyImmediate(item.gameObject);
         }
 
