@@ -1,7 +1,9 @@
 using UnityEngine;
+using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Models;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Enums;
+using VisualStudioEX3.Artemis.Turret.Placement;
 
 namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Services
 {
@@ -18,15 +20,24 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Services
         private LevelTemplateAsset _levelTemplate;
 
         [Header("Bitmap pixel color element assignation"), SerializeField, ColorUsage(showAlpha: false, hdr: false)]
-        private Color _wall = Color.black;
+        private Color _wallColor = Color.black;
         [SerializeField, ColorUsage(showAlpha: false, hdr: false)]
-        private Color _enemySpawnPoint = Color.red;
+        private Color _enemySpawnPointColor = Color.red;
         [SerializeField, ColorUsage(showAlpha: false, hdr: false)]
-        private Color _turretPlacement = Color.green;
+        private Color _turretPlacementColor = Color.green;
         [SerializeField, ColorUsage(showAlpha: false, hdr: false)]
-        private Color _playerBaseLocation = Color.blue;
+        private Color _playerBaseLocationColor = Color.blue;
 
-        [Space, SerializeField]
+        [Header("Prefabs"), SerializeField]
+        private Transform _wallPrefab;
+        [SerializeField]
+        private EnemySpawnerController _enemySpawnerPrefab;
+        [SerializeField]
+        private TurretPlacementController _turretPlacementPrefab;
+        [SerializeField]
+        private Transform _playerBasePrefab;
+
+        [Header("Root grid object to place the elements"), SerializeField]
         private Transform _gridFloor;
 
         [SerializeField, Space, Button(customLabel: "Generate level", size: GUIButtonSize.Large, disableOn: GUIButtonDisableEvents.PlayMode)]

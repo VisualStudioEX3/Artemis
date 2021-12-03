@@ -194,7 +194,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelTemplate: {fileID: 0}
+  _wallColor: {r: 0, g: 0, b: 0, a: 1}
+  _enemySpawnPointColor: {r: 1, g: 0, b: 0, a: 1}
+  _turretPlacementColor: {r: 0, g: 1, b: 0, a: 1}
+  _playerBaseLocationColor: {r: 0, g: 0, b: 1, a: 1}
+  _wallPrefab: {fileID: 6039915568026888167, guid: b0b4a6d89500daa449c2811ca109e431, type: 3}
+  _enemySpawnerPrefab: {fileID: 0}
+  _turretPlacementPrefab: {fileID: 859343544, guid: c47fc5f7b37255d4aa7f243a9b578c1a, type: 3}
+  _playerBasePrefab: {fileID: 0}
   _gridFloor: {fileID: 2587533828378947663}
+  _generateButtonName: GenerateLevel
 --- !u!114 &1858701298381577346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,9 +217,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waves:
-  - {fileID: 11400000, guid: 1cffbc90b12859c459b5d9de655c6a15, type: 2}
-  - {fileID: 11400000, guid: 0b3a4cdbf90809a498c659124ef32cfc, type: 2}
-  - {fileID: 11400000, guid: 4cbdb7e6011ad054297ef38f3258961f, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _spawnLocations:
   - {fileID: 0}
   - {fileID: 0}

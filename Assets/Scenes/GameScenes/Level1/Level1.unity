@@ -130,6 +130,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1858701298381577346, guid: fcc7710aa796d4f49a6a0e0d16800c61, type: 3}
+      propertyPath: _waves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cffbc90b12859c459b5d9de655c6a15, type: 2}
+    - target: {fileID: 1858701298381577346, guid: fcc7710aa796d4f49a6a0e0d16800c61, type: 3}
+      propertyPath: _waves.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0b3a4cdbf90809a498c659124ef32cfc, type: 2}
+    - target: {fileID: 1858701298381577346, guid: fcc7710aa796d4f49a6a0e0d16800c61, type: 3}
+      propertyPath: _waves.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4cbdb7e6011ad054297ef38f3258961f, type: 2}
     - target: {fileID: 1858701298381577347, guid: fcc7710aa796d4f49a6a0e0d16800c61, type: 3}
       propertyPath: m_RootOrder
       value: 0
