@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f48295ae69eb24bbe02886dc870f58, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  _walls: {fileID: 2800000, guid: a10123413625e95499ca14bb75b6fbb9, type: 3}
+  _walls: {fileID: 2800000, guid: d05bc901014a4b14a83857af0a39fbf6, type: 3}
   _enemySpawners: {fileID: 0}
   _turretPlacements: {fileID: 0}
   _playerBase: {fileID: 0}
