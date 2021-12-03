@@ -141,6 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1858701298381577347}
   - component: {fileID: 7423413539313673934}
+  - component: {fileID: 4477282560029185527}
   - component: {fileID: 1858701298381577346}
   - component: {fileID: 1858701298381577344}
   - component: {fileID: 4701177023829358957}
@@ -180,6 +181,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _editorBattlegroundGrid: {fileID: 1194645646}
+--- !u!114 &4477282560029185527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858701298381577349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0588c8f2b6dbee4aa19cea1b4de217c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelTemplate: {fileID: 0}
+  _gridFloor: {fileID: 2587533828378947663}
 --- !u!114 &1858701298381577346
 MonoBehaviour:
   m_ObjectHideFlags: 0
