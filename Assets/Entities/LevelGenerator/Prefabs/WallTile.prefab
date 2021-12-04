@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2001682659702868816}
   - component: {fileID: 2798770743036910425}
   - component: {fileID: 5421874486480115834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TileRender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6039915568026888167}
   - component: {fileID: -8764041129636960767}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

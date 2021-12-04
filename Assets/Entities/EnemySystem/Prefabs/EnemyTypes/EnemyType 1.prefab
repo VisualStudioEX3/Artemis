@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4384945027563236671}
   - component: {fileID: 5147699200988056043}
   - component: {fileID: 2514033734865717610}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8545400243808679263}
   - component: {fileID: 8951358113019726757}
   - component: {fileID: 2287333233004280216}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyType 1
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -135,7 +135,6 @@ MonoBehaviour:
   _speed: 3
   _priority: 10
   _scaleFactor: 0.5
-  _radius: 0.5
 --- !u!195 &8951358113019726757
 NavMeshAgent:
   m_ObjectHideFlags: 0

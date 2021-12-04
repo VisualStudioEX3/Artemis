@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7794143602007848952}
   - component: {fileID: 3575966873731344207}
   - component: {fileID: 6567611164459473765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3576796743029942796}
   - component: {fileID: 1709194914840571611}
   - component: {fileID: 962866001948381355}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4384945027563236671}
   - component: {fileID: 5763409135995604641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 8545400243808679263}
   - component: {fileID: 8951358113019726757}
   - component: {fileID: 2287333233004280216}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyType 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,6 @@ MonoBehaviour:
   _speed: 1.5
   _priority: 5
   _scaleFactor: 0.75
-  _radius: 0.75
 --- !u!195 &8951358113019726757
 NavMeshAgent:
   m_ObjectHideFlags: 0
