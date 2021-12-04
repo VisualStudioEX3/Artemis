@@ -369,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2231706370354503403}
   - component: {fileID: 2447158898894375354}
+  - component: {fileID: 8108907760800367917}
   m_Layer: 0
   m_Name: Turret Type 1
   m_TagString: Untagged
@@ -408,9 +409,25 @@ MonoBehaviour:
   _waitForSearchForNewTarget: 1
   _searchRadius: 10
   _rotationSpeed: 1
-  _canRotate: 1
   _wallLayer: 7
   _targetLayer: 8
+  _targetTag: Enemy
+--- !u!208 &8108907760800367917
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231706370354503402}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.5, y: 0.5, z: -0.5}
+  m_TimeToStationary: 0.5
 --- !u!1 &2231706371430905023
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +474,7 @@ GameObject:
   - component: {fileID: 9084671925715973535}
   - component: {fileID: 4423034991164498966}
   m_Layer: 0
-  m_Name: Capsule (1)
+  m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
