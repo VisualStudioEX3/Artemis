@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0413b2bf5e86384ebb026a05bf024d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rootTurretTransform: {fileID: 0}
+  _rootTurretTransform: {fileID: 2231706371430905016}
   _waitForSearchForNewTarget: 1
   _searchRadius: 2.5
   _rotationSpeed: 1
