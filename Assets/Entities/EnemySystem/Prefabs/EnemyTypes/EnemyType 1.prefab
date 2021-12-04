@@ -135,6 +135,7 @@ MonoBehaviour:
   _speed: 3
   _priority: 10
   _scaleFactor: 0.5
+  _radius: 0.5
 --- !u!195 &8951358113019726757
 NavMeshAgent:
   m_ObjectHideFlags: 0
