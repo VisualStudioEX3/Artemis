@@ -67,7 +67,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         {
             NavMeshAgent agent = this.GetComponent<NavMeshAgent>();
 
-            agent.speed = this._speed;
+            agent.speed = agent.radius = this._speed;
             agent.SetDestination(LevelManagerController.Instance.PlayerBase.transform.position);
         }
         #endregion
