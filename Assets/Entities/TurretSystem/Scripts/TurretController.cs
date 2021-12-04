@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
+using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 
 namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 {
@@ -20,11 +21,9 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private const float MAX_ROTATION_SPEED = 10f;
         private const float DEFAULT_ROTATION_SPEED = 1f;
 
-        private const float MIN_SEARCH_RADIUS = 1f;
-        private const float MAX_SEARCH_RADIUS = 10f;
-        private const float DEFAULT_SEARCH_RADIUS = 2.5f;
-
-        private const bool DEFAULT_CAN_ROTATE = true;
+        private const float MIN_SEARCH_RADIUS = 5f;
+        private const float MAX_SEARCH_RADIUS = 50f;
+        private const float DEFAULT_SEARCH_RADIUS = 15f;
         #endregion
 
         #region Inspector fields
@@ -36,8 +35,10 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private float _searchRadius = DEFAULT_SEARCH_RADIUS;
         [SerializeField, Range(MIN_ROTATION_SPEED, MAX_ROTATION_SPEED)]
         private float _rotationSpeed = DEFAULT_ROTATION_SPEED;
-        [SerializeField]
-        private bool _canRotate = DEFAULT_CAN_ROTATE;
+        [SerializeField, Layer, Tooltip("Layer used to block the raycast.")]
+        private int _wallLayer;
+        [SerializeField, Layer, Tooltip("Layer to lookup only for enemies.")]
+        private int _targetLayer;
         #endregion
 
         #region Internal vars
@@ -65,11 +66,19 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
             return target;
         }
 
-        private Vector3 GetForwardVectorToTarget(Transform target) => target.forward - this.transform.forward;
-
-        private Quaternion GetRotationQuaternionToTheTarget(Transform target) => Quaternion.LookRotation(this.GetForwardVectorToTarget(target), Vector3.up);
+        private Vector3 GetForwardVectorToTarget(Transform target) => (target.position - this.transform.position).normalized;
 
         private bool IsATargetInRange(out Transform target) => this.TryGetNearestTarget(out target) && this.IsDistanceToTargetInRange(target.transform);
+
+        private int GenerateLayerMask() => (1 << this._wallLayer) | (1 << this._targetLayer);
+
+        private bool RaycastToTarget(Transform target) => Physics.Raycast(
+            origin: this._rootTurretTransform.position, 
+            direction: this.GetForwardVectorToTarget(target), 
+            maxDistance: this._searchRadius,
+            layerMask: this.GenerateLayerMask());
+
+        private bool IsTargetVisible(Transform target) => this.RaycastToTarget(target);
 
         private void StartToSearchNearestTarget() => this.StartCoroutine(this.SearchNearestTargetCoroutine());
 
@@ -80,6 +89,45 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 
             this._lookAtTargetCoroutineInstance = this.StartCoroutine(this.LookAtTargetCoroutine(target));
         }
+
+        private void UpdateForwardToTarget(Transform target, float speed)
+        {
+            this._rootTurretTransform.forward = Vector3.Slerp(this._rootTurretTransform.forward, this.GetForwardVectorToTarget(target), speed);
+        }
+
+        private Transform GetRandomEnemySpawnerTransform() => LevelManagerController.Instance.GetRandomEnemySpawnLocation().transform;
+
+        private Transform GetTarget()
+        {
+            bool hasTarget = this.IsATargetInRange(out Transform target) && this.IsTargetVisible(target);
+
+            if (!hasTarget)
+                target = this.GetRandomEnemySpawnerTransform(); // "Distracted" the turret aimin a random enemy spawner while not has an enemy target to aim.
+
+            return target;
+        }
+
+        private float CalculateRotationSpeed() => this._rotationSpeed * Time.deltaTime;
+
+        private void DrawRadiusGizmo()
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(this._rootTurretTransform.position, this._searchRadius);
+        }
+
+        private void DrawForwardGizmo()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(this._rootTurretTransform.position, this._rootTurretTransform.forward * this._searchRadius);
+        }
+        #endregion
+
+        #region Event listeners
+        private void OnDrawGizmosSelected()
+        {
+            this.DrawRadiusGizmo();
+            this.DrawForwardGizmo();
+        }
         #endregion
 
         #region Coroutines
@@ -89,10 +137,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
             {
                 yield return new WaitForSeconds(this._waitForSearchForNewTarget);
 
-                if (!this.IsATargetInRange(out Transform target))
-                    target = LevelManagerController.Instance.GetRandomEnemySpawnLocation().transform; // "Distracted" the turret while not has a target to look at.
-
-                this.StartToLookAtNewTarget(target);
+                this.StartToLookAtNewTarget(this.GetTarget());
             }
         }
 
@@ -100,10 +145,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         {
             while (target.gameObject.activeInHierarchy)
             {
-                Quaternion lookRotationToTarget = this.GetRotationQuaternionToTheTarget(target);
-                float maxDegreesDelta = this._rotationSpeed * Time.deltaTime;
-
-                this._rootTurretTransform.rotation = Quaternion.RotateTowards(this._rootTurretTransform.rotation, lookRotationToTarget, maxDegreesDelta);
+                this.UpdateForwardToTarget(target, this.CalculateRotationSpeed());
 
                 yield return null;
             }
