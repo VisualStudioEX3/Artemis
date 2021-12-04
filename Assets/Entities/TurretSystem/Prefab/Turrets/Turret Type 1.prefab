@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 2231706370354503403}
   - component: {fileID: 2447158898894375354}
   m_Layer: 0
-  m_Name: Turret
+  m_Name: Turret Type 1
   m_TagString: Untagged
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -404,8 +404,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0413b2bf5e86384ebb026a05bf024d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _root: {fileID: 2231706371430905016}
+  _rootTurretTransform: {fileID: 0}
   _waitForSearchForNewTarget: 1
+  _searchRadius: 2.5
   _rotationSpeed: 1
   _canRotate: 1
 --- !u!1 &2231706371430905023
