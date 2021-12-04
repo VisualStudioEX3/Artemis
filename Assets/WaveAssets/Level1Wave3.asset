@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Level1Wave3
   m_EditorClassIdentifier: 
   enemyTypes:
-  - enemy: {fileID: 0}
+  - enemy: {fileID: 8545400243808679263, guid: 1aa50077a9481b34b9ed05a8806ae22f, type: 3}
     count: 30
     startToSpawnDelay: 0
     maxDelayBetweenSpawns: 0.5
-  - enemy: {fileID: 0}
+  - enemy: {fileID: 8545400243808679263, guid: 1aa50077a9481b34b9ed05a8806ae22f, type: 3}
     count: 20
     startToSpawnDelay: 10
     maxDelayBetweenSpawns: 1
-  - enemy: {fileID: 0}
+  - enemy: {fileID: 8545400243808679263, guid: 1aa50077a9481b34b9ed05a8806ae22f, type: 3}
     count: 10
     startToSpawnDelay: 30
     maxDelayBetweenSpawns: 1.25
