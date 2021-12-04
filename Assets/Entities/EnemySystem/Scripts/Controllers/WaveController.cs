@@ -24,7 +24,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private void Awake() => this._waveManager = this.GetComponent<WaveManager>();
 
         #region Event listernes
-        public void OnEnemyDead()
+        public void OnEnemyDead(int reward)
         {
             if (++this._deaths == this._totalWaveEnemies)
                 this._waveManager.RaiseOnWaveFinished(this._waveNumber);

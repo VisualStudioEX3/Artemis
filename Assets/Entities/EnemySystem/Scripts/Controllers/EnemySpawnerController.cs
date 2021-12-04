@@ -22,6 +22,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 
             instance.transform.parent = LevelManagerController.Instance.EnemiesRootTransform;
             instance.transform.position = this.transform.position;
+            instance.transform.localScale = this.transform.localScale * instance.ScaleFactor;
             instance.transform.forward = this.transform.forward;
 
             instance.gameObject.SetActive(true);

@@ -1,18 +1,83 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.AI;
+using VisualStudioEX3.Artemis.Assets.LevelManagement;
 
 namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 {
     /// <summary>
-    /// Base class for enemies.
+    /// Enemy Controller.
     /// </summary>
+    /// <remarks>Defines the enemy behaviour.</remarks>
+    [DisallowMultipleComponent, RequireComponent(typeof(NavMeshAgent))]
     public class EnemyController : MonoBehaviour
     {
+        #region Constants
+        private const int MIN_HEALTH = 1;
+        private const int MAX_HEALTH = 50;
+        private const int DEFAULT_HEALTH = 5;
+
+        private const int MIN_REWARD = 5;
+        private const int MAX_REWARD = 50;
+        private const int DEFAULT_REWARD = 5;
+
+        private const float MIN_SPEED = 1f;
+        private const float MAX_SPEED = 10f;
+        private const float DEFAULT_SPEED = 1f;
+
+        private const int MIN_PRIORITY = 0;
+        private const int MAX_PRIORITY = 10;
+        private const int DEFAULT_PRIORITY = 1;
+        #endregion
+
+        #region Inspector fields
+        [SerializeField, Range(MIN_HEALTH, MAX_HEALTH)]
+        private int _health = DEFAULT_HEALTH;
+        [SerializeField, Range(MIN_REWARD, MAX_REWARD)]
+        private int _reward = DEFAULT_REWARD;
+        [SerializeField, Range(MIN_SPEED, MAX_SPEED)]
+        private float _speed = DEFAULT_SPEED;
+        [SerializeField, Range(MIN_PRIORITY, MAX_PRIORITY)]
+        private int _priority = DEFAULT_PRIORITY;
+        [SerializeField]
+        private float _scaleFactor = 1f;
+        #endregion
+
         #region Events
         /// <summary>
         /// Notifies when the enemy is dead.
         /// </summary>
-        public event Action OnDead; 
+        /// <remarks>Returns an amount of coins as reward.</remarks>
+        public event Action<int> OnDead;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Use this value to modify the final scale of the enemy when is spawned.
+        /// </summary>
+        public float ScaleFactor => this._scaleFactor; 
+        #endregion
+
+        #region Initializers
+        private void Start() => this.SetupNavAgent();
+        #endregion
+
+        #region Methods & Functions
+        private void SetupNavAgent()
+        {
+            NavMeshAgent agent = this.GetComponent<NavMeshAgent>();
+
+            agent.speed = agent.radius = this._speed;
+            agent.SetDestination(LevelManagerController.Instance.PlayerBase.transform.position);
+        }
+        #endregion
+
+        #region Event listeners
+        private void OnCollisionEnter(Collision collision)
+        {
+            // TODO: Get the component of the collision object.
+            // TODO: If is a <turret bullet type>, apply the shoot damage.
+        } 
         #endregion
     }
 }
