@@ -23,8 +23,10 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components.Materials
         private bool _runInEditMode = false;
         #endregion
 
-        #region Initializers
+        #region Initializers & Terminators
         private void Awake() => this.GetRendererMaterialData();
+        
+        private void OnDestroy() => this.OnDisable();
         #endregion
 
         #region Update logic
@@ -51,6 +53,10 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components.Materials
         /// Resets the the material offset.
         /// </summary>
         public void ResetScroll() => this._material.mainTextureOffset = Vector2.zero;
+        #endregion
+
+        #region Event listeners
+        private void OnDisable() => this.ResetScroll(); 
         #endregion
     }
 }
