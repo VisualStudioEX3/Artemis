@@ -77,7 +77,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
         #endregion
 
         #region Event listeners
-        private void OnEnemyDead()
+        private void OnEnemyDead(int reward)
         {
             if (++this._deaths == this._instances.Count)
                 WaveManager.Instance.RaiseOnAllWavesCompleted();
