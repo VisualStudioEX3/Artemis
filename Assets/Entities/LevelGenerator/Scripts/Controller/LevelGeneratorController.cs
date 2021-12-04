@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Controller;
-using VisualStudioEX3.Artemis.Assets.LevelGenerator.Models;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Services;
 using VisualStudioEX3.Artemis.Assets.Player.Controllers;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
@@ -28,8 +27,8 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
         #endregion
 
         #region Inspector fields
-        [SerializeField]
-        private LevelTemplateAsset _levelTemplate;
+        [SerializeField, TexturePreview]
+        private Texture2D _levelBitmapTemplate;
 
         [Header("Bitmap pixel color element assignation"), SerializeField, ColorUsage(showAlpha: false, hdr: false)]
         private Color _wallColor = Color.black;
@@ -136,38 +135,34 @@ namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
             instance.isStatic = isStatic;
         }
 
-        private void ProcessBitmap(Texture2D bitmap, Color colorMask, Action<Vector2> onPixelMatch, string caller)
+        private void ProcessBitmap(Color colorMask, Action<Vector2> onPixelMatch, string caller)
         {
-            BitmapLevelProcessor bitmapLevelProcessor = new(bitmap, colorMask, GRID_SIZE);
+            BitmapLevelProcessor bitmapLevelProcessor = new(this._levelBitmapTemplate, colorMask, GRID_SIZE);
 
             bitmapLevelProcessor.OnElementFound += onPixelMatch;
             bitmapLevelProcessor.Process();
 
-            this.LogFinishBitmapProcess(caller, bitmap.name);
+            this.LogFinishBitmapProcess(caller, this._levelBitmapTemplate.name);
 
             bitmapLevelProcessor.OnElementFound -= onPixelMatch;
         }
 
         private void ProcessWallBitmap() => this.ProcessBitmap(
-            bitmap: this._levelTemplate._walls,
             colorMask: this._wallColor,
             onPixelMatch: this.OnWallInstantiate,
             caller: nameof(ProcessWallBitmap));
 
         private void ProcessEnemySpawnerBitmap() => this.ProcessBitmap(
-            bitmap: this._levelTemplate._enemySpawners,
             colorMask: this._enemySpawnPointColor,
             onPixelMatch: this.OnEnemySpawnerInstantiate,
             caller: nameof(ProcessEnemySpawnerBitmap));
 
         private void ProcessTurretPlacementBitmap() => this.ProcessBitmap(
-            bitmap: this._levelTemplate._turretPlacements,
             colorMask: this._turretPlacementColor,
             onPixelMatch: this.OnTurretPlacementInstantiate,
             caller: nameof(ProcessTurretPlacementBitmap));
 
         private void ProcessPlayerBaseBitmap() => this.ProcessBitmap(
-            bitmap: this._levelTemplate._playerBase,
             colorMask: this._playerBaseLocationColor,
             onPixelMatch: this.OnPlayerBaseInstantiate,
             caller: nameof(ProcessPlayerBaseBitmap));
