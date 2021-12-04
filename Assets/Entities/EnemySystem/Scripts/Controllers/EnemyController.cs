@@ -69,6 +69,8 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 
             agent.speed = this._speed;
             agent.radius = this._scaleFactor;
+            agent.avoidancePriority = this._priority;
+
             agent.SetDestination(LevelManagerController.Instance.PlayerBase.transform.position);
         }
         #endregion
