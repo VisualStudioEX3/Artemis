@@ -5,9 +5,9 @@ using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Controller;
 using VisualStudioEX3.Artemis.Assets.LevelGenerator.Services;
 using VisualStudioEX3.Artemis.Assets.Player.Controllers;
+using VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Enums;
-using VisualStudioEX3.Artemis.Turret.Placement;
 
 namespace VisualStudioEX3.Artemis.Assets.LevelGenerator.Controllers
 {

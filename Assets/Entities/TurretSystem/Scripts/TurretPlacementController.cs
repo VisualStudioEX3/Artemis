@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace VisualStudioEX3.Artemis.Turret.Placement
+namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 {
     public class TurretPlacementController : MonoBehaviour
     {

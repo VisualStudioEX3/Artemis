@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
+using VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models.Assets;
-using VisualStudioEX3.Artemis.Turret.Placement;
 
 namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
 {
