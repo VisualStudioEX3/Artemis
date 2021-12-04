@@ -19,9 +19,9 @@ MonoBehaviour:
     maxDelayBetweenSpawns: 0.5
   - enemy: {fileID: 8545400243808679263, guid: 1aa50077a9481b34b9ed05a8806ae22f, type: 3}
     count: 20
-    startToSpawnDelay: 10
+    startToSpawnDelay: 5
     maxDelayBetweenSpawns: 1
-  - enemy: {fileID: 8545400243808679263, guid: 2ddfab03e9741fb499ceab15bcbc6614, type: 3}
+  - enemy: {fileID: 8545400243808679263, guid: 54d2f78b76512364f90343dc4026a859, type: 3}
     count: 10
-    startToSpawnDelay: 30
+    startToSpawnDelay: 10
     maxDelayBetweenSpawns: 1.25
