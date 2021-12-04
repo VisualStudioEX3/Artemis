@@ -39,6 +39,8 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private int _wallLayer;
         [SerializeField, Layer, Tooltip("Layer to lookup only for enemies.")]
         private int _targetLayer;
+        [SerializeField, Tag, Tooltip("Tag value used to indentify the enemy attacks on OnCollisionStay event.")]
+        private string _targetTag;
         #endregion
 
         #region Internal vars
@@ -123,6 +125,12 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Event listeners
+        private void OnCollisionStay(Collision collision)
+        {
+            if (collision.gameObject.CompareTag(this._targetTag))
+                print("Attacked by enemy!");
+        }
+
         private void OnDrawGizmosSelected()
         {
             this.DrawRadiusGizmo();
