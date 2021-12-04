@@ -125,9 +125,9 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Event listeners
-        private void OnCollisionStay(Collision collision)
+        private void OnTriggerStay(Collider other)
         {
-            if (collision.gameObject.CompareTag(this._targetTag))
+            if (other.CompareTag(this._targetTag))
                 print("Attacked by enemy!");
         }
 
