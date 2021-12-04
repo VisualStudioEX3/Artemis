@@ -406,9 +406,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rootTurretTransform: {fileID: 2231706371430905016}
   _waitForSearchForNewTarget: 1
-  _searchRadius: 2.5
+  _searchRadius: 10
   _rotationSpeed: 1
   _canRotate: 1
+  _wallLayer: 7
+  _targetLayer: 8
 --- !u!1 &2231706371430905023
 GameObject:
   m_ObjectHideFlags: 0
