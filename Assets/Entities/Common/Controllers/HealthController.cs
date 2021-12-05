@@ -35,13 +35,25 @@ namespace VisualStudioEX3.Artemis.Assets.Common.Controllers
         /// <param name="damage">Amount of damage.</param>
         public void ApplyDamage(int damage)
         {
-            this._life = Mathf.Max(this._life - damage, 0);
+            if (!this.IsDead())
+            {
+                this.SubstractLife(damage);
+                this.NotifyDamage(damage);
+                this.CheckAndNotifyDeath();
+            }
+        }
 
-            this.OnDamage?.Invoke(damage, this._life);
+        private void SubstractLife(int damage) => this._life = Mathf.Max(this._life - damage, 0);
 
-            if (this._life == 0)
+        private void NotifyDamage(int damage) => this.OnDamage?.Invoke(damage, this._life);
+
+        private void CheckAndNotifyDeath()
+        {
+            if (this.IsDead())
                 this.OnDeath?.Invoke();
-        } 
+        }
+
+        private bool IsDead() => this._life == 0;
         #endregion
     }
 }
