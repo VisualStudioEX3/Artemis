@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggerRenderer: {fileID: 2231706371430905018}
+  _testTurret: {fileID: 2447158898894375354, guid: ffb432493adf8cd48b93c575ed4b17ad, type: 3}
 --- !u!1 &2231706371430905023
 GameObject:
   m_ObjectHideFlags: 0

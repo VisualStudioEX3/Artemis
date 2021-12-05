@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7794143602007848952}
   - component: {fileID: 3575966873731344207}
   - component: {fileID: 6567611164459473765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3576796743029942796}
   - component: {fileID: 1709194914840571611}
   - component: {fileID: 962866001948381355}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4384945027563236671}
   - component: {fileID: 5763409135995604641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,11 +226,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2955322812711205826}
   - component: {fileID: 8545400243808679263}
+  - component: {fileID: 2543358563406963214}
+  - component: {fileID: 5072562524159534434}
   - component: {fileID: 8951358113019726757}
   - component: {fileID: 2287333233004280216}
-  m_Layer: 0
+  - component: {fileID: 1030437403487696857}
+  m_Layer: 8
   m_Name: EnemyType 2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,12 +266,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d311b251d31eb8641bd51fe07dcb3bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 15
   _reward: 10
   _speed: 1.5
   _priority: 5
   _scaleFactor: 0.75
-  _radius: 0.75
+--- !u!114 &2543358563406963214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402902860530025004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210c45c19ee63e549bce9fe3490a34a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _life: 15
+--- !u!114 &5072562524159534434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402902860530025004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09407a9adfb6c5f479bd05a1d50deda6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
+  _targetTag: Player
+  _isBullet: 0
+  _damageTimeInterval: 1
 --- !u!195 &8951358113019726757
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -299,8 +329,24 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4402902860530025004}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!54 &1030437403487696857
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402902860530025004}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

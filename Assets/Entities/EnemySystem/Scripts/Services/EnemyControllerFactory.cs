@@ -38,6 +38,11 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
         #endregion
 
         #region Methods & Functions
+        /// <summary>
+        /// Generate all <see cref="EnemyController"/> instances for all waves in the level.
+        /// </summary>
+        /// <param name="waves"><see cref="WaveAsset"/> list.</param>
+        /// <remarks>All instances are create disabled.</remarks>
         public void GenerateInstances(WaveAsset[] waves)
         {
             foreach (WaveAsset wave in waves)
@@ -74,6 +79,12 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
         /// <param name="enemyType"><see cref="EnemyController"/> based type.</param>
         /// <returns>Returns the first available instance of the requested type.</returns>
         public EnemyController GetEnemyInstance(Type enemyType) => this._instances.FirstOrDefault(e => e.GetType() == enemyType && !e.gameObject.activeInHierarchy);
+
+        /// <summary>
+        /// Gets all active <see cref="EnemyController"/> instances in scene.
+        /// </summary>
+        /// <returns>Returns a enumeration with all active <see cref="EnemyController"/> instances in scene.</returns>
+        public IEnumerable<EnemyController> GetAllActiveEnemies() => this._instances.Where(e => e.gameObject.activeInHierarchy);
         #endregion
 
         #region Event listeners

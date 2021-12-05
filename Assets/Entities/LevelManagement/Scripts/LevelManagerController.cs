@@ -63,6 +63,18 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         private void GetPlayerBaseObject() => this.PlayerBase = GameObject.FindObjectOfType<PlayerBaseController>();
 
         private void GetAllEnemySpawnersInScene() => this.EnemySpawnLocations = GameObject.FindObjectsOfType<EnemySpawnerController>();
+
+        /// <summary>
+        /// Gets all active <see cref="EnemyController"/> instances in scene.
+        /// </summary>
+        /// <returns>Returns an enumeration with all active <see cref="EnemyController"/> instances in scene.</returns>
+        public IEnumerable<EnemyController> GetAllActiveEnemies() => WaveManager.Instance.GetAllActiveEnemies();
+
+        /// <summary>
+        /// Gets randomly any of the <see cref="EnemySpawnerController"/> instances.
+        /// </summary>
+        /// <returns>Returns an <see cref="EnemySpawnerController"/> instance.</returns>
+        public EnemySpawnerController GetRandomEnemySpawnLocation() => WaveManager.Instance.GetRandomEnemySpawnLocation();
         #endregion
     }
 }

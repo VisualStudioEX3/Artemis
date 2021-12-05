@@ -82,13 +82,19 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         /// <summary>
         /// Gets randomly any of the <see cref="EnemySpawnerController"/> instances.
         /// </summary>
-        /// <returns>Returns a <see cref="EnemySpawnerController"/> instance.</returns>
+        /// <returns>Returns an <see cref="EnemySpawnerController"/> instance.</returns>
         public EnemySpawnerController GetRandomEnemySpawnLocation()
         {
             IReadOnlyList<EnemySpawnerController> spawnLocations = LevelManagerController.Instance.EnemySpawnLocations;
 
             return spawnLocations[this.GetRandomIndex(spawnLocations.Count)];
         }
+
+        /// <summary>
+        /// Gets all active <see cref="EnemyController"/> instances in scene.
+        /// </summary>
+        /// <returns>Returns an enumeration with all active <see cref="EnemyController"/> instances in scene.</returns>
+        public IEnumerable<EnemyController> GetAllActiveEnemies() => EnemyControllerFactory.Instance.GetAllActiveEnemies();
         #endregion
     }
 }

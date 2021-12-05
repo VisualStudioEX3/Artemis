@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
+using VisualStudioEX3.Artemis.Assets.Common.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
 
 namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
@@ -9,14 +10,10 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
     /// Enemy Controller.
     /// </summary>
     /// <remarks>Defines the enemy behaviour.</remarks>
-    [DisallowMultipleComponent, RequireComponent(typeof(NavMeshAgent))]
+    [DisallowMultipleComponent, RequireComponent(typeof(HealthController), typeof(AttackController), typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody), typeof(Collider))]
     public class EnemyController : MonoBehaviour
     {
         #region Constants
-        private const int MIN_HEALTH = 1;
-        private const int MAX_HEALTH = 50;
-        private const int DEFAULT_HEALTH = 5;
-
         private const int MIN_REWARD = 5;
         private const int MAX_REWARD = 50;
         private const int DEFAULT_REWARD = 5;
@@ -31,8 +28,6 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         #endregion
 
         #region Inspector fields
-        [SerializeField, Range(MIN_HEALTH, MAX_HEALTH)]
-        private int _health = DEFAULT_HEALTH;
         [SerializeField, Range(MIN_REWARD, MAX_REWARD)]
         private int _reward = DEFAULT_REWARD;
         [SerializeField, Range(MIN_SPEED, MAX_SPEED)]
@@ -55,14 +50,18 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         /// <summary>
         /// Use this value to modify the final scale of the enemy when is spawned.
         /// </summary>
-        public float ScaleFactor => this._scaleFactor; 
+        public float ScaleFactor => this._scaleFactor;
         #endregion
 
         #region Initializers
+        private void Awake() => this.SetupOnDeadEvent();
+
         private void Start() => this.SetupNavAgent();
         #endregion
 
         #region Methods & Functions
+        private void SetupOnDeadEvent() => this.GetComponent<HealthController>().OnDeath += this.OnEnemyDead;
+
         private void SetupNavAgent()
         {
             NavMeshAgent agent = this.GetComponent<NavMeshAgent>();
@@ -76,11 +75,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         #endregion
 
         #region Event listeners
-        private void OnCollisionEnter(Collision collision)
-        {
-            // TODO: Get the component of the collision object.
-            // TODO: If is a <turret bullet type>, apply the shoot damage.
-        } 
+        private void OnEnemyDead() => this.OnDead?.Invoke(this._reward);
         #endregion
     }
 }

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 
-namespace VisualStudioEX3.Artemis.Framework.Core.Editor.Components
+namespace VisualStudioEX3.Artemis.Framework.Core.Editor.Components.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(LayerAttribute))]
     public class LayerDrawer : PropertyDrawer
