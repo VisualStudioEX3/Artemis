@@ -15,11 +15,13 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         public void CreateTurret()
         {
             // TODO: Implements instanciating of the turret.
-            // Testing Turret 1:
-            GameObject.Instantiate(this._testTurret, this.transform);
+            TurretController instance = GameObject.Instantiate(this._testTurret, this.transform);
+            instance.Health.OnDeath += this.EnableTrigger;
 
-            this.DisableTrigger(); // TODO: Replaces disable trigger by disabling the gameObject itself.
+            this.DisableTrigger();
         }
+
+        private void EnableTrigger() => this._triggerRenderer.enabled = true;
 
         private void DisableTrigger() => this._triggerRenderer.enabled = false;
         #endregion
