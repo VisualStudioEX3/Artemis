@@ -323,7 +323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2231706370354503403}
-  - component: {fileID: 2447158898894375354}
+  - component: {fileID: 1823422633856348703}
   - component: {fileID: 1368090829549832685}
   - component: {fileID: 3811084176679146955}
   - component: {fileID: 7537295363557490894}
@@ -353,7 +353,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2447158898894375354
+--- !u!114 &1823422633856348703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -362,12 +362,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2231706370354503402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0413b2bf5e86384ebb026a05bf024d8, type: 3}
+  m_Script: {fileID: 11500000, guid: c5af511dd57911b4fb0d5968eec1ec06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rootTurretTransform: {fileID: 2231706371430905016}
-  _waitForSearchForNewTarget: 1
-  _searchRadius: 10
+  _waitForSearchForNewTarget: 0.5
+  _searchRadius: 20
   _rotationSpeed: 1
   _wallLayer: 7
   _targetLayer: 8
