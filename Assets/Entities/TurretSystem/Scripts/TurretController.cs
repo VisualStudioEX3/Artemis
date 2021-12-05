@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
+using VisualStudioEX3.Artemis.Assets.Common.Controllers;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 
 namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 {
-    [DisallowMultipleComponent]
+    [DisallowMultipleComponent, RequireComponent(typeof(HealthController), typeof(NavMeshObstacle)), RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
     public class TurretController : MonoBehaviour
     {
         #region Constants
@@ -24,6 +26,10 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private const float MIN_SEARCH_RADIUS = 5f;
         private const float MAX_SEARCH_RADIUS = 50f;
         private const float DEFAULT_SEARCH_RADIUS = 15f;
+        #endregion
+
+        #region Internal vars
+        private Coroutine _lookAtTargetCoroutineInstance;
         #endregion
 
         #region Inspector fields
@@ -43,17 +49,30 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private string _targetTag;
         #endregion
 
-        #region Internal vars
-        private Coroutine _lookAtTargetCoroutineInstance;
+        #region Properties
+        /// <summary>
+        /// Gets the <see cref="HealthController"/> component of this turret.
+        /// </summary>
+        public HealthController Health { get; private set; } 
         #endregion
 
         #region Initializers & Destructors
-        private void Awake() => this.StartToSearchNearestTarget();
+        private void Awake()
+        {
+            this.SetupHealthController();
+            this.StartToSearchNearestTarget();
+        }
 
         private void OnDestroy() => this.StopAllCoroutines();
         #endregion
 
         #region Methods & Functions
+        private void SetupHealthController()
+        {
+            this.Health = this.GetComponent<HealthController>();
+            this.Health.OnDeath += this.OnDeath;
+        }
+
         private IEnumerable<EnemyController> GetAllActiveEnemies() => LevelManagerController.Instance.GetAllActiveEnemies();
 
         private bool IsDistanceToTargetInRange(Transform target) => Vector3.Distance(this.transform.position, target.position) <= this._searchRadius;
@@ -111,6 +130,8 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 
         private float CalculateRotationSpeed() => this._rotationSpeed * Time.deltaTime;
 
+        private void DestroySelf() => GameObject.Destroy(this.gameObject);
+
         private void DrawRadiusGizmo()
         {
             Gizmos.color = Color.white;
@@ -125,11 +146,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Event listeners
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag(this._targetTag))
-                print("Attacked by enemy!");
-        }
+        private void OnDeath() => this.DestroySelf();
 
         private void OnDrawGizmosSelected()
         {
