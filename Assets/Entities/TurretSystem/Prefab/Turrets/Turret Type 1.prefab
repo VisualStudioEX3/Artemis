@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8400942766748506144}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,8 +42,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6330540176947167444}
-  m_Layer: 0
-  m_Name: SourceShoot
+  m_Layer: 10
+  m_Name: Right Source Shoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1706549466728609786}
   - component: {fileID: 317649112703524520}
   - component: {fileID: 4443513338026440190}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 1882525698587185997}
   - component: {fileID: 4108039643630301345}
   - component: {fileID: 8894018404492549510}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left Cannon Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 3630230137569992176}
   - component: {fileID: 8917768072939055485}
   - component: {fileID: 6618232921239965712}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,10 +325,12 @@ GameObject:
   - component: {fileID: 2231706370354503403}
   - component: {fileID: 2447158898894375354}
   - component: {fileID: 1368090829549832685}
+  - component: {fileID: 3811084176679146955}
+  - component: {fileID: 7537295363557490894}
   - component: {fileID: 8108907760800367917}
   - component: {fileID: 3608354145409766735}
   - component: {fileID: 2272744417435661655}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret Type 1
   m_TagString: Player
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
@@ -383,6 +385,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _life: 25
+--- !u!114 &3811084176679146955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231706370354503402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573bf97b5a1bbec4eb6d3c23d19c8764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 3202445345699994633, guid: c9db17225b5f7ee46bf38c3bdb490157, type: 3}
+  _maxAmmoCapacity: 30
+  _fireRatio: 0.5
+  _sourceShoot: {fileID: 4077789773968592060}
+--- !u!114 &7537295363557490894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231706370354503402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573bf97b5a1bbec4eb6d3c23d19c8764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 3202445345699994633, guid: c9db17225b5f7ee46bf38c3bdb490157, type: 3}
+  _maxAmmoCapacity: 30
+  _fireRatio: 0.5
+  _sourceShoot: {fileID: 6330540176947167444}
 --- !u!208 &8108907760800367917
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -413,7 +447,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!65 &2272744417435661655
 BoxCollider:
@@ -437,7 +471,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2231706371430905016}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +506,7 @@ GameObject:
   - component: {fileID: 8012324825122822142}
   - component: {fileID: 9084671925715973535}
   - component: {fileID: 4423034991164498966}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +589,7 @@ GameObject:
   - component: {fileID: 6881986643241777198}
   - component: {fileID: 3160417447267347075}
   - component: {fileID: 2617106541785821668}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +673,7 @@ GameObject:
   - component: {fileID: 119105652711676094}
   - component: {fileID: 1820647767325265677}
   - component: {fileID: 3510515661645459173}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right Cannon Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +755,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1474002226843450322}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -756,8 +790,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4077789773968592060}
-  m_Layer: 0
-  m_Name: SourceShoot
+  m_Layer: 10
+  m_Name: Left Source Shoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -789,7 +823,7 @@ GameObject:
   - component: {fileID: 7505011037122473469}
   - component: {fileID: 5249771664623052369}
   - component: {fileID: 7209346253699091073}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -872,7 +906,7 @@ GameObject:
   - component: {fileID: 2037751929749694132}
   - component: {fileID: 4058794602226879860}
   - component: {fileID: 1297771738695853367}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
