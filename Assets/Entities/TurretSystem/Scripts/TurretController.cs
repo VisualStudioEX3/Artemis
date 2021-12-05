@@ -11,7 +11,9 @@ using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 
 namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 {
-    [DisallowMultipleComponent, RequireComponent(typeof(HealthController), typeof(NavMeshObstacle)), RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(HealthController), typeof(TurretWeaponController), typeof(NavMeshObstacle))]
+    [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
     public class TurretController : MonoBehaviour
     {
         #region Constants
@@ -30,6 +32,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 
         #region Internal vars
         private Coroutine _lookAtTargetCoroutineInstance;
+        private TurretWeaponController _turretWeaponController;
         #endregion
 
         #region Inspector fields
@@ -53,7 +56,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         /// <summary>
         /// Gets the <see cref="HealthController"/> component of this turret.
         /// </summary>
-        public HealthController Health { get; private set; } 
+        public HealthController Health { get; private set; }
         #endregion
 
         #region Initializers & Destructors
@@ -61,12 +64,19 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         {
             this.SetupHealthController();
             this.StartToSearchNearestTarget();
+            this.SetupTurretWeaponController();
         }
 
         private void OnDestroy() => this.StopAllCoroutines();
         #endregion
 
         #region Methods & Functions
+        /// <summary>
+        /// Setups the <see cref="TurretWeaponController"/> controller.
+        /// </summary>
+        /// <remarks>Overload this method if you need to get more than a single <see cref="AttackController"/> controller.</remarks>
+        public virtual void SetupTurretWeaponController() => this._turretWeaponController = this.GetComponent<TurretWeaponController>();
+
         private void SetupHealthController()
         {
             this.Health = this.GetComponent<HealthController>();
@@ -94,8 +104,8 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private int GenerateLayerMask() => (1 << this._wallLayer) | (1 << this._targetLayer);
 
         private bool RaycastToTarget(Transform target) => Physics.Raycast(
-            origin: this._rootTurretTransform.position, 
-            direction: this.GetForwardVectorToTarget(target), 
+            origin: this._rootTurretTransform.position,
+            direction: this.GetForwardVectorToTarget(target),
             maxDistance: this._searchRadius,
             layerMask: this.GenerateLayerMask());
 
@@ -122,11 +132,28 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         {
             bool hasTarget = this.IsATargetInRange(out Transform target) && this.IsTargetVisible(target);
 
-            if (!hasTarget)
-                target = this.GetRandomEnemySpawnerTransform(); // "Distracted" the turret aimin a random enemy spawner while not has an enemy target to aim.
+            if (hasTarget)
+                this.StartShooting();
+            else
+            {
+                target = this.GetRandomEnemySpawnerTransform(); // "Distracted" the turret aiming a random enemy spawner while not has an enemy target to aim.
+                this.StopShooting();
+            }
 
             return target;
         }
+
+        /// <summary>
+        /// Starts to shooting the target.
+        /// </summary>
+        /// <remarks>Overload this method if you need to manages more than a single <see cref="TurretWeaponController"/> controller.</remarks>
+        public virtual void StartShooting() => this._turretWeaponController.HoldTrigger();
+
+        /// <summary>
+        /// Stops to shooting the target.
+        /// </summary>
+        /// <remarks>Overload this method if you need to manages more than a single <see cref="TurretWeaponController"/> controller.</remarks>
+        public virtual void StopShooting() => this._turretWeaponController.ReleaseTrigger();
 
         private float CalculateRotationSpeed() => this._rotationSpeed * Time.deltaTime;
 
