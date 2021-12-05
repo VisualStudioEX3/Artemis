@@ -11,6 +11,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
     {
         #region Internal vars
         private IUnityObjectPoolService<BulletController> _bulletPool;
+        private Coroutine _holdTriggerCoroutineInstance;
         #endregion
 
         #region Inspector fields
@@ -25,8 +26,14 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Events
+        /// <summary>
+        /// Notify when the controller shoot a bullet.
+        /// </summary>
         public event Action OnShoot;
 
+        /// <summary>
+        /// Notify when the controller trying to shoot but don't have available bullets.
+        /// </summary>
         public event Action OnNotMoreBullets;
         #endregion
 
@@ -45,6 +52,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
                 capacity: this._maxAmmoCapacity,
                 availableInstancePredicate: (bullet) => !bullet.gameObject.activeInHierarchy,
                 releaseInstancePredicate: (bullet) => bullet.gameObject.SetActive(false));
+            this._bulletPool.ReleaseAllInstances();
         }
 
         private void DestroyBulletPoolService() => this._bulletPool.Dispose();
@@ -75,11 +83,22 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 
         private WaitForSeconds CreateWaitRatioYield() => new(this._fireRatio);
 
-        private void StartHoldTrigger() => this.StartCoroutine(this.HoldTriggerCoroutine());
-        #endregion
+        /// <summary>
+        /// Hold the trigger to start to shoot the weapon.
+        /// </summary>
+        public void HoldTrigger() => this._holdTriggerCoroutineInstance ??= this.StartCoroutine(this.HoldTriggerCoroutine());
 
-        #region Event listeners
-        private void OnEnable() => this.StartHoldTrigger();
+        /// <summary>
+        /// Release the trigger to stop the shoot the weapon.
+        /// </summary>
+        public void ReleaseTrigger()
+        {
+            if (this._holdTriggerCoroutineInstance is not null)
+            {
+                this.StopCoroutine(this._holdTriggerCoroutineInstance);
+                this._holdTriggerCoroutineInstance = null;
+            }
+        }
         #endregion
 
         #region Coroutines
@@ -87,7 +106,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         {
             WaitForSeconds waitYield = this.CreateWaitRatioYield();
 
-            while (this.enabled)
+            while (true)
             {
                 this.Shoot();
                 yield return waitYield;
