@@ -324,12 +324,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2231706370354503403}
   - component: {fileID: 2447158898894375354}
+  - component: {fileID: 1368090829549832685}
   - component: {fileID: 8108907760800367917}
   - component: {fileID: 3608354145409766735}
   - component: {fileID: 2272744417435661655}
   m_Layer: 0
   m_Name: Turret Type 1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,6 +370,19 @@ MonoBehaviour:
   _wallLayer: 7
   _targetLayer: 8
   _targetTag: Enemy
+--- !u!114 &1368090829549832685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231706370354503402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210c45c19ee63e549bce9fe3490a34a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _life: 25
 --- !u!208 &8108907760800367917
 NavMeshObstacle:
   m_ObjectHideFlags: 0

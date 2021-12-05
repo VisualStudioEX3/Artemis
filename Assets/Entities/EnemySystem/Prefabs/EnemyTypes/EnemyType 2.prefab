@@ -226,6 +226,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2955322812711205826}
   - component: {fileID: 8545400243808679263}
+  - component: {fileID: 2543358563406963214}
+  - component: {fileID: 5072562524159534434}
   - component: {fileID: 8951358113019726757}
   - component: {fileID: 2287333233004280216}
   - component: {fileID: 1030437403487696857}
@@ -264,11 +266,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d311b251d31eb8641bd51fe07dcb3bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 15
   _reward: 10
   _speed: 1.5
   _priority: 5
   _scaleFactor: 0.75
+--- !u!114 &2543358563406963214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402902860530025004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210c45c19ee63e549bce9fe3490a34a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _life: 15
+--- !u!114 &5072562524159534434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402902860530025004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09407a9adfb6c5f479bd05a1d50deda6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
+  _targetTag: Player
+  _isBullet: 0
+  _damageTimeInterval: 1
 --- !u!195 &8951358113019726757
 NavMeshAgent:
   m_ObjectHideFlags: 0
