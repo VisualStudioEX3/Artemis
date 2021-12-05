@@ -15,6 +15,13 @@ namespace VisualStudioEX3.Artemis.Assets.Common.Controllers
         private int _life;
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Current life of this object.
+        /// </summary>
+        public int Life => this._life; 
+        #endregion
+
         #region Events
         /// <summary>
         /// Notifies when the life reach to zero.
