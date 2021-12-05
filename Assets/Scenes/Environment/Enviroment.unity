@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 226917361}
   - component: {fileID: 226917360}
   - component: {fileID: 226917359}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 877578957}
   - component: {fileID: 877578956}
   - component: {fileID: 877578955}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 1270872032}
   - component: {fileID: 1270872031}
   - component: {fileID: 1270872030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -823,7 +823,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1979563662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +861,7 @@ GameObject:
   - component: {fileID: 2032339795}
   - component: {fileID: 2032339794}
   - component: {fileID: 2032339793}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fornt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
