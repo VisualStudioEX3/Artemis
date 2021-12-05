@@ -73,18 +73,30 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
                 GameObject.DestroyImmediate(this._instances[i]);
         }
 
+        private bool IsUnusedEnemy(EnemyController enemy) => this.IsDisabledEnemy(enemy) && this.IsEnemyAlive(enemy);
+
+        private bool IsDisabledEnemy(EnemyController enemy) => !enemy.gameObject.activeInHierarchy;
+
+        private bool IsActiveEnemy(EnemyController enemy) => !this.IsDisabledEnemy(enemy) && this.IsEnemyAlive(enemy);
+
+        private bool IsEnemyOfType(EnemyController enemy, Type type) => enemy.GetType() == type;
+
+        private bool IsReadyEnemyToSpawn(EnemyController enemy, Type enemyType) => this.IsEnemyOfType(enemy, enemyType) && this.IsUnusedEnemy(enemy);
+
+        private bool IsEnemyAlive(EnemyController enemy) => enemy.IsAlive;
+
         /// <summary>
         /// Gets the first instance of the requested type.
         /// </summary>
         /// <param name="enemyType"><see cref="EnemyController"/> based type.</param>
         /// <returns>Returns the first available instance of the requested type.</returns>
-        public EnemyController GetEnemyInstance(Type enemyType) => this._instances.FirstOrDefault(e => e.GetType() == enemyType && !e.gameObject.activeInHierarchy);
+        public EnemyController GetEnemyInstance(Type enemyType) => this._instances.FirstOrDefault(e => this.IsReadyEnemyToSpawn(e, enemyType));
 
         /// <summary>
         /// Gets all active <see cref="EnemyController"/> instances in scene.
         /// </summary>
         /// <returns>Returns a enumeration with all active <see cref="EnemyController"/> instances in scene.</returns>
-        public IEnumerable<EnemyController> GetAllActiveEnemies() => this._instances.Where(e => e.gameObject.activeInHierarchy);
+        public IEnumerable<EnemyController> GetAllActiveEnemies() => this._instances.Where(e => this.IsActiveEnemy(e));
         #endregion
 
         #region Event listeners

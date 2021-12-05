@@ -51,7 +51,7 @@ namespace VisualStudioEX3.Artemis.Assets.Common.Controllers
 
         private void CreateDamageTimeIntervalYield() => this._damageTimeIntervalYield = new WaitForSeconds(this._damageTimeInterval);
 
-        private bool CheckCollisionTag(GameObject gameObject) => gameObject.CompareTag(this._targetTag);
+        private bool CheckCollisionTag(GameObject gameObject) => !string.IsNullOrEmpty(this._targetTag) && gameObject.CompareTag(this._targetTag);
 
         private bool TryGetHealthControllerFromCollision(GameObject gameObject, out HealthController healthController)
         {

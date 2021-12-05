@@ -21,9 +21,9 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
             this.DisableTrigger();
         }
 
-        private void EnableTrigger() => this._triggerRenderer.enabled = true;
+        private void EnableTrigger() => this._triggerRenderer.gameObject.SetActive(true);
 
-        private void DisableTrigger() => this._triggerRenderer.enabled = false;
+        private void DisableTrigger() => this._triggerRenderer.gameObject.SetActive(false);
         #endregion
     }
 }

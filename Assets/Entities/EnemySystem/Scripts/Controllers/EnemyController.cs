@@ -27,6 +27,10 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private const int DEFAULT_PRIORITY = 1;
         #endregion
 
+        #region Internal vars
+        private HealthController _healthController; 
+        #endregion
+
         #region Inspector fields
         [SerializeField, Range(MIN_REWARD, MAX_REWARD)]
         private int _reward = DEFAULT_REWARD;
@@ -51,10 +55,19 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         /// Use this value to modify the final scale of the enemy when is spawned.
         /// </summary>
         public float ScaleFactor => this._scaleFactor;
+
+        /// <summary>
+        /// Gets if this enemy is alive.
+        /// </summary>
+        public bool IsAlive => this._healthController.Life > 0;
         #endregion
 
         #region Initializers
-        private void Awake() => this.SetupOnDeadEvent();
+        private void Awake()
+        {
+            this._healthController = this.GetComponent<HealthController>();
+            this.SetupOnDeadEvent();
+        }
 
         private void Start() => this.SetupNavAgent();
         #endregion
@@ -75,7 +88,11 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         #endregion
 
         #region Event listeners
-        private void OnEnemyDead() => this.OnDead?.Invoke(this._reward);
+        private void OnEnemyDead()
+        {
+            this.gameObject.SetActive(false);
+            this.OnDead?.Invoke(this._reward);
+        }
         #endregion
     }
 }

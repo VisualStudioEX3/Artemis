@@ -16,7 +16,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Services
         #region Properties
         public bool IsInitialized => this._instances is not null;
         public IReadOnlyList<T> Instances => this._instances;
-        public int Count => this._instances.Count;
+        public int Count => this._instances.Capacity;
         public int AvailableCount => this._instances.Count(this.AvailableInstancePredicate);
         public T Prefab { get; private set; }
         public Func<T, bool> AvailableInstancePredicate { get; private set; }
