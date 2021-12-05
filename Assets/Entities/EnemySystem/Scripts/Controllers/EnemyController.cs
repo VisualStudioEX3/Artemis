@@ -75,7 +75,11 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         #endregion
 
         #region Event listeners
-        private void OnEnemyDead() => this.OnDead?.Invoke(this._reward);
+        private void OnEnemyDead()
+        {
+            this.gameObject.SetActive(false);
+            this.OnDead?.Invoke(this._reward);
+        }
         #endregion
     }
 }
