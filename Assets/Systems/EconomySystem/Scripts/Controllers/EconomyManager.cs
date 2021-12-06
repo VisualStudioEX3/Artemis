@@ -29,7 +29,8 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers
         /// <summary>
         /// Notifies when the player earn units.
         /// </summary>
-        public event Action<int> OnEarn;
+        /// <remarks>Returns the amount of units earned and the current total units.</remarks>
+        public event Action<int, int> OnEarn;
 
         /// <summary>
         /// Notifies when the player achieve a sucessfull payment operation.
@@ -47,7 +48,7 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers
         private void EarnUnits(int units)
         {
             this.CurrentUnits = Mathf.Min(this.CurrentUnits + units, this._maxUnits);
-            this.OnEarn?.Invoke(units);
+            this.OnEarn?.Invoke(units, this.CurrentUnits);
         }
 
         /// <summary>
