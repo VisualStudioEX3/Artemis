@@ -390,7 +390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &219956117
 Transform:
   m_ObjectHideFlags: 0
@@ -580,6 +580,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1371916587585928900, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
       propertyPath: value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371916587585928900, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
+      propertyPath: _label
+      value: Money
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371916587585928900, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
+      propertyPath: _value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1746629732506789564, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
