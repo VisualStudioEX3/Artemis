@@ -1,4 +1,5 @@
 using UnityEngine;
+using VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
 
 namespace VisualStudioEX3.Artemis.Assets.Scenes.Controllers
@@ -36,7 +37,11 @@ namespace VisualStudioEX3.Artemis.Assets.Scenes.Controllers
         /// <summary>
         /// Method to start the game from the UI.
         /// </summary>
-        public void StartNewGame() => SceneManager.Instance.LoadNextLevel(); 
+        public void StartNewGame()
+        {
+            EconomyManager.Instance.ResetUnits();
+            SceneManager.Instance.LoadNextLevel();
+        }
         #endregion
     }
 }
