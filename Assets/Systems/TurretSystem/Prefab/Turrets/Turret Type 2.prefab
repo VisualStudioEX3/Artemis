@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootTurretTransform: {fileID: 2231706371430905016}
+  _price: 25
   _waitForSearchForNewTarget: 0.5
   _searchRadius: 25
   _rotationSpeed: 2
@@ -289,8 +290,6 @@ MonoBehaviour:
   _rotator: {fileID: 2838722800312023222}
   _idleRotationSpeed: 25
   _shootingRotationSpeed: 300
-  _idleCannonScale: 1
-  _shootingCannonScale: 1
   _lerpBetweenStatesSpeed: 1
 --- !u!208 &8108907760800367917
 NavMeshObstacle:
