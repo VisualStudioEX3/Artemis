@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 2032339794}
   - component: {fileID: 2032339793}
   m_Layer: 7
-  m_Name: Fornt
+  m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
