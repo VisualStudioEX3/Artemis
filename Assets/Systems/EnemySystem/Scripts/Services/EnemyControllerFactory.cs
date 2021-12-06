@@ -61,9 +61,6 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
             EnemyController instance = GameObject.Instantiate(enemyType);
 
             instance.gameObject.SetActive(false);
-            instance.OnDead += this.OnEnemyDead;
-            instance.OnDead += this._waveController.OnEnemyDead;
-
             this._instances.Add(instance);
         }
 
@@ -97,14 +94,6 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
         /// </summary>
         /// <returns>Returns an enumeration with all active <see cref="EnemyController"/> instances in scene.</returns>
         public IEnumerable<EnemyController> GetAllActiveEnemies() => this._instances.Where(e => this.IsActiveEnemy(e));
-        #endregion
-
-        #region Event listeners
-        private void OnEnemyDead(int reward)
-        {
-            if (++this._deaths == this._instances.Count)
-                WaveManager.Instance.RaiseOnAllWavesCompleted();
-        } 
         #endregion
     }
 }
