@@ -25,15 +25,17 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private WaveAsset[] _waves;
 
         [SerializeField, Tooltip(TooltipMessageConstants.TIME_IN_SECONDS_TOOLTIP_MESSAGE)]
-        private float _timeBeforeStartFirstWave;
+        private int _timeBeforeStartFirstWave;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Time, in seconds, before starts the first wave.
+        /// </summary>
+        public int TimeBeforeStartFirstWave => this._timeBeforeStartFirstWave; 
         #endregion
 
         #region Events
-        /// <summary>
-        /// Notifies the time to wait to start the first wave.
-        /// </summary>
-        public event Action<float> OnPrepareForFirstWave;
-
         /// <summary>
         /// Notifies when a enemy wave starts.
         /// </summary>
@@ -61,7 +63,6 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 
         private IEnumerator Start()
         {
-            this.OnPrepareForFirstWave?.Invoke(this._timeBeforeStartFirstWave);
             yield return new WaitForSeconds(this._timeBeforeStartFirstWave);
 
             int waveNumber = 0;
