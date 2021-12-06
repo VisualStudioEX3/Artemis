@@ -95,7 +95,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
         /// <summary>
         /// Gets all active <see cref="EnemyController"/> instances in scene.
         /// </summary>
-        /// <returns>Returns a enumeration with all active <see cref="EnemyController"/> instances in scene.</returns>
+        /// <returns>Returns an enumeration with all active <see cref="EnemyController"/> instances in scene.</returns>
         public IEnumerable<EnemyController> GetAllActiveEnemies() => this._instances.Where(e => this.IsActiveEnemy(e));
         #endregion
 
