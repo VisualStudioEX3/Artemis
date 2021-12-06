@@ -33,7 +33,6 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #region Internal vars
         private TurretWeaponController _turretWeaponController;
         private int _targetRayCastLayerMask;
-        private Transform _target;
         #endregion
 
         #region Inspector fields
@@ -62,7 +61,19 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         /// <summary>
         /// Gets the <see cref="Transform"/> target, if any target exist, else gets <see langword="null"/>.
         /// </summary>
-        public Transform Target => this._target;
+        public Transform Target { get; private set; }
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// Notifies when the controller starts to shoot.
+        /// </summary>
+        public event Action OnStartToShoot;
+
+        /// <summary>
+        /// Notifies when the controller stops to shoot.
+        /// </summary>
+        public event Action OnStopToShoot; 
         #endregion
 
         #region Initializers & Destructors
@@ -80,8 +91,8 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #region Update logic
         private void Update()
         {
-            if (this._target)
-                this.UpdateForwardToTarget(this._target, this.CalculateRotationSpeed());
+            if (this.Target)
+                this.UpdateForwardToTarget(this.Target, this.CalculateRotationSpeed());
         } 
         #endregion
 
@@ -167,13 +178,21 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         /// Starts to shooting the target.
         /// </summary>
         /// <remarks>Overload this method if you need to manages more than a single <see cref="TurretWeaponController"/> controller.</remarks>
-        public virtual void StartShooting() => this._turretWeaponController.HoldTrigger();
+        public virtual void StartShooting()
+        {
+            this._turretWeaponController.HoldTrigger();
+            this.OnStartToShoot?.Invoke();
+        }
 
         /// <summary>
         /// Stops to shooting the target.
         /// </summary>
         /// <remarks>Overload this method if you need to manages more than a single <see cref="TurretWeaponController"/> controller.</remarks>
-        public virtual void StopShooting() => this._turretWeaponController.ReleaseTrigger();
+        public virtual void StopShooting()
+        {
+            this._turretWeaponController.ReleaseTrigger();
+            this.OnStopToShoot?.Invoke();
+        }
 
         private float CalculateRotationSpeed() => this._rotationSpeed * Time.deltaTime;
 
@@ -193,10 +212,10 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 
         private void DrawTargetGizmo()
         {
-            if (this._target)
+            if (this.Target)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(this._target.position, 1f); 
+                Gizmos.DrawWireSphere(this.Target.position, 1f); 
             }
         }
         #endregion
@@ -219,7 +238,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
             {
                 yield return new WaitForSeconds(this._waitForSearchForNewTarget);
 
-                this._target = this.GetTarget();
+                this.Target = this.GetTarget();
             }
         }
         #endregion
