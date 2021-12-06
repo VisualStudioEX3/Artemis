@@ -16,18 +16,13 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Services
     {
         #region Internal vars
         private List<EnemyController> _instances;
-        private int _deaths;
-        private WaveController _waveController;
         #endregion
 
         #region Initializer & Terminator
         public override void Awake()
         {
             base.Awake();
-
-            this._waveController = this.GetComponent<WaveController>();
             this._instances = new();
-            this._deaths = 0;
         }
 
         public override void OnDestroy()
