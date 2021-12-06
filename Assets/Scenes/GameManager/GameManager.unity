@@ -234,6 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 31590222}
   - component: {fileID: 31590223}
+  - component: {fileID: 31590224}
   m_Layer: 0
   m_Name: In-Game UI
   m_TagString: Untagged
@@ -271,6 +272,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: {fileID: 3355769634020901772}
+--- !u!114 &31590224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31590221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85053b6de3b13b24da2d5d1adcecab9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: {fileID: 1995843239}
+  _wave: {fileID: 1222280701}
 --- !u!1 &212681595
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +647,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6650363644339481998, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
   m_PrefabInstance: {fileID: 1222280699}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1222280701 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1371916587585928900, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
+  m_PrefabInstance: {fileID: 1222280699}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a9dab2909e27b4fb4e69886ea61798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1259808011
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +939,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6650363644339481998, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
   m_PrefabInstance: {fileID: 1995843237}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1995843239 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1371916587585928900, guid: 115669d73dff24543bdd454a57573dd7, type: 3}
+  m_PrefabInstance: {fileID: 1995843237}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a9dab2909e27b4fb4e69886ea61798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3355769634020901770
 PrefabInstance:
   m_ObjectHideFlags: 0
