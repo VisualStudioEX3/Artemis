@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace VisualStudioEX3.Artemis.Framework.Core.Contracts.Interfaces
 {
     /// <summary>
-    /// Generic object pool service for work with <see cref="UnityEngine.Object"/> instances.
+    /// Generic object pool service for work with <see cref="Component"/> instances.
     /// </summary>
-    /// <typeparam name="T"><see cref="UnityEngine.Object"/> based type of the prefab used to create instances.</typeparam>
-    public interface IUnityObjectPoolService<T> : IDisposable where T : UnityEngine.Object
+    /// <typeparam name="T"><see cref="Component"/> based type of the prefab used to create instances.</typeparam>
+    public interface IUnityObjectPoolService<T> : IDisposable where T : Component
     {
         #region Properties
         /// <summary>
@@ -60,7 +61,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Contracts.Interfaces
         /// <summary>
         /// Initialize this object pool.
         /// </summary>
-        /// <param name="prefab">Prefab model to create the instances. Must be an <see cref="UnityEngine.Object"/> based type.</param>
+        /// <param name="prefab">Prefab model to create the instances. Must be an <see cref="Component"/> based type.</param>
         /// <param name="capacity">Ammount of instances to create.</param>
         /// <param name="availableInstancePredicate">Predicate to define the condition filter to get the available instances.</param>
         /// <param name="releaseInstancePredicate">Predicate to define how to release all unavailable instances.</param>
