@@ -21,12 +21,38 @@ namespace VisualStudioEX3.Artemis.Assets.Common.Controllers.UI
         #endregion
 
         #region Public vars
-        public string label = DEFAULT_LABEL_VALUE;
-        public string value;
+        [SerializeField]
+        private string _label = DEFAULT_LABEL_VALUE;
+        [SerializeField]
+        private string _value;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets or sets the text label name.
+        /// </summary>
+        public string Label
+        {
+            get => this._label;
+            set => this.SetLabel(value);
+        }
+
+        /// <summary>
+        /// Gets or sets the text value field.
+        /// </summary>
+        public string Value
+        {
+            get => this._value;
+            set => this.SetValue(value);
+        }
         #endregion
 
         #region Initializers
-        private void Awake() => this.ResolveTextMeshProComponents();
+        private void Awake()
+        {
+            this.ResolveTextMeshProComponents();
+            this.OnValidate();
+        }
         #endregion
 
         #region Methods & Functions
@@ -39,7 +65,7 @@ namespace VisualStudioEX3.Artemis.Assets.Common.Controllers.UI
         }
 
         private void SetLabel(string text) => this.SafeSetValueToTMProControl(this._labelTMPro, text);
-        
+
         private void SetValue(string text) => this.SafeSetValueToTMProControl(this._valueTMPro, text);
 
         private void SafeSetValueToTMProControl(TextMeshProUGUI control, string text)
@@ -52,8 +78,8 @@ namespace VisualStudioEX3.Artemis.Assets.Common.Controllers.UI
         #region Event listeners
         private void OnValidate()
         {
-            this.SetLabel(this.label);
-            this.SetValue(this.value);
+            this.SetLabel(this._label);
+            this.SetValue(this._value);
         }
 
         private void Reset() => this.OnValidate();
