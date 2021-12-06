@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using VisualStudioEX3.Artemis.Assets.Common.Controllers;
+using VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
 
 namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
@@ -66,14 +67,18 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private void Awake()
         {
             this._healthController = this.GetComponent<HealthController>();
-            this.SetupOnDeadEvent();
+            this.SetupOnDeadEvents();
         }
 
         private void Start() => this.SetupNavAgent();
         #endregion
 
         #region Methods & Functions
-        private void SetupOnDeadEvent() => this.GetComponent<HealthController>().OnDeath += this.OnEnemyDead;
+        private void SetupOnDeadEvents()
+        {
+            this._healthController.OnDeath += this.OnEnemyDead;
+            this.OnDead += EconomyManager.Instance.OnEnemyDead;
+        }
 
         private void SetupNavAgent()
         {
@@ -91,7 +96,9 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private void OnEnemyDead()
         {
             this.gameObject.SetActive(false);
+
             this.OnDead?.Invoke(this._reward);
+            this.OnDead -= EconomyManager.Instance.OnEnemyDead;
         }
         #endregion
     }
