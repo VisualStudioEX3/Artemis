@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.Common.Controllers.UI;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
@@ -12,6 +14,8 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers.UI
         private UILabelFieldController _level;
         [SerializeField]
         private UILabelFieldController _wave;
+        [SerializeField]
+        private UILabelFieldController _timeBeforeFirstWave;
         #endregion
 
         private void Awake() => GameManagerController.OnGameManagerIsIntialized += this.OnGameManagerIsInitialized;
@@ -56,6 +60,16 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers.UI
         private void UpdateLevelValue() => this._level.Value = this.GetLevelNumberString();
 
         private void UpdateWaveValue(int waveNumber) => this._wave.Value = this.GetWaveNumberString(waveNumber);
+
+        private string FormatTime(int seconds) => TimeSpan.FromSeconds(seconds).ToString(@"mm\:ss");
+
+        private void UpdateTimeBeforeFirstWaveValue(int seconds) => this._timeBeforeFirstWave.Value = this.FormatTime(seconds);
+
+        private void ShowTimeBeforeFirstWaveField() => this._timeBeforeFirstWave.gameObject.SetActive(true);
+
+        private void HideTimeBeforeFirstWaveField() => this._timeBeforeFirstWave.gameObject.SetActive(false);
+
+        private void DisplayTimeCountDownToStartFirstWave() => this.StartCoroutine(this.DisplayTimeUntilStartTheFirstWaveCoroutine(WaveManager.Instance.TimeBeforeStartFirstWave));
         #endregion
 
         #region Event listeners
@@ -64,13 +78,35 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers.UI
         private void OnSceneLoaded()
         {
             this.SubscribeWaveEvents();
-            this.UpdateLevelValue();
-            this.UpdateWaveValue(1);
+            
+            if (this.HasWaveManager())
+            {
+                this.UpdateLevelValue();
+                this.UpdateWaveValue(1);
+                this.DisplayTimeCountDownToStartFirstWave();
+            }
         }
 
         private void OnSceneUnload() => this.UnsubscribeWaveEvents();
 
         private void OnWaveStarts(int waveNumber) => this._wave.Value = this.GetWaveNumberString(waveNumber);
+        #endregion
+
+        #region Coroutines
+        private IEnumerator DisplayTimeUntilStartTheFirstWaveCoroutine(int time)
+        {
+            var waitSecondYield = new WaitForSeconds(1f);
+
+            this.ShowTimeBeforeFirstWaveField();
+
+            for (int secondsLeft = time; secondsLeft >= 0; secondsLeft--)
+            {
+                this.UpdateTimeBeforeFirstWaveValue(secondsLeft);
+                yield return waitSecondYield;
+            }
+
+            this.HideTimeBeforeFirstWaveField();
+        } 
         #endregion
     }
 }
