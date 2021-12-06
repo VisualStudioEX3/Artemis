@@ -9,6 +9,7 @@ namespace VisualStudioEX3.Artemis.Assets.Explosion.Controllers
         #region Internal vars
         private float _currentScale = 0f;
         private Material _material;
+        private WaitForSeconds _durationYield;
         #endregion
 
         #region Inspector fields
@@ -16,32 +17,39 @@ namespace VisualStudioEX3.Artemis.Assets.Explosion.Controllers
         private float _growSpeed = 1f;
         [SerializeField]
         private float _maxScale = 3f;
+        [SerializeField]
+        private float _duration = 2.5f;
         #endregion
 
-        #region Initializers
+        #region Initializers & Terminators
         private IEnumerator Start()
         {
             this.GetMaterial();
+            this.GetWaitYield();
 
-            while (!this.IsReachMaxScale())
-            {
-                this.UpdateScaleValue();
-                this.UpdateObjectScale();
-                this.UpdateAlphaValue();
-
-                yield return null;
-            }
+            yield return this._durationYield;
 
             this.Disable();
+        }
+
+        private void OnDestroy() => this.StopAllCoroutines();
+        #endregion
+
+        #region Update logic
+        private void Update()
+        {
+            this.UpdateScaleValue();
+            this.UpdateObjectScale();
+            this.UpdateAlphaValue();
         }
         #endregion
 
         #region Methods & Functions
+        private WaitForSeconds GetWaitYield() => new WaitForSeconds(Mathf.Max(this._duration, 0f));
+
         private float CalculateGrowSpeed() => this._growSpeed * Time.deltaTime;
 
         private void GetMaterial() => this._material = this.GetComponent<Renderer>().material;
-
-        private bool IsReachMaxScale() => Mathf.Approximately(this._currentScale, this._maxScale);
 
         private void UpdateObjectScale() => this.transform.localScale = Vector3.one * this._currentScale;
 
@@ -51,10 +59,5 @@ namespace VisualStudioEX3.Artemis.Assets.Explosion.Controllers
 
         private void Disable() => this.gameObject.SetActive(false);
         #endregion
-
-        private void OnTriggerEnter(Collider other)
-        {
-            print(other.name);
-        }
     }
 }
