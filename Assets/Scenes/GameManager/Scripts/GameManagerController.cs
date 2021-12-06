@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using VisualStudioEX3.Artemis.Assets.Common.Controllers.UI;
 using VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
 using VisualStudioEX3.Artemis.Framework.Core.Components;
@@ -28,6 +29,7 @@ namespace VisualStudioEX3.Artemis.Assets.Scenes.Controllers
             yield return this.WaitForManagerInitialization<InputManager>();
             yield return this.WaitForManagerInitialization<SceneManager>();
             yield return this.WaitForManagerInitialization<EconomyManager>();
+            yield return this.WaitForManagerInitialization<InGameUIManager>();
 
             GameManagerController.OnGameManagerIsIntialized?.Invoke();
 

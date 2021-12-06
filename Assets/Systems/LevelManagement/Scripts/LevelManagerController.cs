@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VisualStudioEX3.Artemis.Assets.Common.Controllers.UI;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement.Constants;
 using VisualStudioEX3.Artemis.Assets.Player.Controllers;
@@ -48,7 +49,11 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
             this.GetAllEnemySpawnersInScene();
         }
 
-        public override void OnDestroy() => base.OnDestroy();
+        public override void OnDestroy()
+        {
+            InGameUIManager.Instance.Hide();
+            base.OnDestroy();
+        }
         #endregion
 
         #region Methods & Functions
@@ -56,9 +61,12 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         {
             EnvironmentManagerController.Instance.ResetPlayer();
             EnvironmentManagerController.Instance.DisableFloorScrollMaterialEffect();
+            InGameUIManager.Instance.Show();
 
-            this._editorBattlegroundGrid.enabled = false;
+            this.HideDebugFloorGrid();
         }
+
+        private void HideDebugFloorGrid() => this._editorBattlegroundGrid.enabled = false;
 
         private void GetPlayerBaseObject() => this.PlayerBase = GameObject.FindObjectOfType<PlayerBaseController>();
 
