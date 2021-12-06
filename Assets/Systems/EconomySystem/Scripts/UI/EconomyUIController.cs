@@ -1,5 +1,6 @@
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.Common.Controllers.UI;
+using VisualStudioEX3.Artemis.Assets.Scenes.Controllers;
 
 namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers.UI
 {
@@ -12,7 +13,7 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers.UI
         #endregion
 
         #region Intializers & Terminators
-        private void Awake() => this.SubscribeEvents();
+        private void Awake() => GameManagerController.OnGameManagerIsIntialized += this.OnGameManagerIsInitialized;
 
         private void OnDestroy() => this.UnsubscribeEvents(); 
         #endregion
@@ -32,13 +33,15 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers.UI
             EconomyManager.Instance.OnReset -= this.OnReset;
         }
 
-        private void SetUnitsValue(int units) => this._label.value = units.ToString();
+        private void SetUnitsValue(int units) => this._label.Value = units.ToString();
         #endregion
 
         #region Event listeners
-        private void OnEarn(int units) => this.SetUnitsValue(units);
+        private void OnGameManagerIsInitialized() => this.SubscribeEvents();
 
-        private void OnSucessfullPayment(int paid, int left) => this.SetUnitsValue(left);
+        private void OnEarn(int earned, int currentTotal) => this.SetUnitsValue(currentTotal);
+
+        private void OnSucessfullPayment(int paid, int currentTotal) => this.SetUnitsValue(currentTotal);
 
         private void OnReset() => this.SetUnitsValue(0); 
         #endregion
