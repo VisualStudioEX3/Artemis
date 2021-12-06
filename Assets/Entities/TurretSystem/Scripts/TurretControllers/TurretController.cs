@@ -155,6 +155,14 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private void UpdateForwardToTarget(Transform target, float speed)
         {
             this.GetTurretTransform().forward = Vector3.Slerp(this.GetTurretTransform().forward, this.GetForwardVectorToTarget(target), speed);
+            this.FixedLocalXAxisRotation();
+        }
+
+        private void FixedLocalXAxisRotation()
+        {
+            Vector3 currentLocalRotation = this.GetTurretTransform().localRotation.eulerAngles;
+            currentLocalRotation.x = 0f;
+            this.GetTurretTransform().localRotation = Quaternion.Euler(currentLocalRotation);
         }
 
         private Transform GetRandomEnemySpawnerTransform() => LevelManagerController.Instance.GetRandomEnemySpawnLocation().transform;
