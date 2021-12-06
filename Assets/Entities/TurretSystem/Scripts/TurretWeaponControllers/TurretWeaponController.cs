@@ -27,20 +27,20 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 
         #region Events
         /// <summary>
-        /// Notify when the controller shoot a bullet.
+        /// Notifies when the controller shoot a bullet.
         /// </summary>
         public event Action OnShoot;
 
         /// <summary>
-        /// Notify when the controller trying to shoot but don't have available bullets.
+        /// Notifies when the controller trying to shoot but don't have available bullets.
         /// </summary>
         public event Action OnNotMoreBullets;
         #endregion
 
         #region Initializers & Terminators
-        private void Awake() => this.CreateBulletPoolService();
+        public virtual void Awake() => this.CreateBulletPoolService();
 
-        private void OnDestroy() => this.DestroyBulletPoolService();
+        public virtual void OnDestroy() => this.DestroyBulletPoolService();
         #endregion
 
         #region Methods & Functions

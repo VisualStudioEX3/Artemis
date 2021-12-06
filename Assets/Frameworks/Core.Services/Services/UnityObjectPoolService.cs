@@ -6,7 +6,7 @@ using VisualStudioEX3.Artemis.Framework.Core.Contracts.Interfaces;
 
 namespace VisualStudioEX3.Artemis.Framework.Core.Services
 {
-    public class UnityObjectPoolService<T> : IUnityObjectPoolService<T> where T : UnityEngine.Object
+    public class UnityObjectPoolService<T> : IUnityObjectPoolService<T> where T : Component
     {
         #region Internal vars
         private bool _disposedValue;
@@ -72,7 +72,7 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Services
                 this.DestroyInstance(i);
         }
 
-        private void DestroyInstance(int index) => GameObject.DestroyImmediate(this._instances[index]);
+        private void DestroyInstance(int index) => GameObject.DestroyImmediate(this._instances[index].gameObject);
 
         public bool TryGetNext(out T instance)
         {

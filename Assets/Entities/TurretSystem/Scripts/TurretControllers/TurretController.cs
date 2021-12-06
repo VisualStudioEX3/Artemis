@@ -31,8 +31,8 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Internal vars
-        private Coroutine _lookAtTargetCoroutineInstance;
         private TurretWeaponController _turretWeaponController;
+        private int _targetRayCastLayerMask;
         #endregion
 
         #region Inspector fields
@@ -57,12 +57,30 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         /// Gets the <see cref="HealthController"/> component of this turret.
         /// </summary>
         public HealthController Health { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="Transform"/> target, if any target exist, else gets <see langword="null"/>.
+        /// </summary>
+        public Transform Target { get; private set; }
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// Notifies when the controller starts to shoot.
+        /// </summary>
+        public event Action OnStartToShoot;
+
+        /// <summary>
+        /// Notifies when the controller stops to shoot.
+        /// </summary>
+        public event Action OnStopToShoot; 
         #endregion
 
         #region Initializers & Destructors
         private void Awake()
         {
             this.SetupHealthController();
+            this.GenerateLayerMask();
             this.StartToSearchNearestTarget();
             this.SetupTurretWeaponController();
         }
@@ -70,7 +88,17 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private void OnDestroy() => this.StopAllCoroutines();
         #endregion
 
+        #region Update logic
+        private void Update()
+        {
+            if (this.Target)
+                this.UpdateForwardToTarget(this.Target, this.CalculateRotationSpeed());
+        } 
+        #endregion
+
         #region Methods & Functions
+        private Transform GetTurretTransform() => this._rootTurretTransform;
+
         /// <summary>
         /// Setups the <see cref="TurretWeaponController"/> controller.
         /// </summary>
@@ -85,45 +113,48 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 
         private IEnumerable<EnemyController> GetAllActiveEnemies() => LevelManagerController.Instance.GetAllActiveEnemies();
 
-        private bool IsDistanceToTargetInRange(Transform target) => Vector3.Distance(this.transform.position, target.position) <= this._searchRadius;
+        private float GetDistanceToTarget(Transform target) => Vector3.Distance(this.GetTurretTransform().position, target.position);
+
+        private bool IsTargetInRange(Transform target) => this.GetDistanceToTarget(target) <= this._searchRadius;
 
         private bool TryGetNearestTarget(out Transform target)
         {
             IEnumerable<EnemyController> activeEnemies = this.GetAllActiveEnemies();
-            EnemyController nearestEnemy = activeEnemies.FirstOrDefault(e => this.IsDistanceToTargetInRange(e.transform));
 
-            target = nearestEnemy == default(EnemyController) ? null : nearestEnemy.transform;
+            target = null;
+
+            if (activeEnemies.Any())
+            {
+                activeEnemies = activeEnemies.OrderBy(e => this.GetDistanceToTarget(e.transform));
+                target = activeEnemies.FirstOrDefault(e => this.IsTargetInRange(e.transform))?.transform;
+            }
 
             return target;
         }
 
-        private Vector3 GetForwardVectorToTarget(Transform target) => (target.position - this.transform.position).normalized;
+        private Vector3 GetForwardVectorToTarget(Transform target) => (target.position - this.GetTurretTransform().position).normalized;
 
-        private bool IsATargetInRange(out Transform target) => this.TryGetNearestTarget(out target) && this.IsDistanceToTargetInRange(target.transform);
+        private bool IsATargetInRange(out Transform target) => this.TryGetNearestTarget(out target);
 
-        private int GenerateLayerMask() => (1 << this._wallLayer) | (1 << this._targetLayer);
+        private void GenerateLayerMask() => this._targetRayCastLayerMask = (1 << this._wallLayer) | (1 << this._targetLayer);
 
-        private bool RaycastToTarget(Transform target) => Physics.Raycast(
-            origin: this._rootTurretTransform.position,
+        private bool RaycastToTarget(Transform target, out RaycastHit hit) => Physics.Raycast(
+            origin: this.GetTurretTransform().position,
             direction: this.GetForwardVectorToTarget(target),
+            hitInfo: out hit,
             maxDistance: this._searchRadius,
-            layerMask: this.GenerateLayerMask());
+            layerMask: this._targetRayCastLayerMask,
+            queryTriggerInteraction: QueryTriggerInteraction.Collide);
 
-        private bool IsTargetVisible(Transform target) => this.RaycastToTarget(target);
+        private bool IsTargetTag(RaycastHit hit) => hit.collider.CompareTag(this._targetTag);
+
+        private bool IsTargetVisible(Transform target) => this.RaycastToTarget(target, out RaycastHit hit) && this.IsTargetTag(hit);
 
         private void StartToSearchNearestTarget() => this.StartCoroutine(this.SearchNearestTargetCoroutine());
 
-        private void StartToLookAtNewTarget(Transform target)
-        {
-            if (this._lookAtTargetCoroutineInstance is not null)
-                this.StopCoroutine(this._lookAtTargetCoroutineInstance);
-
-            this._lookAtTargetCoroutineInstance = this.StartCoroutine(this.LookAtTargetCoroutine(target));
-        }
-
         private void UpdateForwardToTarget(Transform target, float speed)
         {
-            this._rootTurretTransform.forward = Vector3.Slerp(this._rootTurretTransform.forward, this.GetForwardVectorToTarget(target), speed);
+            this.GetTurretTransform().forward = Vector3.Slerp(this.GetTurretTransform().forward, this.GetForwardVectorToTarget(target), speed);
         }
 
         private Transform GetRandomEnemySpawnerTransform() => LevelManagerController.Instance.GetRandomEnemySpawnLocation().transform;
@@ -147,13 +178,21 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         /// Starts to shooting the target.
         /// </summary>
         /// <remarks>Overload this method if you need to manages more than a single <see cref="TurretWeaponController"/> controller.</remarks>
-        public virtual void StartShooting() => this._turretWeaponController.HoldTrigger();
+        public virtual void StartShooting()
+        {
+            this._turretWeaponController.HoldTrigger();
+            this.OnStartToShoot?.Invoke();
+        }
 
         /// <summary>
         /// Stops to shooting the target.
         /// </summary>
         /// <remarks>Overload this method if you need to manages more than a single <see cref="TurretWeaponController"/> controller.</remarks>
-        public virtual void StopShooting() => this._turretWeaponController.ReleaseTrigger();
+        public virtual void StopShooting()
+        {
+            this._turretWeaponController.ReleaseTrigger();
+            this.OnStopToShoot?.Invoke();
+        }
 
         private float CalculateRotationSpeed() => this._rotationSpeed * Time.deltaTime;
 
@@ -162,13 +201,22 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         private void DrawRadiusGizmo()
         {
             Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(this._rootTurretTransform.position, this._searchRadius);
+            Gizmos.DrawWireSphere(this.GetTurretTransform().position, this._searchRadius);
         }
 
         private void DrawForwardGizmo()
         {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(this._rootTurretTransform.position, this._rootTurretTransform.forward * this._searchRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(this.GetTurretTransform().position, this.GetTurretTransform().forward * this._searchRadius);
+        }
+
+        private void DrawTargetGizmo()
+        {
+            if (this.Target)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(this.Target.position, 1f); 
+            }
         }
         #endregion
 
@@ -179,6 +227,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         {
             this.DrawRadiusGizmo();
             this.DrawForwardGizmo();
+            this.DrawTargetGizmo();
         }
         #endregion
 
@@ -189,17 +238,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
             {
                 yield return new WaitForSeconds(this._waitForSearchForNewTarget);
 
-                this.StartToLookAtNewTarget(this.GetTarget());
-            }
-        }
-
-        private IEnumerator LookAtTargetCoroutine(Transform target)
-        {
-            while (target.gameObject.activeInHierarchy)
-            {
-                this.UpdateForwardToTarget(target, this.CalculateRotationSpeed());
-
-                yield return null;
+                this.Target = this.GetTarget();
             }
         }
         #endregion

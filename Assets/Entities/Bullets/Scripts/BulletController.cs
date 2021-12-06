@@ -65,9 +65,9 @@ namespace VisualStudioEX3.Artemis.Assets.Bullets.Controllers
         #endregion
 
         #region Event listeners
-        private void OnCollisionEnter(Collision collision) => this.DisableBullet();
+        public virtual void OnCollisionEnter(Collision collision) => this.DisableBullet();
 
-        private void OnTriggerEnter(Collider other) => this.DisableBullet();
+        public virtual void OnTriggerEnter(Collider other) => this.DisableBullet();
         #endregion
     }
 }

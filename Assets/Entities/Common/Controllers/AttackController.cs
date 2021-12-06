@@ -15,7 +15,7 @@ namespace VisualStudioEX3.Artemis.Assets.Common.Controllers
     {
         #region Constants
         private const int MIN_DAMAGE = 1;
-        private const int MAX_DAMAGE = 10;
+        private const int MAX_DAMAGE = 50;
         private const int DEFAULT_DAMAGE = 1;
 
         private const float DEFAULT_DAMAGE_TIME_INTERVAL = 1f;
