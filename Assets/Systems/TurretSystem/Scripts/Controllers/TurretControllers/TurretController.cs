@@ -38,6 +38,10 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #region Inspector fields
         [SerializeField]
         private Transform _rootTurretTransform;
+
+        [Header("Economy"), Tooltip("Amount of units required to create this turret."), SerializeField, Min(0)]
+        private int _price;
+
         [Header("AIM settings"), SerializeField, Range(MIN_WAIT_FOR_SEARCH_TARGET, MAX_WAIT_FOR_SEARCH_TARGET)]
         private float _waitForSearchForNewTarget = DEFAULT_WAIT_FOR_SEARCH_TARGET;
         [SerializeField, Range(MIN_SEARCH_RADIUS, MAX_SEARCH_RADIUS)]
@@ -53,6 +57,11 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Amount of units required to create this turret.
+        /// </summary>
+        public int Price => this._price;
+
         /// <summary>
         /// Gets the <see cref="HealthController"/> component of this turret.
         /// </summary>
