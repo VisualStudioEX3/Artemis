@@ -1,4 +1,5 @@
 using UnityEngine;
+using VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.TurretSystem.Services;
 
 namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
@@ -15,7 +16,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         {
             // TODO: Implements economy system and apply a cost to each turret.
             // TODO: Implements an UI to select the type of turret to instantiate.
-            if (true) // TODO: If the player has enough "money" for the selected turret, create it.
+            if (EconomyManager.Instance.TryPayUnits(0))
             {
                 TurretController prefab = this.GetTurretOfType(0);
                 this.CreateTurretInstance(prefab);
