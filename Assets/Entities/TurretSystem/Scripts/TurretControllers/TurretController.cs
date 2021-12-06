@@ -126,7 +126,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
             if (activeEnemies.Any())
             {
                 activeEnemies = activeEnemies.OrderBy(e => this.GetDistanceToTarget(e.transform));
-                target = activeEnemies.FirstOrDefault(e => this.IsTargetInRange(e.transform)).transform;
+                target = activeEnemies.FirstOrDefault(e => this.IsTargetInRange(e.transform))?.transform;
             }
 
             return target;
