@@ -25,14 +25,30 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers
         public int MaxUnits => this._maxUnits;
         #endregion
 
+        #region Events
+        /// <summary>
+        /// Notifies when the player earn units.
+        /// </summary>
+        public event Action<int> OnEarn;
+
         /// <summary>
         /// Notifies when the player achieve a sucessfull payment operation.
         /// </summary>
         /// <remarks>Returns the amount of units used to pay and the rest of the units left.</remarks>
         public event Action<int, int> OnSucessfullPayment;
 
+        /// <summary>
+        /// Notifies when the economy controller is reseted.
+        /// </summary>
+        public event Action OnReset;
+        #endregion
+
         #region Methods & Functions
-        private void EarnUnits(int units) => this.CurrentUnits = Mathf.Min(this.CurrentUnits + units, this._maxUnits);
+        private void EarnUnits(int units)
+        {
+            this.CurrentUnits = Mathf.Min(this.CurrentUnits + units, this._maxUnits);
+            this.OnEarn?.Invoke(units);
+        }
 
         /// <summary>
         /// try to pay with an amount of units.
@@ -57,7 +73,11 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers
         /// <summary>
         /// Reset to zero the current amount of units.
         /// </summary>
-        public void ResetUnits() => this.CurrentUnits = 0;
+        public void ResetUnits()
+        {
+            this.CurrentUnits = 0;
+            this.OnReset?.Invoke();
+        }
         #endregion
 
         #region Event listeners
