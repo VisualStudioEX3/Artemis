@@ -287,10 +287,11 @@ MonoBehaviour:
   _fireRatio: 0.05
   _sourceShoot: {fileID: 3069060019513760602}
   _rotator: {fileID: 2838722800312023222}
-  _idleRotationSpeed: 1
-  _shootingRotationSpeed: 25
-  _rotationLerpSpeed: 1
-  _shootingScale: 0.5
+  _idleRotationSpeed: 25
+  _shootingRotationSpeed: 300
+  _idleCannonScale: 1
+  _shootingCannonScale: 1
+  _lerpBetweenStatesSpeed: 1
 --- !u!208 &8108907760800367917
 NavMeshObstacle:
   m_ObjectHideFlags: 0

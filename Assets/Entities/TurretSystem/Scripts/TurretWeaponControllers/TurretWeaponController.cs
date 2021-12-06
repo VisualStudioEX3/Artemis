@@ -38,9 +38,9 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Initializers & Terminators
-        private void Awake() => this.CreateBulletPoolService();
+        public virtual void Awake() => this.CreateBulletPoolService();
 
-        private void OnDestroy() => this.DestroyBulletPoolService();
+        public virtual void OnDestroy() => this.DestroyBulletPoolService();
         #endregion
 
         #region Methods & Functions
