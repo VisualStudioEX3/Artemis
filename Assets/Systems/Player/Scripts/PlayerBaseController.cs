@@ -1,8 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.Common.Controllers;
 using VisualStudioEX3.Artemis.Assets.Explosion.Controllers;
-using VisualStudioEX3.Artemis.Assets.GameOver.Controllers;
 
 namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
 {
@@ -12,10 +10,6 @@ namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
     [DisallowMultipleComponent, RequireComponent(typeof(HealthController), typeof(Rigidbody), typeof(SphereCollider))]
     public class PlayerBaseController : MonoBehaviour
     {
-        #region Constants
-        private const float DEFAULT_WAIT_UNTIL_SHOW_GAME_OVER_SCREEN = 3f; 
-        #endregion
-
         #region Internal vars
         private HealthController _healthController;
         #endregion
@@ -25,8 +19,6 @@ namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
         private GameObject _root;
         [SerializeField]
         private ExplosionController _explosion;
-        [SerializeField, Min(0)]
-        private float _waitUntilShowGameOverScreen = DEFAULT_WAIT_UNTIL_SHOW_GAME_OVER_SCREEN;
         #endregion
 
         #region Initializers
@@ -51,8 +43,6 @@ namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
             this._explosion.transform.parent = null;
             this._explosion.gameObject.SetActive(true);
         }
-
-        private void SetGameOverScreen() => this.StartCoroutine(this.GameOverCoroutine());
         #endregion
 
         #region Event listeners
@@ -60,16 +50,7 @@ namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
         {
             this.Explode();
             this.DisableObject();
-            this.SetGameOverScreen();
         }
-        #endregion
-
-        #region Coroutines
-        private IEnumerator GameOverCoroutine()
-        {
-            yield return new WaitForSeconds(this._waitUntilShowGameOverScreen);
-            GameOverController.Instance.Show();
-        } 
         #endregion
     }
 }
