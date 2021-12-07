@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers;
+using VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI;
 using VisualStudioEX3.Artemis.Framework.Core.Contracts.Attributes;
 using VisualStudioEX3.Artemis.Framework.InputManager.Components;
 using VisualStudioEX3.Artemis.Framework.InputManager.Contracts.Models;
@@ -66,10 +67,15 @@ namespace VisualStudioEX3.Artemis.Assets.Player.Controllers
 
         private bool Raycast(out RaycastHit hit) => Physics.Raycast(ray: this.CreateRayFromCameraToMousePosition(), out hit, this._maxDistance, this.GetLayerMask());
 
+        private bool CanOpenTheTurretSelectorDialog() => !TurretSelectorDialogController.Instance.IsOpen;
+
         private void CreateTurret(Transform turretPlacementTransform)
         {
-            TurretPlacementController turretPlacement = turretPlacementTransform.GetComponentInParent<TurretPlacementController>();
-            turretPlacement.CreateTurret();
+            if (this.CanOpenTheTurretSelectorDialog())
+            {
+                TurretPlacementController turretPlacement = turretPlacementTransform.GetComponentInParent<TurretPlacementController>();
+                turretPlacement.OpenTurretSelectorDialog();
+            }
         }
         #endregion
 

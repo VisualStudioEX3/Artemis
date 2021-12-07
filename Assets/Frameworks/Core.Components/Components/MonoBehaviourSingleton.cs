@@ -10,6 +10,13 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
     /// <remarks>Remember call base.<see cref="Awake"/> and base.<see cref="OnDestroy"/> events, when overload these events, to the right work of the singleton.</remarks>
     public abstract class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
+        #region Events
+        /// <summary>
+        /// Notifies when the singleton is totally initialized.
+        /// </summary>
+        public static event Action OnSingletonInitialized; 
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets if this singleton are initialized.
@@ -34,6 +41,8 @@ namespace VisualStudioEX3.Artemis.Framework.Core.Components
 
             if (this.IsPersistentBetweenScenes())
                 DontDestroyOnLoad(this.transform.root.gameObject);
+
+            MonoBehaviourSingleton<T>.OnSingletonInitialized?.Invoke();
         }
 
         public virtual void OnDestroy() => MonoBehaviourSingleton<T>.Instance = null;

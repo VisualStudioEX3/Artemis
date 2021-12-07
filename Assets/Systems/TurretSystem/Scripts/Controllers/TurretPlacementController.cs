@@ -1,6 +1,5 @@
 using UnityEngine;
-using VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers;
-using VisualStudioEX3.Artemis.Assets.TurretSystem.Services;
+using VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI;
 
 namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
 {
@@ -12,19 +11,19 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers
         #endregion
 
         #region Methods & Functions
-        public void CreateTurret()
-        {
-            // TODO: Implements economy system and apply a cost to each turret.
-            // TODO: Implements an UI to select the type of turret to instantiate.
-            if (EconomyManager.Instance.TryPayUnits(0))
-            {
-                TurretController prefab = this.GetTurretOfType(0);
-                this.CreateTurretInstance(prefab);
-                this.DisableTrigger();
-            }
-        }
+        /// <summary>
+        /// Opens the turret selector dialog.
+        /// </summary>
+        public void OpenTurretSelectorDialog() => TurretSelectorDialogController.Instance.OpenDialog(this);
 
-        private TurretController GetTurretOfType(int indexType) => TurretControllerFactory.Instance.GetInstance(indexType);
+        /// <summary>
+        /// Creates a new instance of a <see cref="TurretController"/> prefab.
+        /// </summary>
+        public void CreateTurret(TurretController prefab)
+        {
+            this.CreateTurretInstance(prefab);
+            this.DisableTrigger();
+        }
 
         private void CreateTurretInstance(TurretController prefab)
         {
