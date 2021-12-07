@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -388,11 +388,11 @@ MonoBehaviour:
   - _asset: {fileID: 102900000, guid: 36fbe3f457788224da1e528d3055e62a, type: 3}
     _assetPath: Assets/Scenes/GameScenes/Level2/Level2.unity
     _scenePath: Scenes/GameScenes/Level2/Level2
-    _sceneIndex: -1
+    _sceneIndex: 4
   - _asset: {fileID: 102900000, guid: ec3aab56f2d93f8459d826e5f235df85, type: 3}
     _assetPath: Assets/Scenes/GameScenes/Level3/Level3.unity
     _scenePath: Scenes/GameScenes/Level3/Level3
-    _sceneIndex: -1
+    _sceneIndex: 5
 --- !u!114 &212681600
 MonoBehaviour:
   m_ObjectHideFlags: 0
