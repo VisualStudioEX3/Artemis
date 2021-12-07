@@ -15,6 +15,8 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers.UI
         #region Intializers & Terminators
         private void Awake() => GameManagerController.OnGameManagerIsIntialized += this.OnGameManagerIsInitialized;
 
+        private void Start() => this.SetCurrentCreditsValue();
+
         private void OnDestroy() => this.UnsubscribeEvents(); 
         #endregion
 
@@ -33,17 +35,19 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers.UI
             EconomyManager.Instance.OnReset -= this.OnReset;
         }
 
-        private void SetUnitsValue(int units) => this._label.Value = units.ToString();
+        private void SetCreditsValue(int credits) => this._label.Value = credits.ToString();
+
+        private void SetCurrentCreditsValue() => this.SetCreditsValue(EconomyManager.Instance.CurrentCredits);
         #endregion
 
         #region Event listeners
         private void OnGameManagerIsInitialized() => this.SubscribeEvents();
 
-        private void OnEarn(int earned, int currentTotal) => this.SetUnitsValue(currentTotal);
+        private void OnEarn(int earned, int currentTotal) => this.SetCreditsValue(currentTotal);
 
-        private void OnSucessfullPayment(int paid, int currentTotal) => this.SetUnitsValue(currentTotal);
+        private void OnSucessfullPayment(int paid, int currentTotal) => this.SetCreditsValue(currentTotal);
 
-        private void OnReset() => this.SetUnitsValue(0); 
+        private void OnReset() => this.SetCurrentCreditsValue(); 
         #endregion
     }
 }
