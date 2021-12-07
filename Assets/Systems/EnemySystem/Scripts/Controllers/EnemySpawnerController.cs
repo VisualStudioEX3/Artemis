@@ -16,7 +16,8 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         /// Spawn an instance of <see cref="EnemyController"/>.
         /// </summary>
         /// <typeparam name="T"><see cref="EnemyController"/> based type.</typeparam>
-        public void SpawnEnemy(Type enemyType)
+        /// <returns>Returns the <see cref="EnemyController"/> instance.</returns>
+        public EnemyController SpawnEnemy(Type enemyType)
         {
             EnemyController instance = EnemyControllerFactory.Instance.GetEnemyInstance(enemyType);
 
@@ -26,6 +27,8 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
             instance.transform.forward = this.transform.forward;
 
             instance.gameObject.SetActive(true);
+
+            return instance;
         }
         #endregion
     }

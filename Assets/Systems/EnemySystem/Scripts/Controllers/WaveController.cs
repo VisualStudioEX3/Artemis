@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -20,7 +21,21 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private WaveManager _waveManager;
         #endregion
 
-        private void Awake() => this._waveManager = this.GetComponent<WaveManager>();
+        #region Initializers
+        private void Awake() => this.ResolveWaveManagerComponent();
+        #endregion
+
+        #region Methods & Functions
+        private void ResolveWaveManagerComponent() => this._waveManager = this.GetComponent<WaveManager>();
+
+        private EnemySpawnerController GetRandomEnemySpawnLocation() => this._waveManager.GetRandomEnemySpawnLocation();
+
+        private EnemyController SpawnEnemy(Type enemyType) => this.GetRandomEnemySpawnLocation().SpawnEnemy(enemyType);
+        #endregion
+
+        #region Event listeners
+        private void OnEnemyDead(int reward) => this._deaths++;
+        #endregion
 
         #region Coroutines
         public IEnumerator StartNextWaveCoroutine(WaveAsset wave)
@@ -45,7 +60,10 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
             yield return new WaitForSeconds(data.startToSpawnDelay);
 
             for (int i = 0; i < data.count; i++)
-                this._waveManager.GetRandomEnemySpawnLocation().SpawnEnemy(data.enemy.GetType());
+            {
+                EnemyController enemy = this.SpawnEnemy(data.enemy.GetType());
+                enemy.OnDead += this.OnEnemyDead;
+            }
         }
         #endregion
     }
