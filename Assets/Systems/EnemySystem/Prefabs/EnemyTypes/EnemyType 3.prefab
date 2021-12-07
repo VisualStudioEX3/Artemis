@@ -722,7 +722,7 @@ MonoBehaviour:
   _reward: 25
   _speed: 1
   _priority: 1
-  _scaleFactor: 1
+  _scaleFactor: 0.9
 --- !u!114 &1215416715057810049
 MonoBehaviour:
   m_ObjectHideFlags: 0

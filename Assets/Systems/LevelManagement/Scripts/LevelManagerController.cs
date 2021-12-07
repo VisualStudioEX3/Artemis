@@ -1,10 +1,14 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VisualStudioEX3.Artemis.Assets.Common.Controllers;
 using VisualStudioEX3.Artemis.Assets.Common.Controllers.UI;
 using VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers;
+using VisualStudioEX3.Artemis.Assets.GameOver.Controllers;
 using VisualStudioEX3.Artemis.Assets.LevelManagement.Constants;
 using VisualStudioEX3.Artemis.Assets.Player.Controllers;
 using VisualStudioEX3.Artemis.Assets.Scenes.Controllers;
+using VisualStudioEX3.Artemis.Assets.StageClear.Controllers;
 using VisualStudioEX3.Artemis.Framework.Core.Components;
 
 namespace VisualStudioEX3.Artemis.Assets.LevelManagement
@@ -12,11 +16,17 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
     [AddComponentMenu(ComponentMenuPaths.LEVEL_MANAGER_CONTROLLER_COMPONENT_MENU_NAMESPACE), DisallowMultipleComponent]
     public class LevelManagerController : MonoBehaviourSingleton<LevelManagerController>
     {
+        #region Constants
+        private const float DEFAULT_WAIT_UNTIL_SHOW_GAME_OVER_SCREEN = 3f;
+        #endregion
+
         #region Inspector fields
         [SerializeField]
         private Renderer _editorBattlegroundGrid;
         [SerializeField]
         private Transform _enemiesRootObject;
+        [SerializeField, Min(0)]
+        private float _waitUntilShowGameOverScreen = DEFAULT_WAIT_UNTIL_SHOW_GAME_OVER_SCREEN;
         #endregion
 
         #region Properties
@@ -43,15 +53,19 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         public override void Awake()
         {
             base.Awake();
+            this.ShowInGameUI();
+            this.HideDebugFloorGrid();
+        }
 
+        private IEnumerator Start()
+        {
+            yield return this.GetWaitUntilWaveManagerIsInitializedYield();
             this.InitializeLevel();
-            this.GetPlayerBaseObject();
-            this.GetAllEnemySpawnersInScene();
         }
 
         public override void OnDestroy()
         {
-            InGameUIManager.Instance.Hide();
+            this.HideInGameUI();
             base.OnDestroy();
         }
         #endregion
@@ -59,12 +73,37 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         #region Methods & Functions
         private void InitializeLevel()
         {
+            this.ResetEnvironmentScene();
+            this.GetPlayerBaseObject();
+            this.GetAllEnemySpawnersInScene();
+            this.SubscribeEvents();
+        }
+
+        private void ResetEnvironmentScene()
+        {
             EnvironmentManagerController.Instance.ResetPlayer();
             EnvironmentManagerController.Instance.DisableFloorScrollMaterialEffect();
-            InGameUIManager.Instance.Show();
-
-            this.HideDebugFloorGrid();
         }
+
+        private WaitUntil GetWaitUntilWaveManagerIsInitializedYield() => new(() => WaveManager.IsInitialized);
+
+        private void SubscribeEvents()
+        {
+            this.SubscribeOnLevelCompletedEvent();
+            this.SubscribeOnPlayerBaseIsDestroyed();
+        }
+
+        private void SubscribeOnLevelCompletedEvent() => WaveManager.Instance.OnAllWavesCompleted += this.OnLevelCompleted;
+
+        private void SubscribeOnPlayerBaseIsDestroyed()
+        {
+            HealthController healthController = this.PlayerBase.GetComponent<HealthController>();
+            healthController.OnDeath += this.OnPlayerBaseIsDestroyed;
+        }
+
+        private void ShowInGameUI() => InGameUIManager.Instance.Show();
+
+        private void HideInGameUI() => InGameUIManager.Instance.Hide();
 
         private void HideDebugFloorGrid() => this._editorBattlegroundGrid.enabled = false;
 
@@ -83,6 +122,26 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         /// </summary>
         /// <returns>Returns an <see cref="EnemySpawnerController"/> instance.</returns>
         public EnemySpawnerController GetRandomEnemySpawnLocation() => WaveManager.Instance.GetRandomEnemySpawnLocation();
+
+        private void ShowsStageClearScreen() => StageClearController.Instance.Show();
+
+        private void ShowGameOverScreen() => GameOverController.Instance.Show();
+
+        private void StartGameOverScreen() => this.StartCoroutine(this.GameOverCoroutine());
+        #endregion
+
+        #region Event listeners
+        private void OnLevelCompleted() => this.ShowsStageClearScreen();
+
+        private void OnPlayerBaseIsDestroyed() => this.StartGameOverScreen();
+        #endregion
+
+        #region Coroutines
+        private IEnumerator GameOverCoroutine()
+        {
+            yield return new WaitForSeconds(this._waitUntilShowGameOverScreen);
+            this.ShowGameOverScreen();
+        }
         #endregion
     }
 }
