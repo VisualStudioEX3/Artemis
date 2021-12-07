@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Framework.Core.Components;
 
@@ -12,9 +13,13 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI
         private const string NULL_CALLER_ARGUMENT_EXCEPTION_MESSAGE = SOURCE_EXCEPTION + "The caller argument can not be null.";
         #endregion
 
+        #region Internal vars
+        private IEnumerable<TurretSelectorButtonController> _buttons;
+        #endregion
+
         #region Inspector fields
         [SerializeField, Tooltip("Used to activate or deactivate all dialog objects without disable this component.")]
-        private GameObject _baseDialogNode; 
+        private GameObject _baseDialogNode;
         #endregion
 
         #region Properties
@@ -33,14 +38,23 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI
         public override void Awake()
         {
             base.Awake();
+            this.ResolveButtonReferences();
             this.DisableDialog();
         }
 
-        public override void OnDestroy() => base.OnDestroy(); 
+        public override void OnDestroy() => base.OnDestroy();
         #endregion
 
         #region Methods & Functions
         public override bool IsPersistentBetweenScenes() => true;
+
+        private void ResolveButtonReferences() => this._buttons = this.GetComponentsInChildren<TurretSelectorButtonController>(includeInactive: true);
+
+        private void RefreshButtonsState()
+        {
+            foreach (TurretSelectorButtonController button in this._buttons)
+                button.Refresh();
+        }
 
         private void EnableDialog() => this._baseDialogNode.SetActive(true);
 
@@ -59,6 +73,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI
                 throw this.FormatArgumentNullException();
 
             this.TurretPlacementCaller = caller;
+            this.RefreshButtonsState();
             this.EnableDialog();
         }
 
