@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootTurretTransform: {fileID: 2231706371430905016}
-  _price: 50
+  _price: 100
   _waitForSearchForNewTarget: 3
   _searchRadius: 15
   _rotationSpeed: 0.5
