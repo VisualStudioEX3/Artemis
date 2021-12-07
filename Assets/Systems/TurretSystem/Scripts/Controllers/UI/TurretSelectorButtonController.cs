@@ -1,6 +1,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers;
 using VisualStudioEX3.Artemis.Assets.TurretSystem.Services;
@@ -27,11 +28,13 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI
         #endregion
 
         #region Intializers
-        private void Awake() => this.OnEnable();
+        private void Awake() => this.SubscribeManagerInitializationEvents();
         #endregion
 
         #region Methods & Functions
-        private void SubscribeEvents()
+        private void SubscribeManagerInitializationEvents() => EconomyManager.OnSingletonInitialized += this.OnEnconomyManagerIsInitialized;
+
+        private void SubscribeEconomyManagerEvents()
         {
             this.UnsubscribeEvents();
 
@@ -59,7 +62,7 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI
 
         private int GetPrice() => this._prefabReference.Price;
 
-        private int GetCurrentCredits() => EconomyManager.Instance.CurrentUnits;
+        private int GetCurrentCredits() => EconomyManager.Instance.CurrentCredits;
 
         private void SetPriceLabel() => this._priceTextTMPro.text = string.Format(PRICE_LABEL_TEXT, this._prefabReference.Price);
 
@@ -75,22 +78,35 @@ namespace VisualStudioEX3.Artemis.Assets.TurretSystem.Controllers.UI
                 this.EnableButton();
         }
 
-        public void BuyAndCreateTurret()
+        /// <summary>
+        /// Refresh references and item availability.
+        /// </summary>
+        public void Refresh()
         {
-            TurretSelectorDialogController.Instance.TurretPlacementCaller.CreateTurret(this._prefabReference);
-            TurretSelectorDialogController.Instance.CloseDialog();
-        }
-        #endregion
-
-        #region Event listeners
-        private void OnEnable()
-        {
-            this.SubscribeEvents();
             this.ResolveComponents();
             this.ResolveTurretPrefab();
             this.SetPriceLabel();
             this.CheckIfHaveEnoughCreditsToBuy();
         }
+
+        /// <summary>
+        /// Buy and creates a turret.
+        /// </summary>
+        /// <remarks>This method is called from the <see cref="UnityEvent"/> event in the <see cref="Button"/> component.</remarks>
+        public void BuyAndCreateTurret()
+        {
+            if (EconomyManager.Instance.TryPayCredits(this.GetPrice()))
+            {
+                TurretSelectorDialogController.Instance.TurretPlacementCaller.CreateTurret(this._prefabReference);
+                TurretSelectorDialogController.Instance.CloseDialog();
+            }
+            else
+                Debug.LogWarning("Unexpected: The user has tried to buy a turret but seems not have enough credits!");
+        }
+        #endregion
+
+        #region Event listeners
+        private void OnEnconomyManagerIsInitialized() => this.SubscribeEconomyManagerEvents();
 
         private void OnCreditsEarned(int earned, int currentTotal) => this.CheckIfHaveEnoughCreditsToBuy();
 

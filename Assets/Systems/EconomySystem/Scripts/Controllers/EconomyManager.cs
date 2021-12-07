@@ -74,7 +74,7 @@ namespace VisualStudioEX3.Artemis.Assets.EconomySystem.Controllers
         /// </summary>
         /// <param name="price">Units to pay.</param>
         /// <returns>Returns <see langword="true"/> if the player have enough credits and rest them from the current credits.</returns>
-        public bool TryPayUnits(int price)
+        public bool TryPayCredits(int price)
         {
             int afterPayCredits = this.CurrentCredits - price;
 
