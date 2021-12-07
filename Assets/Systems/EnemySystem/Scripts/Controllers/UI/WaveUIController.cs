@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using VisualStudioEX3.Artemis.Assets.Common.Controllers.UI;
 using VisualStudioEX3.Artemis.Assets.LevelManagement;
@@ -10,12 +11,15 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers.UI
     public class WaveUIController : MonoBehaviour
     {
         #region Inspector fields
-        [SerializeField]
+        [Header("Topbar label fields"), SerializeField]
         private UILabelFieldController _level;
         [SerializeField]
         private UILabelFieldController _wave;
         [SerializeField]
         private UILabelFieldController _timeBeforeFirstWave;
+
+        [Header("Messages on screen"), SerializeField]
+        private WaveStartsWarningController _waveStartsWarning;
         #endregion
 
         private void Awake() => GameManagerController.OnGameManagerIsIntialized += this.OnGameManagerIsInitialized;
@@ -70,6 +74,8 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers.UI
         private void HideTimeBeforeFirstWaveField() => this._timeBeforeFirstWave.gameObject.SetActive(false);
 
         private void DisplayTimeCountDownToStartFirstWave() => this.StartCoroutine(this.DisplayTimeUntilStartTheFirstWaveCoroutine(WaveManager.Instance.TimeBeforeStartFirstWave));
+
+        private void ShowWaveStartsWarning(int waveNumber) => this._waveStartsWarning.Play(waveNumber);
         #endregion
 
         #region Event listeners
@@ -89,7 +95,11 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers.UI
 
         private void OnSceneUnload() => this.UnsubscribeWaveEvents();
 
-        private void OnWaveStarts(int waveNumber) => this._wave.Value = this.GetWaveNumberString(waveNumber);
+        private void OnWaveStarts(int waveNumber)
+        {
+            this.ShowWaveStartsWarning(waveNumber);
+            this.UpdateWaveValue(waveNumber);
+        }
         #endregion
 
         #region Coroutines
