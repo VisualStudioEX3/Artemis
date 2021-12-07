@@ -388,7 +388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe94401bd8e6c5e4782fe0e47d6d56d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _root: {fileID: 1614782353677513163}
   _explosion: {fileID: 722839196627590944}
+  _waitUntilShowGameOverScreen: 3
 --- !u!114 &4626591996963650649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +669,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1614782353677513164}
   m_Layer: 10
-  m_Name: Position
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
