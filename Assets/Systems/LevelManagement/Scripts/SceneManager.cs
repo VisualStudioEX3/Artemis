@@ -116,7 +116,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
             if (this._scenes.Length == 0)
                 throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadNextLevel)}: No are scenes to load!");
 
-            if (++this.CurrentLevelIndex > this._scenes.Length)
+            if (++this.CurrentLevelIndex == this._scenes.Length)
                 this.LoadStartScreen();
             else
                 this.StartCoroutine(this.LoadSceneCoroutine(this._scenes[this.CurrentLevelIndex], LoadSceneMode.Additive, isFixedScene: false));
