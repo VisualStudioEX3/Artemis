@@ -25,14 +25,21 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         private WaveAsset[] _waves;
 
         [SerializeField, Tooltip(TooltipMessageConstants.TIME_IN_SECONDS_TOOLTIP_MESSAGE)]
-        private float _timeBeforeStartFirstWave;
+        private int _timeBeforeStartFirstWave;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Time, in seconds, before starts the first wave.
+        /// </summary>
+        public int TimeBeforeStartFirstWave => this._timeBeforeStartFirstWave; 
         #endregion
 
         #region Events
         /// <summary>
-        /// Notifies the time to wait to start the next wave.
+        /// Notifies when a enemy wave starts.
         /// </summary>
-        public event Action<int> OnPrepareForNextWave;
+        public event Action<int> OnWaveStart;
 
         /// <summary>
         /// Notifies when a enemy wave is finished.
@@ -60,7 +67,11 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 
             int waveNumber = 0;
             foreach (WaveAsset wave in this._waves)
-                yield return this._waveController.StartNextWaveCoroutine(++waveNumber, wave);
+            {
+                this.OnWaveStart(++waveNumber);
+                yield return this._waveController.StartNextWaveCoroutine(wave);
+                this.OnWaveFinished?.Invoke(waveNumber);
+            }
 
             this.OnAllWavesCompleted?.Invoke();
         }
@@ -69,12 +80,6 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         #endregion
 
         #region Methods & Functions
-        public void RaiseOnPrepareForNextWave(int waveNumber) => this.OnPrepareForNextWave?.Invoke(waveNumber);
-
-        public void RaiseOnWaveFinished(int waveNumber) => this.OnWaveFinished?.Invoke(waveNumber);
-        
-        public void RaiseOnAllWavesCompleted() => this.OnAllWavesCompleted?.Invoke();
-        
         private void CreateEnemyInstances() => EnemyControllerFactory.Instance.GenerateInstances(this._waves);
         
         private int GetRandomIndex(int lenght) => UnityEngine.Random.Range(0, lenght);

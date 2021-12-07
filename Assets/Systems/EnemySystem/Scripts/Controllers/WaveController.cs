@@ -12,7 +12,6 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
     public class WaveController : MonoBehaviour
     {
         #region Internal vars
-        private int _waveNumber;
         private int _totalWaveEnemies;
         private int _deaths;
 
@@ -23,18 +22,9 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
 
         private void Awake() => this._waveManager = this.GetComponent<WaveManager>();
 
-        #region Event listernes
-        public void OnEnemyDead(int reward)
-        {
-            if (++this._deaths == this._totalWaveEnemies)
-                this._waveManager.RaiseOnWaveFinished(this._waveNumber);
-        }
-        #endregion
-
         #region Coroutines
-        public IEnumerator StartNextWaveCoroutine(int waveNumber, WaveAsset wave)
+        public IEnumerator StartNextWaveCoroutine(WaveAsset wave)
         {
-            this._waveNumber = waveNumber;
             this._totalWaveEnemies = wave.enemyTypes.Sum(e => e.count);
             this._deaths = 0;
             this._wave = wave;
@@ -43,9 +33,7 @@ namespace VisualStudioEX3.Artemis.Assets.EnemySystem.Controllers
         }
 
         private IEnumerator WaveCoroutine()
-        {
-            WaveManager.Instance.RaiseOnPrepareForNextWave(this._waveNumber);
-
+        { 
             foreach (EnemyWaveData data in this._wave.enemyTypes)
                 this.StartCoroutine(this.EnemySpawnCoroutine(data));
 

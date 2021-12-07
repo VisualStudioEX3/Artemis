@@ -18,7 +18,6 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
     public class SceneManager : MonoBehaviourSingleton<SceneManager>
     {
         #region Internal vars
-        private int _currentLevelIndex = -1;
         private SceneAsset _currentScene;
         #endregion
 
@@ -63,6 +62,14 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
         public event Action OnUnloadSceneFinished;
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Gets the current index level.
+        /// </summary>
+        /// <remarks>The value is based zero [0..n] (e.g. index 1 is level 2).</remarks>
+        public int CurrentLevelIndex { get; private set; } = -1; 
+        #endregion
+
         #region Initializers & Terminators
         public override void Awake()
         {
@@ -96,6 +103,8 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
                 throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadNextLevel)}: No are scene to load!");
 
             this.StartCoroutine(this.LoadSceneCoroutine(this._startScreen, LoadSceneMode.Additive, isFixedScene: false));
+
+            this.CurrentLevelIndex = -1;
         }
 
         /// <summary>
@@ -107,10 +116,10 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
             if (this._scenes.Length == 0)
                 throw new InvalidOperationException($"{nameof(SceneManager)}::{nameof(this.LoadNextLevel)}: No are scenes to load!");
 
-            if (++this._currentLevelIndex > this._scenes.Length)
+            if (++this.CurrentLevelIndex > this._scenes.Length)
                 this.LoadStartScreen();
             else
-                this.StartCoroutine(this.LoadSceneCoroutine(this._scenes[this._currentLevelIndex], LoadSceneMode.Additive, isFixedScene: false));
+                this.StartCoroutine(this.LoadSceneCoroutine(this._scenes[this.CurrentLevelIndex], LoadSceneMode.Additive, isFixedScene: false));
         }
 
         private bool IsNullSceneAsset(SceneAsset scene) => string.IsNullOrEmpty(scene);
@@ -130,7 +139,7 @@ namespace VisualStudioEX3.Artemis.Assets.LevelManagement
                 yield return this.LoadScene(scene, loadMode);
             }
             else
-                throw new ArgumentNullException($"{nameof(SceneManager)}::{nameof(LoadSceneCoroutine)}: The scene #{this._currentLevelIndex} is a null reference!");
+                throw new ArgumentNullException($"{nameof(SceneManager)}::{nameof(LoadSceneCoroutine)}: The scene #{this.CurrentLevelIndex} is a null reference!");
         }
 
         private Coroutine LoadScene(SceneAsset scene, LoadSceneMode loadMode)
