@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 31590222}
   - component: {fileID: 31590223}
   - component: {fileID: 31590224}
+  - component: {fileID: 31590225}
   m_Layer: 0
   m_Name: In-Game UI
   m_TagString: Untagged
@@ -290,6 +291,19 @@ MonoBehaviour:
   _wave: {fileID: 1222280701}
   _timeBeforeFirstWave: {fileID: 1209052890}
   _waveStartsWarning: {fileID: 5040465226111486190}
+--- !u!114 &31590225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31590221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f43e3eb9aed4342b5e4f9ac98e2563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseDialogNode: {fileID: 1378389241}
 --- !u!1 &212681595
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,6 +863,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317560141}
   m_CullTransparentMesh: 1
+--- !u!1 &1378389241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6303648504487645818, guid: dd50d8cd585027c48ac175fd3f9a0010, type: 3}
+  m_PrefabInstance: {fileID: 6303648505793617539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1378389242 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6303648504487645817, guid: dd50d8cd585027c48ac175fd3f9a0010, type: 3}
