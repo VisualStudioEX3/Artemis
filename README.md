@@ -33,6 +33,8 @@ The predefined controls to play the game are:
 
 You can change this setup on **Navigation.asset** and **TurretPlacement.asset** on **Assets/InputMapAssets** folder. 
 
+![artemis_input_map_assets.gif](artemis_input_map_assets.gif)
+
 ## Credits and other information
 - Developed with Unity 2021.2.3f1 (updated to Unity 2021.3.0f1 LTS).
 - Using [KenPixel font family](https://www.kenney.nl/assets/kenney-fonts) and [Prototype Textures 1.0](https://www.kenney.nl/assets/prototype-textures), created/distributed by Kenney (www.kenney.nl) License: [(Creative Commons Zero, CC0)](http://creativecommons.org/publicdomain/zero/1.0/)
